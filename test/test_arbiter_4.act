@@ -1,0 +1,103 @@
+// test_arbiter_4.act — Testbench for the 4-way Arbiter Tree
+//
+// MESH_LENGTH = 2, DATA_WIDTH = 8
+// Packet size = 14 bits.
+
+import "src/arbiter_4.act"; 
+
+// ---------------------------------------------------------
+// MOCK IP CORE
+// Waits for a trigger signal, then fires its packet
+// ---------------------------------------------------------
+// FIX: 'val' is now a compile-time template parameter (pint)
+template <pint val>
+defproc mock_core (chan?(int<1>) trigger; chan!(int<14>) out_chan) {
+    int<1> t;
+    chp {
+        *[
+            trigger?t;     // Wait for the controller to say "Go!"
+            out_chan!val   // Fire the packet into the arbiter
+        ]
+    }
+}
+
+// ---------------------------------------------------------
+// TEST CONTROLLER
+// Sequences the tests exactly like the NI testbench
+// ---------------------------------------------------------
+defproc test_arbiter_4_ctrl (
+    chan!(int<1>)  t1, t2, t3, t4;
+    chan?(int<14>) out_pkt
+)
+{
+    int<14> pkt;
+    int<8>  res_data;
+
+    chp {
+        // ---------------------------------------------------------
+        // TEST 1: Single Request on Port 1
+        // ---------------------------------------------------------
+        t1!1;          // Wake up Core 1
+        out_pkt?pkt;   // Catch the output
+        res_data := pkt{7..0};
+        
+        log("TEST 1 (Single Request Port 1):");
+        log("  Expected Data: 17 (0x11)");
+        log("  Actual Data  : ", res_data);
+
+        // ---------------------------------------------------------
+        // TEST 2: Single Request on Port 3
+        // ---------------------------------------------------------
+        t3!1;          // Wake up Core 3
+        out_pkt?pkt;   // Catch the output
+        res_data := pkt{7..0};
+        
+        log("TEST 2 (Single Request Port 3):");
+        log("  Expected Data: 51  (0x33)");
+        log("  Actual Data  : ", res_data);
+
+        // ---------------------------------------------------------
+        // TEST 3: Hardware Contention (Simultaneous Arrival)
+        // ---------------------------------------------------------
+        log("TEST 3 (Contention Port 2 vs Port 4):");
+        
+        t2!1; // Wake up Core 2 (It gets stuck waiting for the arbiter)
+        t4!1; // Wake up Core 4 (It also gets stuck waiting for the arbiter)
+
+        // Catch the first winner:
+        out_pkt?pkt;
+        res_data := pkt{7..0};
+        log("  First Winner Data : ", res_data);
+        
+        // Catch the second winner:
+        out_pkt?pkt;
+        res_data := pkt{7..0};
+        log("  Second Winner Data: ", res_data);
+
+        log("All Arbiter test cases complete!")
+    }
+}
+
+// ---------------------------------------------------------
+// TOP LEVEL
+// ---------------------------------------------------------
+defproc test_arbiter ()
+{
+    // Arbiter Data Channels
+    chan(int<14>) c1, c2, c3, c4, c_out; 
+    
+    // Trigger Channels for the Controller
+    chan(int<1>) t1, t2, t3, t4;
+    
+    // Instantiate the 4-way Arbiter Tree
+    arbiter_4<2, 8> dut(c1, c2, c3, c4, c_out);
+    
+    // FIX: Pass the constant data via the template brackets < ... >
+    mock_core<0x0011> core1(t1, c1); // Data: 17
+    mock_core<0x0022> core2(t2, c2); // Data: 34
+    mock_core<0x0033> core3(t3, c3); // Data: 51
+    mock_core<0x0044> core4(t4, c4); // Data: 68
+    
+    // Instantiate the Testbench Controller
+    test_arbiter_4_ctrl ctrl(t1, t2, t3, t4, c_out);
+}

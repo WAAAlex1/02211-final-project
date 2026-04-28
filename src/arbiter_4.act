@@ -1,0 +1,21 @@
+import "src/arbiter_2.act"; 
+
+template <pint MESH_LENGTH, DATA_WIDTH>
+defproc arbiter_4 
+(
+    chan?(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) in1;
+    chan?(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) in2; 
+    chan?(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) in3;
+    chan?(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) in4; 
+
+    chan!(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) out
+)
+{
+    chan(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) mid1;
+    chan(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) mid2;
+
+    arbiter_2<MESH_LENGTH, DATA_WIDTH> arb_top(in1, in2, mid1);
+    arbiter_2<MESH_LENGTH, DATA_WIDTH> arb_bot(in3, in4, mid2);
+
+    arbiter_2<MESH_LENGTH, DATA_WIDTH> arb_final(mid1, mid2, out);
+}

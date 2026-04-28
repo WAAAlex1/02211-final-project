@@ -1,0 +1,23 @@
+template <pint MESH_LENGTH, DATA_WIDTH>
+defproc arbiter_2 
+(
+    chan?(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) in1;
+    chan?(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) in2; 
+    
+    chan!(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) out
+)
+{
+    int<2*MESH_LENGTH + 2 + DATA_WIDTH> temp_data;
+
+    chp {
+        *[
+            [|  
+                #in1 -> in1?temp_data
+                []  #in2 -> in2?temp_data
+
+            |]; 
+            
+            out!temp_data
+        ]
+    }
+}
