@@ -1,3 +1,7 @@
+import "src/arbiter_4.act"; 
+import "src/r_block.act";
+import "src/route_sink.act";
+
 template <pint MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD>
 defproc router (
 
@@ -14,15 +18,29 @@ defproc router (
     chan!(int<2*MESH_LENGTH + 2 + DATA_WIDTH>)  output_pos_y_packet;
     chan!(int<2*MESH_LENGTH + 2 + DATA_WIDTH>)  output_neg_y_packet;
 
-    chan!(int<2*MESH_LENGTH + 2 + DATA_WIDTH>)  network_interface_output;
+    chan!(int<2*MESH_LENGTH + 2 + DATA_WIDTH>)  network_interface_output
     // 2 * MESH_LENGTH represents the X and Y destination coordinates,
     // +2 represents 2 direction bits, and DATA_WIDTH represents payload.
 
 )
 {
-    chp{
-        *[
-            
-        ]
-    }
+    chan(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) N_to_S, N_to_E, N_to_W, N_to_L, sink_N;
+    chan(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) S_to_N, S_to_E, S_to_W, S_to_L, sink_S;
+    chan(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) E_to_N, E_to_S, E_to_W, E_to_L, sink_E;
+    chan(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) W_to_N, W_to_S, W_to_E, W_to_L, sink_W;
+    chan(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) L_to_N, L_to_S, L_to_E, L_to_W, sink_L;
+
+    r_block<MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD> r_N(input_pos_y_packet, sink_N, N_to_S, N_to_E, N_to_W, N_to_L);
+    r_block<MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD> r_S(input_neg_y_packet, S_to_N, sink_S, S_to_E, S_to_W, S_to_L);
+    r_block<MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD> r_E(input_pos_x_packet, E_to_N, E_to_S, sink_E, E_to_W, E_to_L);
+    r_block<MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD> r_W(input_neg_x_packet, W_to_N, W_to_S, W_to_E, sink_W, W_to_L);
+    r_block<MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD> r_L(network_interface_input, L_to_N, L_to_S, L_to_E, L_to_W, sink_L);
+
+    route_sink<MESH_LENGTH, DATA_WIDTH> skN(sink_N), skS(sink_S), skE(sink_E), skW(sink_W), skL(sink_L);
+
+    arbiter_4<MESH_LENGTH, DATA_WIDTH> arb_N(S_to_N, E_to_N, W_to_N, L_to_N, output_pos_y_packet);
+    arbiter_4<MESH_LENGTH, DATA_WIDTH> arb_S(N_to_S, E_to_S, W_to_S, L_to_S, output_neg_y_packet);
+    arbiter_4<MESH_LENGTH, DATA_WIDTH> arb_E(N_to_E, S_to_E, W_to_E, L_to_E, output_pos_x_packet);
+    arbiter_4<MESH_LENGTH, DATA_WIDTH> arb_W(N_to_W, S_to_W, E_to_W, L_to_W, output_neg_x_packet);
+    arbiter_4<MESH_LENGTH, DATA_WIDTH> arb_L(N_to_L, S_to_L, E_to_L, W_to_L, network_interface_output);
 }

@@ -1,0 +1,66 @@
+// test_r_block.act — Unit test for the Routing Logic
+
+import "src/r_block.act"; 
+
+// ---------------------------------------------------------
+// MOCK RECEIVER
+// Listens on a specific output port and logs when it catches a packet
+// ---------------------------------------------------------
+template <pint PORT_ID> // 1=N, 2=S, 3=E, 4=W, 5=L
+defproc mock_receiver (chan?(int<14>) in_chan) {
+    int<14> pkt;
+    chp {
+        *[
+            in_chan?pkt;
+            [ PORT_ID = 1 -> log("SUCCESS: Packet routed NORTH")
+            [] PORT_ID = 2 -> log("SUCCESS: Packet routed SOUTH")
+            [] PORT_ID = 3 -> log("SUCCESS: Packet routed EAST")
+            [] PORT_ID = 4 -> log("SUCCESS: Packet routed WEST")
+            [] PORT_ID = 5 -> log("SUCCESS: Packet routed LOCAL")
+            ]
+        ]
+    }
+}
+
+// ---------------------------------------------------------
+// CONTROLLER
+// Pushes the test packets directly into the R-Block
+// ---------------------------------------------------------
+defproc test_r_block_ctrl (chan!(int<14>) in_c) {
+    chp {
+        // TEST 1: X doesn't match, x_dir = 1 (Should go EAST)
+        log("TEST 1: Expecting EAST...");
+        in_c!0x32AA;
+
+        // TEST 2: X matches, Y doesn't match, y_dir = 0 (Should go SOUTH)
+        log("TEST 2: Expecting SOUTH...");
+        in_c!0x10BB;
+
+        // TEST 3: X matches, Y matches (Should go LOCAL)
+        log("TEST 3: Expecting LOCAL...");
+        in_c!0x14CC;
+        
+        log("R-Block tests complete!")
+    }
+}
+
+// ---------------------------------------------------------
+// TOP LEVEL
+// We instantiate the R-Block at coordinates X=1, Y=1
+// ---------------------------------------------------------
+defproc test_r_block () {
+    chan(int<14>) in_c, out_N, out_S, out_E, out_W, out_L;
+
+    // The DUT (Device Under Test)
+    r_block<2, 8, 1, 1> dut(in_c, out_N, out_S, out_E, out_W, out_L);
+
+    // Mock Receivers
+    mock_receiver<1> rx_N(out_N);
+    mock_receiver<2> rx_S(out_S);
+    mock_receiver<3> rx_E(out_E);
+    mock_receiver<4> rx_W(out_W);
+    mock_receiver<5> rx_L(out_L);
+
+    // The controller directly drives the input channel
+    test_r_block_ctrl ctrl(in_c);
+}

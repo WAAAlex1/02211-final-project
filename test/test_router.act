@@ -1,0 +1,118 @@
+// test_router.act — Top-level Unit Test for the 5-Port Router
+// Assuming MESH_LENGTH=2, DATA_WIDTH=8. 
+// Router is stationed at coordinates X=1, Y=1.
+
+import "src/router.act"; 
+
+// ---------------------------------------------------------
+// MOCK RECEIVERS (The neighboring routers catching the output)
+// ---------------------------------------------------------
+template <pint PORT_ID> // 1=N, 2=S, 3=E, 4=W, 5=L
+defproc mock_router_rx (chan?(int<14>) in_chan) {
+    int<14> pkt;
+    chp {
+        *[
+            in_chan?pkt;
+            [ PORT_ID = 1 -> log(" [OUTPUT] SUCCESS: Packet exited NORTH. Data: ", pkt{7..0})
+            [] PORT_ID = 2 -> log(" [OUTPUT] SUCCESS: Packet exited SOUTH. Data: ", pkt{7..0})
+            [] PORT_ID = 3 -> log(" [OUTPUT] SUCCESS: Packet exited EAST.  Data: ", pkt{7..0})
+            [] PORT_ID = 4 -> log(" [OUTPUT] SUCCESS: Packet exited WEST.  Data: ", pkt{7..0})
+            [] PORT_ID = 5 -> log(" [OUTPUT] SUCCESS: Packet ejected LOCAL. Data: ", pkt{7..0})
+            ]
+        ]
+    }
+}
+
+// ---------------------------------------------------------
+// MOCK SENDERS (The neighboring routers firing inputs)
+// ---------------------------------------------------------
+template <pint val>
+defproc mock_router_tx (chan?(int<1>) trigger; chan!(int<14>) out_chan) {
+    int<1> t;
+    chp {
+        *[ trigger?t; out_chan!val ]
+    }
+}
+
+// ---------------------------------------------------------
+// TEST CONTROLLER
+// ---------------------------------------------------------
+defproc test_router_ctrl (
+    chan!(int<1>) t_in_N, t_in_S, t_in_E, t_in_W, t_in_L
+) {
+    chp {
+        // ---------------------------------------------------------
+        // TEST 1: Pass-Through (West In -> East Out)
+        // Dest X=2 (b10), Y=1 (b01), x_dir=1, y_dir=0, Data=0xAA
+        // Packet: 10_01_1_0_10101010 = 0x26AA
+        // ---------------------------------------------------------
+        log("--- TEST 1: Straight Pass-Through (West to East) ---");
+        t_in_W!1;
+
+        // ---------------------------------------------------------
+        // TEST 2: Turning (North In -> East Out)
+        // Dest X=2 (b10), Y=0 (b00), x_dir=1, y_dir=0, Data=0xBB
+        // Packet: 10_00_1_0_10111011 = 0x22BB
+        // ---------------------------------------------------------
+        log("--- TEST 2: Turning (North to East) ---");
+        t_in_N!1;
+
+        // ---------------------------------------------------------
+        // TEST 3: Ejection (South In -> Local Out)
+        // Dest X=1 (b01), Y=1 (b01), x_dir=0, y_dir=0, Data=0xCC
+        // Packet: 01_01_0_0_11001100 = 0x14CC
+        // ---------------------------------------------------------
+        log("--- TEST 3: Ejection (South to Local) ---");
+        t_in_S!1;
+
+        // ---------------------------------------------------------
+        // TEST 4: Contention! (Local In vs East In -> North Out)
+        // Both packets want to go North. Dest X=1, Y=2, y_dir=1.
+        // Pkt 1 (From Local): 01_10_0_1_11011101 = 0x19DD
+        // Pkt 2 (From East) : 01_10_0_1_11101110 = 0x19EE
+        // ---------------------------------------------------------
+        log("--- TEST 4: Contention (Local & East racing for North) ---");
+        t_in_L!1; 
+        t_in_E!1; 
+        // Both triggers fired, they are now racing in the arbiter!
+
+        log("--- All Router tests fired! ---")
+    }
+}
+
+// ---------------------------------------------------------
+// TOP LEVEL
+// ---------------------------------------------------------
+defproc test_router () {
+    // Triggers
+    chan(int<1>) t_N, t_S, t_E, t_W, t_L;
+
+    // Router Input Channels
+    chan(int<14>) in_N, in_S, in_E, in_W, in_L;
+    
+    // Router Output Channels
+    chan(int<14>) out_N, out_S, out_E, out_W, out_L;
+
+    // The DUT (Router at X=1, Y=1)
+    router<2, 8, 1, 1> dut(
+        in_E, in_W, in_N, in_S, in_L,  // Inputs: pos_x, neg_x, pos_y, neg_y, local
+        out_E, out_W, out_N, out_S, out_L // Outputs: pos_x, neg_x, pos_y, neg_y, local
+    );
+
+    // Instantiate Senders 
+    mock_router_tx<0x22BB> tx_N(t_N, in_N); // Dest: (2,0) East
+    mock_router_tx<0x14CC> tx_S(t_S, in_S); // Dest: (1,1) Local
+    mock_router_tx<0x19EE> tx_E(t_E, in_E); // Dest: (1,2) North
+    mock_router_tx<0x26AA> tx_W(t_W, in_W); // Dest: (2,1) East
+    mock_router_tx<0x19DD> tx_L(t_L, in_L); // Dest: (1,2) North
+
+    // Instantiate Receivers
+    mock_router_rx<1> rx_N(out_N);
+    mock_router_rx<2> rx_S(out_S);
+    mock_router_rx<3> rx_E(out_E);
+    mock_router_rx<4> rx_W(out_W);
+    mock_router_rx<5> rx_L(out_L);
+
+    // Controller
+    test_router_ctrl ctrl(t_N, t_S, t_E, t_W, t_L);
+}

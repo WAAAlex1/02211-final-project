@@ -1,0 +1,133 @@
+// test_mesh.act — Top-level 2x2 Asynchronous NoC Mesh Testbench
+// MESH_LENGTH=2, DATA_WIDTH=8, Packet=14 bits
+
+import "src/router.act"; 
+import "src/network_interface.act";
+
+// =========================================================
+// MOCK CORES (Connecting to the Network Interfaces)
+// =========================================================
+template <pint PORT_X, PORT_Y>
+defproc mock_mesh_rx (chan?(int<14>) in_chan) {
+    int<14> pkt;
+    chp {
+        *[
+            in_chan?pkt;
+            log(" [EJECT] Core at (", PORT_X, ",", PORT_Y, ") received Payload: ", pkt{7..0})
+        ]
+    }
+}
+
+template <pint val>
+defproc mock_mesh_tx (chan?(int<1>) trigger; chan!(int<14>) out_chan) {
+    int<1> t;
+    chp { *[ trigger?t; out_chan!val ] }
+}
+
+// =========================================================
+// TEST CONTROLLER
+// =========================================================
+defproc test_mesh_ctrl (
+    chan!(int<1>) t_00, t_01, t_10, t_11
+) {
+    chp {
+        // --- TEST 1: The Long Diagonal (0,0 -> 1,1) ---
+        // Dest: X=1 (01), Y=1 (01). Payload: 0xAA (170) -> 0x14AA
+        log("--- TEST 1: Core (0,0) sending to Core (1,1) [Multi-Hop] ---");
+        t_00!1;
+
+        // --- TEST 2: The Traffic Jam! (0,1 -> 1,1) AND (1,0 -> 1,1) ---
+        // Pkt A from (0,1): Dest X=1, Y=1. Payload: 0xBB (187) -> 0x14BB
+        // Pkt B from (1,0): Dest X=1, Y=1. Payload: 0xCC (204) -> 0x14CC
+        log("--- TEST 2: Contention! (0,1) and (1,0) both sending to (1,1) ---");
+        t_01!1; 
+        t_10!1; 
+
+        log("--- All mesh triggers fired! ---")
+    }
+}
+
+// =========================================================
+// TOP LEVEL: THE 2x2 MESH
+// =========================================================
+defproc test_mesh () {
+    chan(int<1>) t_00, t_01, t_10, t_11;
+
+    chan(int<14>) core_to_ni_00, core_to_ni_01, core_to_ni_10, core_to_ni_11;
+    chan(int<14>) ni_to_core_00, ni_to_core_01, ni_to_core_10, ni_to_core_11;
+
+    chan(int<14>) ni_to_r_00, ni_to_r_01, ni_to_r_10, ni_to_r_11;
+    chan(int<14>) r_to_ni_00, r_to_ni_01, r_to_ni_10, r_to_ni_11;
+
+    // --- INTERNAL CROSSBAR WIRES ---
+    chan(int<14>) e_00_to_10, w_10_to_00; // Bottom row
+    chan(int<14>) e_01_to_11, w_11_to_01; // Top row
+    chan(int<14>) n_00_to_01, s_01_to_00; // Left column
+    chan(int<14>) n_10_to_11, s_11_to_10; // Right column
+
+    // --- EDGE TERMINATION WIRES (FIXED: Separated Inputs and Outputs) ---
+    // Dead inputs (nothing sends on these)
+    chan(int<14>) in_00_w, in_00_s;
+    chan(int<14>) in_10_e, in_10_s;
+    chan(int<14>) in_01_w, in_01_n;
+    chan(int<14>) in_11_e, in_11_n;
+    
+    // Live outputs (route to sinks)
+    chan(int<14>) out_00_w, out_00_s;
+    chan(int<14>) out_10_e, out_10_s;
+    chan(int<14>) out_01_w, out_01_n;
+    chan(int<14>) out_11_e, out_11_n;
+
+
+    // =========================================================
+    // INSTANTIATION BLOCK
+    // =========================================================
+
+    // --- Node (0,0) Bottom-Left ---
+    network_interface<2, 8, 0, 0> ni00 (core_to_ni_00, ni_to_r_00, r_to_ni_00, ni_to_core_00);
+    router<2, 8, 0, 0> r00 (
+        w_10_to_00, in_00_w, s_01_to_00, in_00_s, ni_to_r_00, // Inputs
+        e_00_to_10, out_00_w, n_00_to_01, out_00_s, r_to_ni_00 // Outputs
+    );
+
+    // --- Node (1,0) Bottom-Right ---
+    network_interface<2, 8, 1, 0> ni10 (core_to_ni_10, ni_to_r_10, r_to_ni_10, ni_to_core_10);
+    router<2, 8, 1, 0> r10 (
+        in_10_e, e_00_to_10, s_11_to_10, in_10_s, ni_to_r_10, // Inputs
+        out_10_e, w_10_to_00, n_10_to_11, out_10_s, r_to_ni_10 // Outputs
+    );
+
+    // --- Node (0,1) Top-Left ---
+    network_interface<2, 8, 0, 1> ni01 (core_to_ni_01, ni_to_r_01, r_to_ni_01, ni_to_core_01);
+    router<2, 8, 0, 1> r01 (
+        w_11_to_01, in_01_w, in_01_n, n_00_to_01, ni_to_r_01, // Inputs
+        e_01_to_11, out_01_w, out_01_n, s_01_to_00, r_to_ni_01 // Outputs
+    );
+
+    // --- Node (1,1) Top-Right ---
+    network_interface<2, 8, 1, 1> ni11 (core_to_ni_11, ni_to_r_11, r_to_ni_11, ni_to_core_11);
+    router<2, 8, 1, 1> r11 (
+        in_11_e, e_01_to_11, in_11_n, n_10_to_11, ni_to_r_11, // Inputs
+        out_11_e, w_11_to_01, out_11_n, s_11_to_10, r_to_ni_11 // Outputs
+    );
+
+    // --- INSTANTIATING THE EDGE SINKS ---
+    route_sink<2, 8> sk00w(out_00_w), sk00s(out_00_s);
+    route_sink<2, 8> sk10e(out_10_e), sk10s(out_10_s);
+    route_sink<2, 8> sk01w(out_01_w), sk01n(out_01_n);
+    route_sink<2, 8> sk11e(out_11_e), sk11n(out_11_n);
+
+    // --- INSTANTIATING IP CORES ---
+    mock_mesh_tx<0x14AA> core_tx_00(t_00, core_to_ni_00);
+    mock_mesh_tx<0x14BB> core_tx_01(t_01, core_to_ni_01);
+    mock_mesh_tx<0x14CC> core_tx_10(t_10, core_to_ni_10);
+    mock_mesh_tx<0x0000> core_tx_11(t_11, core_to_ni_11); 
+
+    mock_mesh_rx<0, 0> core_rx_00(ni_to_core_00);
+    mock_mesh_rx<0, 1> core_rx_01(ni_to_core_01);
+    mock_mesh_rx<1, 0> core_rx_10(ni_to_core_10);
+    mock_mesh_rx<1, 1> core_rx_11(ni_to_core_11);
+
+    // --- CONTROLLER ---
+    test_mesh_ctrl ctrl(t_00, t_01, t_10, t_11);
+}

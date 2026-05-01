@@ -1,0 +1,6 @@
+template <pint MESH_LENGTH, DATA_WIDTH>
+defproc route_sink (chan?(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) in)
+{
+    int<2*MESH_LENGTH + 2 + DATA_WIDTH> pkt;
+    chp { *[ in?pkt ] }
+}
