@@ -1,0 +1,56 @@
+template <pint MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD>
+defproc network_interface (
+    chan?(int<2*MESH_LENGTH + 2 + DATA_WIDTH>)  core_in;
+    chan!(int<2*MESH_LENGTH + 2 + DATA_WIDTH>)  router_out;
+
+    chan?(int<2*MESH_LENGTH + 2 + DATA_WIDTH>)  router_in;
+    chan!(int<2*MESH_LENGTH + 2 + DATA_WIDTH>)  core_out
+    // 2 * MESH_LENGTH represents the X and Y destination coordinates,
+    // +2 represents 2 direction bits, and DATA_WIDTH represents payload. 
+)
+{
+    int<2*MESH_LENGTH + 2 + DATA_WIDTH>  tx_packet;
+    int<2*MESH_LENGTH + 2 + DATA_WIDTH>  rx_packet;
+
+    int<MESH_LENGTH>                     x_dest_local, y_dest_local; 
+    int<1>                               x_dir, y_dir; 
+    // If doesn't compile either change x_dir and y_dir to an int
+    // or change x_dir := 1 to true, same for y_dir  
+
+    chp {
+        *[
+                core_in?tx_packet; 
+
+                x_dest_local := tx_packet{2*MESH_LENGTH + 2 + DATA_WIDTH - 1 .. MESH_LENGTH + 2 + DATA_WIDTH};
+                y_dest_local := tx_packet{MESH_LENGTH + 2 + DATA_WIDTH - 1 .. 2 + DATA_WIDTH};
+
+            (
+                // Note, if x_dir = 1, then move positive 
+                [
+                    x_dest_local > X_COORD -> x_dir := 1
+                    [] else -> x_dir := 0   
+                ],
+                // Note, if y_dir = 1, then move positive 
+                [
+                    y_dest_local > Y_COORD -> y_dir := 1
+                    [] else -> y_dir := 0
+                ]
+            );
+
+            // bit slicing lol
+
+            tx_packet{1 + DATA_WIDTH} := x_dir;
+            tx_packet{DATA_WIDTH} := y_dir;
+
+            router_out!tx_packet
+        ]
+
+        ||  // concurrent actions 
+
+        *[
+                router_in?rx_packet;
+                
+                core_out!rx_packet
+        ]
+    }
+}

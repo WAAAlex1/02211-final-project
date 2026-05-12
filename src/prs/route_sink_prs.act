@@ -1,0 +1,14 @@
+import "std/channel.act";
+
+// 2-phase bundled-data route sink.
+// In transition-signaling, a sink just mirrors the request back as ack,
+// consuming each packet immediately without buffering.
+
+template <pint MESH_LENGTH, DATA_WIDTH>
+defproc route_sink_prs (std::channel::ts_bd<2*MESH_LENGTH + 2 + DATA_WIDTH>? in)
+{
+    prs {
+        in.r -> in.a+
+       ~in.r -> in.a-
+    }
+}

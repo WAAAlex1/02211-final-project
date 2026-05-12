@@ -1,0 +1,76 @@
+import "std/channel.act";
+import "std/arb.act";
+
+// 2-phase bundled-data arbiter (2 inputs -> 1 output).
+//
+// Uses std::buf_arbiter for metastability resolution between simultaneous
+// requests. The pending condition for each input is (r XOR a): a request
+// is in flight whenever r and a differ.
+//
+// Grant logic (g1, g2) is mutually exclusive. The winner's data is muxed
+// to the output and out.r is toggled. Once out.a confirms the handshake,
+// the winner's in.a is toggled to match in.r, clearing the pending state.
+
+template <pint MESH_LENGTH, DATA_WIDTH>
+defproc arbiter_2_prs (
+    std::channel::ts_bd<2*MESH_LENGTH + 2 + DATA_WIDTH>? in1;
+    std::channel::ts_bd<2*MESH_LENGTH + 2 + DATA_WIDTH>? in2;
+    std::channel::ts_bd<2*MESH_LENGTH + 2 + DATA_WIDTH>! out
+)
+{
+    pint W = 2*MESH_LENGTH + 2 + DATA_WIDTH;
+
+    // pending1/2: true when the input has a request in flight (r XOR a)
+    bool pending1, pending2;
+    
+    // g1/g2: grant; exactly one is high while a handshake is in progress
+    bool g1, g2;
+
+    // Metastability-resolving arbiter on the pending signals
+    std::buf_arbiter mutex(pending1, pending2, g1, g2);
+
+    prs {
+        // --- Pending detection: r XOR a ---
+         in1.r & ~in1.a -> pending1+
+        ~in1.r &  in1.a -> pending1+
+         in1.r &  in1.a -> pending1-
+        ~in1.r & ~in1.a -> pending1-
+
+         in2.r & ~in2.a -> pending2+
+        ~in2.r &  in2.a -> pending2+
+         in2.r &  in2.a -> pending2-
+        ~in2.r & ~in2.a -> pending2-
+
+        // --- Data mux: drive winner's data to output ---
+        // When idle (~g1 & ~g2) all output bits are pulled low.
+        (:i: W:
+             g1 &  in1.d[i] -> out.d[i]+
+             g2 &  in2.d[i] -> out.d[i]+
+             g1 & ~in1.d[i] -> out.d[i]-
+             g2 & ~in2.d[i] -> out.d[i]-
+            ~g1 & ~g2       -> out.d[i]-
+        )
+
+        // --- Output request: 2-phase toggle ---
+        // Toggle out.r only when the output is idle (out.r == out.a).
+        // If both are 0, a new grant drives out.r high.
+        // If both are 1, a new grant drives out.r low.
+        (g1 | g2) & ~out.r & ~out.a -> out.r+
+        (g1 | g2) &  out.r &  out.a -> out.r-
+        [iskeeper=1]  out.r -> out.r+
+        [iskeeper=1] ~out.r -> out.r-
+
+        // --- Ack propagation ---
+        // When g1 is active, in1.a mirrors out.a (completing the input handshake).
+        // The keeper holds in1.a/in2.a between grants.
+        g1 &  out.a -> in1.a+
+        g1 & ~out.a -> in1.a-
+        [iskeeper=1]  in1.a -> in1.a+
+        [iskeeper=1] ~in1.a -> in1.a-
+
+        g2 &  out.a -> in2.a+
+        g2 & ~out.a -> in2.a-
+        [iskeeper=1]  in2.a -> in2.a+
+        [iskeeper=1] ~in2.a -> in2.a-
+    }
+}

@@ -1,0 +1,30 @@
+template <pint MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD>
+defproc r_block (
+    chan?(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) in_chan;
+    chan!(int<2*MESH_LENGTH + 2 + DATA_WIDTH>) out_N, out_S, out_E, out_W, out_L
+    // out_L represents local output port
+)
+{
+    int<2*MESH_LENGTH + 2 + DATA_WIDTH> pkt;
+    int<MESH_LENGTH> x_dest, y_dest;
+    int<1> x_dir, y_dir;
+
+    chp {
+        *[
+            in_chan?pkt;
+
+            x_dest := pkt{2*MESH_LENGTH + 2 + DATA_WIDTH - 1 .. MESH_LENGTH + 2 + DATA_WIDTH};
+            y_dest := pkt{MESH_LENGTH + 2 + DATA_WIDTH - 1 .. 2 + DATA_WIDTH};
+            x_dir  := pkt{1 + DATA_WIDTH};
+            y_dir  := pkt{DATA_WIDTH};
+
+            [ 
+                (x_dest = X_COORD) & (y_dest = Y_COORD) -> out_L!pkt
+                [] (x_dest != X_COORD) & (x_dir = 1) -> out_E!pkt      // east is positive
+                [] (x_dest != X_COORD) & (x_dir = 0) -> out_W!pkt      // west is negative 
+                [] (x_dest = X_COORD) & (y_dest != Y_COORD) & (y_dir = 1) -> out_N!pkt  // north is positive
+                [] (x_dest = X_COORD) & (y_dest != Y_COORD) & (y_dir = 0) -> out_S!pkt  // south is negative
+            ]
+        ]
+    }
+}
