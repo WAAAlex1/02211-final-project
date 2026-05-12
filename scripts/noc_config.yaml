@@ -1,0 +1,38 @@
+
+data_width: 32
+
+core:
+  module_name: core_module
+
+  mesh_ports:
+
+    north:
+      input: north_data_in
+      output: north_data_out
+      connects_to: south
+
+    south:
+      input: south_data_in
+      output: south_data_out
+      connects_to: north
+
+    east:
+      input: east_data_in
+      output: east_data_out
+      connects_to: west
+
+    west:
+      input: west_data_in
+      output: west_data_out
+      connects_to: east
+
+  router_connection:
+    core_input: router_in
+    core_output: router_out
+
+router:
+  module_name: router_module
+
+  router_input: data_in
+  router_output: data_out
+
