@@ -150,6 +150,7 @@ defproc mock_core_rx (chan?(int<{PACKET_SIZE}>) in_chan) {{
 
     # Controller Firing
     act.append("    chp {")
+    # Semicolon here is correct so the log prints before the simulation starts firing
     act.append('        log("--- STARTING MESH SIMULATION ---");')
     
     triggers = []
@@ -159,9 +160,10 @@ defproc mock_core_rx (chan?(int<{PACKET_SIZE}>) in_chan) {{
             
     for i, trig in enumerate(triggers):
         if i == len(triggers) - 1:
-            act.append(f"        {trig} // Last trigger (No semicolon)")
+            act.append(f"        {trig} // Last trigger (No comma)")
         else:
-            act.append(f"        {trig};")
+            # FIXED: Changed the semicolon to a COMMA to fire all cores in parallel!
+            act.append(f"        {trig},")
             
     act.append("    }")
     act.append("}")
