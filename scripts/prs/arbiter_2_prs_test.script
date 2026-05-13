@@ -1,0 +1,8 @@
+# Actsim script - arbiter_2_prs (CHP+PRS)
+#
+# CHP test_ctrl drives the inputs and CHP chp_receiver consumes the output
+# with log() calls. The Initialize block pulses Reset before CHP starts.
+# Nothing for the script to set; we just let cycle run everything.
+
+cycle
+quit

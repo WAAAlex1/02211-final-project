@@ -1,0 +1,56 @@
+// test_arbiter_2_prs.act - testbench for arbiter_2_prs
+//
+// CHP test_ctrl sends two transactions, one on c1, one on c2.
+// CHP chp_receiver consumes c_out and logs the muxed data byte.
+
+import "src/prs/arbiter_2_prs.act";
+import globals;
+
+// CHP receiver: pulls a packet off c_out, decodes the payload byte, logs it,
+// and signals test_ctrl via `done` that the output side is fully consumed.
+template <pint ML, DW>
+defproc chp_receiver (pkt_chan?<ML, DW> in_chan; chan!(int<1>) done) {
+    pint W = 2*ML + 2 + DW;
+    int<W> pkt;
+    int<8> data;
+    chp {
+        *[
+            in_chan?pkt;
+            data := pkt{7..0};
+            log("  Arbiter output: data = ", data);
+            done!1
+        ]
+    }
+}
+
+// CHP test controller: drives c1 and c2 sequentially. Waits for a done signal from
+// receiver after send before sending new request.
+template <pint ML, DW>
+defproc test_ctrl (pkt_chan!<ML, DW> c1, c2; chan?(int<1>) done) {
+    int<1> d;
+    chp {
+        log("TEST 1: c1 sends 0x11");
+        c1!0x11;
+        done?d;
+        log("TEST 2: c2 sends 0x22");
+        c2!0x11;
+        done?d;
+        log("All tests complete.")
+    }
+}
+
+defproc test_arbiter_2_prs () {
+    pkt_chan<2, 8> c1, c2, c_out;
+    chan(int<1>) done;
+
+    arbiter_2_prs<2, 8> dut(c1, c2, c_out);
+
+    chp_receiver<2, 8> rx(c_out, done);
+    test_ctrl<2, 8> ctrl(c1, c2, done);
+}
+
+// Initialize: pulse global Reset high then low.
+Initialize {
+    actions { Reset+ };
+    actions { Reset- }
+}

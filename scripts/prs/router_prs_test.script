@@ -1,0 +1,6 @@
+# Actsim script - router_prs
+#
+# Simulation is driven entirely by the CHP controller in test/prs/test_router_prs.act.
+
+cycle
+quit

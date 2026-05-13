@@ -1,0 +1,23 @@
+// test_arbiter_4_prs.act - Pure-PRS testbench for arbiter_4_prs
+//
+// No CHP. All inputs driven directly from the actsim script.
+// prs_ack mirrors c_out.r to c_out.a (strong PRS, no channel-method conflict).
+// Script initializes all r/a/d[] before cycle, then drives tests via set + cycle.
+
+import "src/prs/arbiter_4_prs.act";
+
+template <pint ML, DW>
+defproc prs_ack (pkt_chan?<ML, DW> ch) {
+    prs {
+         ch.r & ~ch.a -> ch.a+
+        ~ch.r &  ch.a -> ch.a-
+    }
+}
+
+defproc test_arbiter_4_prs () {
+    pkt_chan<2, 8> c1, c2, c3, c4, c_out;
+
+    arbiter_4_prs<2, 8> dut(c1, c2, c3, c4, c_out);
+
+    prs_ack<2, 8> ack_out(c_out);
+}
