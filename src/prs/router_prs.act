@@ -1,15 +1,8 @@
 import "src/prs/arbiter_4_prs.act";
-import "src/prs/r_block_prs.act";
+import "src/prs/input_block.act";
 import "src/prs/route_sink_prs.act";
 
 // 5-way 2-phase router.
-//
-// One r_block per input port: Reads the packet header and drives one of five
-// output channels (N/S/E/W/L). The output direction that matches the input
-// port is sinked (back-connections are not allowed).
-//
-// One arbiter_4 per output port: resolves possible conflicts from the four r_blocks
-// (It is possible for multiple input ports to target the same output port at the same time). 
 
 template <pint MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD>
 defproc router_prs (
@@ -26,19 +19,19 @@ defproc router_prs (
     pkt_chan!<MESH_LENGTH, DATA_WIDTH> output_L
 )
 {
-    // Internal channels: <source>_to_<dest>
+    // Internal channels
     pkt_chan<MESH_LENGTH, DATA_WIDTH> N_to_S, N_to_E, N_to_W, N_to_L, sink_N;
     pkt_chan<MESH_LENGTH, DATA_WIDTH> S_to_N, S_to_E, S_to_W, S_to_L, sink_S;
     pkt_chan<MESH_LENGTH, DATA_WIDTH> E_to_N, E_to_S, E_to_W, E_to_L, sink_E;
     pkt_chan<MESH_LENGTH, DATA_WIDTH> W_to_N, W_to_S, W_to_E, W_to_L, sink_W;
     pkt_chan<MESH_LENGTH, DATA_WIDTH> L_to_N, L_to_S, L_to_E, L_to_W, sink_L;
 
-    // R-blocks: one per input port.
-    r_block_prs<MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD> r_N(input_N, sink_N, N_to_S, N_to_E, N_to_W, N_to_L);
-    r_block_prs<MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD> r_S(input_S, S_to_N, sink_S, S_to_E, S_to_W, S_to_L);
-    r_block_prs<MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD> r_E(input_E, E_to_N, E_to_S, sink_E, E_to_W, E_to_L);
-    r_block_prs<MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD> r_W(input_W, W_to_N, W_to_S, W_to_E, sink_W, W_to_L);
-    r_block_prs<MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD> r_L(input_L, L_to_N, L_to_S, L_to_E, L_to_W, sink_L);
+    // Input blocks: one per input port.
+    input_block<MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD> r_N(input_N, sink_N, N_to_S, N_to_E, N_to_W, N_to_L);
+    input_block<MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD> r_S(input_S, S_to_N, sink_S, S_to_E, S_to_W, S_to_L);
+    input_block<MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD> r_E(input_E, E_to_N, E_to_S, sink_E, E_to_W, E_to_L);
+    input_block<MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD> r_W(input_W, W_to_N, W_to_S, W_to_E, sink_W, W_to_L);
+    input_block<MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD> r_L(input_L, L_to_N, L_to_S, L_to_E, L_to_W, sink_L);
 
     // Sinks: absorb the impossible back-route output of each r_block.
     route_sink_prs<MESH_LENGTH, DATA_WIDTH> sk_N(sink_N);

@@ -1,4 +1,4 @@
-# Actsim script - r_block_prs
+# Actsim script - input_block
 #
 # PRS starts all booleans at X. We initialize the full causal chain here so
 # that no X can propagate through the circuit before the first real transaction.

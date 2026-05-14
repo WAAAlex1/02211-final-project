@@ -1,22 +1,18 @@
-// test_r_block_prs.act - Unit test for the 2-phase PRS routing block
+// test_input_block.act - Unit test for the 2-phase PRS input block (I + R).
 //
-// DUT: r_block_prs at X=1, Y=1. MESH_LENGTH=2, DATA_WIDTH=8. Packet=14 bits.
-//
-// Receiver design: prs_ack drives ch.a directly via PRS (no channel method).
-// The CHP controller uses ts_bd send_init (sets in_c.r=0, d[]=0 at startup).
-// The remaining signals (in_c.a, out_X.r, out_X.a) are initialized via script.
+// DUT: input_block at X=1, Y=1. MESH_LENGTH=2, DATA_WIDTH=8. Packet=14 bits.
 
-import "src/prs/r_block_prs.act";
+import "src/prs/input_block.act";
+import globals;
 
 // ---------------------------------------------------------
-// PRS AUTO-ACK
-// Directly mirrors ch.r back to ch.a. No channel method involved.
+// PRS AUTO-ACK - Directly mirrors ch.r back to ch.a. 
 // ---------------------------------------------------------
 template <pint ML, DW>
 defproc prs_ack (pkt_chan?<ML, DW> ch) {
     prs {
-        [iskeeper=1]  ch.r & ~ch.a -> ch.a+
-        [iskeeper=1] ~ch.r &  ch.a -> ch.a-
+         ch.r & ~ch.a -> ch.a+
+        ~ch.r &  ch.a -> ch.a-
     }
 }
 
@@ -24,7 +20,7 @@ defproc prs_ack (pkt_chan?<ML, DW> ch) {
 // CONTROLLER
 // ---------------------------------------------------------
 template <pint ML, DW>
-defproc test_r_block_prs_ctrl (pkt_chan!<ML, DW> in_c) {
+defproc test_input_block_ctrl (pkt_chan!<ML, DW> in_c) {
     pint W = 2*ML + 2 + DW;
     int<W> pkt;
     chp {
@@ -34,21 +30,21 @@ defproc test_r_block_prs_ctrl (pkt_chan!<ML, DW> in_c) {
         in_c!0x10BB;
         log("TEST 3: Expecting LOCAL...");
         in_c!0x14CC;
-        log("TEST 4: Expecting NORTH...");
+        log("TEST 4: Expecting SOUTH...");
         in_c!0x1ADD;
         log("TEST 5: Expecting WEST...");
         in_c!0x00EE;
-        log("R-Block PRS tests complete.")
+        log("Input block PRS tests complete.")
     }
 }
 
 // ---------------------------------------------------------
 // TOP LEVEL
 // ---------------------------------------------------------
-defproc test_r_block_prs () {
+defproc test_input_block () {
     pkt_chan<2, 8> in_c, out_N, out_S, out_E, out_W, out_L;
 
-    r_block_prs<2, 8, 1, 1> dut(in_c, out_N, out_S, out_E, out_W, out_L);
+    input_block<2, 8, 1, 1> dut(in_c, out_N, out_S, out_E, out_W, out_L);
 
     prs_ack<2, 8> ack_N(out_N);
     prs_ack<2, 8> ack_S(out_S);
@@ -56,5 +52,10 @@ defproc test_r_block_prs () {
     prs_ack<2, 8> ack_W(out_W);
     prs_ack<2, 8> ack_L(out_L);
 
-    test_r_block_prs_ctrl<2, 8> ctrl(in_c);
+    test_input_block_ctrl<2, 8> ctrl(in_c);
+}
+
+Initialize {
+    actions { Reset+ };
+    actions { Reset- }
 }

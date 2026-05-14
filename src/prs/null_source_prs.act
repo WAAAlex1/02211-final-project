@@ -1,0 +1,18 @@
+import "src/prs/types.act";
+import globals;
+
+// Helper for meshes - we need something to be on the edge.
+// This block just always outputs zeros (null) on request and data. 
+// Never active. Only source so has no receive / handshaking capabilities. 
+// Trying to send to this will crash / deadlock. 
+
+template <pint MESH_LENGTH, DATA_WIDTH>
+defproc null_source_prs (pkt_chan!<MESH_LENGTH, DATA_WIDTH> out)
+{
+    pint W = 2*MESH_LENGTH + 2 + DATA_WIDTH;
+
+    prs {
+        Reset | ~Reset -> out.r-
+        ( i : W : Reset | ~Reset -> out.d[i]- )
+    }
+}

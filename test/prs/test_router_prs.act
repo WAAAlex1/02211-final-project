@@ -3,70 +3,97 @@
 // DUT: router_prs at X=1, Y=1. MESH_LENGTH=2, DATA_WIDTH=8. Packet=14 bits.
 //
 // Packet layout: x_dest[13:12], y_dest[11:10], x_dir[9], y_dir[8], payload[7:0]
+//
+// Coverage:
+//   - Every input port (N,S,E,W,L) used at least once.
+//   - Every output port (N,S,E,W,L) hit at least once.
+//   - 2x Collision cases (2 and 4 directions)
 
 import "src/prs/router_prs.act";
+import globals;
 
 // ---------------------------------------------------------
-// MOCK RECEIVER
+// RECEIVER 
 // ---------------------------------------------------------
 template <pint MESH_LENGTH, DATA_WIDTH, PORT_ID>
-defproc mock_prs_router_rx (pkt_chan?<MESH_LENGTH, DATA_WIDTH> in_chan) {
+defproc mock_prs_router_rx (
+    pkt_chan?<MESH_LENGTH, DATA_WIDTH> in_chan;
+    chan!(int<1>) done
+) {
     pint W = 2*MESH_LENGTH + 2 + DATA_WIDTH;
     int<W> pkt;
     chp {
         *[
             in_chan?pkt;
-            [ PORT_ID = 1 -> log(" [OUTPUT] Packet exited NORTH. Data: ", pkt{7..0})
-            [] PORT_ID = 2 -> log(" [OUTPUT] Packet exited SOUTH. Data: ", pkt{7..0})
-            [] PORT_ID = 3 -> log(" [OUTPUT] Packet exited EAST.  Data: ", pkt{7..0})
-            [] PORT_ID = 4 -> log(" [OUTPUT] Packet exited WEST.  Data: ", pkt{7..0})
-            [] PORT_ID = 5 -> log(" [OUTPUT] Packet ejected LOCAL. Data: ", pkt{7..0})
+            [ PORT_ID = 1 -> log("  [OUT N] Data:", pkt{7..0})
+            [] PORT_ID = 2 -> log("  [OUT S] Data:", pkt{7..0})
+            [] PORT_ID = 3 -> log("  [OUT E] Data:", pkt{7..0})
+            [] PORT_ID = 4 -> log("  [OUT W] Data:", pkt{7..0})
+            [] PORT_ID = 5 -> log("  [OUT L] Data:", pkt{7..0})
+            ];
+            done!1
+        ]
+    }
+}
+
+// ---------------------------------------------------------
+// RECEIVER
+// ---------------------------------------------------------
+template <pint MESH_LENGTH, DATA_WIDTH, PORT_ID>
+defproc mock_prs_router_rx_nodone (
+    pkt_chan?<MESH_LENGTH, DATA_WIDTH> in_chan
+) {
+    pint W = 2*MESH_LENGTH + 2 + DATA_WIDTH;
+    int<W> pkt;
+    chp {
+        *[
+            in_chan?pkt;
+            [ PORT_ID = 1 -> log("  [OUT N] Data:", pkt{7..0})
+            [] PORT_ID = 2 -> log("  [OUT S] Data:", pkt{7..0})
+            [] PORT_ID = 3 -> log("  [OUT E] Data:", pkt{7..0})
+            [] PORT_ID = 4 -> log("  [OUT W] Data:", pkt{7..0})
+            [] PORT_ID = 5 -> log("  [OUT L] Data:", pkt{7..0})
             ]
         ]
     }
 }
 
 // ---------------------------------------------------------
-// MOCK SENDER
-// ---------------------------------------------------------
-template <pint MESH_LENGTH, DATA_WIDTH, val>
-defproc mock_prs_router_tx (chan?(int<1>) trigger; pkt_chan!<MESH_LENGTH, DATA_WIDTH> out_chan) {
-    int<1> t;
-    chp {
-        *[ trigger?t; out_chan!val ]
-    }
-}
-
-// ---------------------------------------------------------
-// TEST CONTROLLER
+// CONTROLLER
 // ---------------------------------------------------------
 defproc test_router_prs_ctrl (
-    chan!(int<1>) t_in_N, t_in_S, t_in_E, t_in_W, t_in_L
+    pkt_chan!<2, 8> in_N, in_S, in_E, in_W, in_L;
+    chan?(int<1>) done_N, done_S, done_E, done_W
 ) {
+    int<1> d;
     chp {
-        // TEST 1: Pass-Through (West In -> East Out)
-        // x_dest=2(10), y_dest=1(01), x_dir=1, y_dir=0, data=0xAA -> 0x26AA
-        log("--- TEST 1: Pass-Through (West to East) ---");
-        t_in_W!1;
+        log("=== TEST 1: West -> East - Data:0xAA ===");
+        in_W!0x26AA;
+        done_E?d;
 
-        // TEST 2: Turning (North In -> East Out)
-        // x_dest=2(10), y_dest=0(00), x_dir=1, y_dir=0, data=0xBB -> 0x22BB
-        log("--- TEST 2: Turning (North to East) ---");
-        t_in_N!1;
+        log("=== TEST 2: North -> South - Data:0x11 ===");
+        in_N!0x1011;
+        done_S?d;
 
-        // TEST 3: Ejection (South In -> Local Out)
-        // x_dest=1(01), y_dest=1(01), x_dir=0, y_dir=0, data=0xCC -> 0x14CC
-        log("--- TEST 3: Ejection (South to Local) ---");
-        t_in_S!1;
+        log("=== TEST 3: East -> West - Data:0x22  ===");
+        in_E!0x0422;
+        done_W?d;
 
-        // TEST 4: Contention (Local and East both routing North)
-        // Pkt from Local: x_dest=1(01), y_dest=2(10), x_dir=0, y_dir=1, data=0xDD -> 0x19DD
-        // Pkt from East:  x_dest=1(01), y_dest=2(10), x_dir=0, y_dir=1, data=0xEE -> 0x19EE
-        log("--- TEST 4: Contention (Local & East racing for North) ---");
-        t_in_L!1;
-        t_in_E!1;
+        log("=== TEST 4: South -> Local - Data:0xCC  ===");
+        in_S!0x14CC;
 
-        log("--- All Router PRS tests fired! ---")
+        log("=== TEST 5: Local -> North - Data:0xDD ===");
+        in_L!0x19DD;
+        done_N?d;
+
+        log("=== TEST 6: W (0xAA) and N (0xBB) go to East ===");
+        in_W!0x26AA, in_N!0x22BB, done_E?d;
+        done_E?d;
+
+        log("=== TEST 7: 4-way contention to Local - N(0x01),S(0x02),E(0x03),W(0x04) ===");
+        in_N!0x1401, in_S!0x1402, in_E!0x1403, in_W!0x1404;
+
+        log("=== All Router PRS tests complete! ===")
     }
 }
 
@@ -74,27 +101,28 @@ defproc test_router_prs_ctrl (
 // TOP LEVEL
 // ---------------------------------------------------------
 defproc test_router_prs () {
-    chan(int<1>)   t_N, t_S, t_E, t_W, t_L;
-
     pkt_chan<2, 8> in_N, in_S, in_E, in_W, in_L;
     pkt_chan<2, 8> out_N, out_S, out_E, out_W, out_L;
+    chan(int<1>)   done_N, done_S, done_E, done_W;
 
     router_prs<2, 8, 1, 1> dut(
         in_N, in_S, in_E, in_W, in_L,
         out_N, out_S, out_E, out_W, out_L
     );
 
-    mock_prs_router_tx<2, 8, 0x22BB> tx_N(t_N, in_N); // Dest: (2,0) -> East
-    mock_prs_router_tx<2, 8, 0x14CC> tx_S(t_S, in_S); // Dest: (1,1) -> Local
-    mock_prs_router_tx<2, 8, 0x19EE> tx_E(t_E, in_E); // Dest: (1,2) -> North
-    mock_prs_router_tx<2, 8, 0x26AA> tx_W(t_W, in_W); // Dest: (2,1) -> East
-    mock_prs_router_tx<2, 8, 0x19DD> tx_L(t_L, in_L); // Dest: (1,2) -> North
+    mock_prs_router_rx<2, 8, 1> rx_N(out_N, done_N);
+    mock_prs_router_rx<2, 8, 2> rx_S(out_S, done_S);
+    mock_prs_router_rx<2, 8, 3> rx_E(out_E, done_E);
+    mock_prs_router_rx<2, 8, 4> rx_W(out_W, done_W);
+    mock_prs_router_rx_nodone<2, 8, 5> rx_L(out_L); //special case to test 4-way conflict
 
-    mock_prs_router_rx<2, 8, 1> rx_N(out_N);
-    mock_prs_router_rx<2, 8, 2> rx_S(out_S);
-    mock_prs_router_rx<2, 8, 3> rx_E(out_E);
-    mock_prs_router_rx<2, 8, 4> rx_W(out_W);
-    mock_prs_router_rx<2, 8, 5> rx_L(out_L);
+    test_router_prs_ctrl ctrl(
+        in_N, in_S, in_E, in_W, in_L,
+        done_N, done_S, done_E, done_W
+    );
+}
 
-    test_router_prs_ctrl ctrl(t_N, t_S, t_E, t_W, t_L);
+Initialize {
+    actions { Reset+ };
+    actions { Reset- }
 }

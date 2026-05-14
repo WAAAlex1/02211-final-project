@@ -1,0 +1,140 @@
+// test_mesh_2x2_prs.act - hand-wired 2x2 mesh sanity test for the PRS NoC.
+//
+// Layout (XY routing):
+//
+//   (0,1) -- (1,1)
+//     |        |
+//   (0,0) -- (1,0)
+//
+// Packet format (12 bits): x_dest[11], y_dest[10], x_dir[9], y_dir[8], payload[7..0].
+// MESH_LENGTH = 1, DATA_WIDTH = 8.
+//
+// TEST:    core(0,0) sends 0xCAA (x_dest=1, y_dest=1, payload=0xAA).
+// Expect:  "[EJECT] core(1,1) got payload: 170"  (0xAA = 170 decimal).
+
+import "src/prs/network_interface_prs.act";
+import "src/prs/null_source_prs.act";
+import "src/prs/route_sink_prs.act";
+import globals;
+
+template <pint W, PKT>
+defproc mock_core_tx (chan?(int<1>) trigger; chan!(int<W>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        out_chan!PKT
+    }
+}
+
+template <pint W, X_COORD, Y_COORD>
+defproc mock_core_rx (chan?(int<W>) in_chan) {
+    int<W> pkt;
+    chp {
+        *[
+            in_chan?pkt;
+            log("  [EJECT] core(", X_COORD, ",", Y_COORD, ") got payload: ", pkt{7..0})
+        ]
+    }
+}
+
+defproc test_mesh_2x2_prs () {
+    
+    // Core <-> NI (CHP <-> CHP).
+    chan(int<12>) c2ni_00, ni2c_00;
+    chan(int<12>) c2ni_01, ni2c_01;
+    chan(int<12>) c2ni_10, ni2c_10;
+    chan(int<12>) c2ni_11, ni2c_11;
+
+    // NI <-> Router (CHP <-> PRS 2-phase wire-level).
+    pkt_chan<1, 8> ni2r_00, r2ni_00;
+    pkt_chan<1, 8> ni2r_01, r2ni_01;
+    pkt_chan<1, 8> ni2r_10, r2ni_10;
+    pkt_chan<1, 8> ni2r_11, r2ni_11;
+
+    // Inter-router edges (PRS-PRS).
+    pkt_chan<1, 8> e_00_to_10, w_10_to_00;   // row y=0
+    pkt_chan<1, 8> e_01_to_11, w_11_to_01;   // row y=1
+    pkt_chan<1, 8> n_00_to_01, s_01_to_00;   // col x=0
+    pkt_chan<1, 8> n_10_to_11, s_11_to_10;   // col x=1
+
+    // Edge inputs (PRS-PRS).
+    pkt_chan<1, 8> in_00_s, in_00_w;
+    pkt_chan<1, 8> in_10_s, in_10_e;
+    pkt_chan<1, 8> in_01_n, in_01_w;
+    pkt_chan<1, 8> in_11_n, in_11_e;
+
+    // Edge outputs (PRS-PRS).
+    pkt_chan<1, 8> out_00_s, out_00_w;
+    pkt_chan<1, 8> out_10_s, out_10_e;
+    pkt_chan<1, 8> out_01_n, out_01_w;
+    pkt_chan<1, 8> out_11_n, out_11_e;
+
+    // Triggers.
+    chan(int<1>) t_00, t_01, t_10, t_11;
+
+    // ----- Cores -----
+    mock_core_tx<12, 0xCAA> core_tx_00(t_00, c2ni_00);
+    mock_core_tx<12, 0x000> core_tx_01(t_01, c2ni_01);  
+    mock_core_tx<12, 0x000> core_tx_10(t_10, c2ni_10);   
+    mock_core_tx<12, 0x000> core_tx_11(t_11, c2ni_11);   
+
+    mock_core_rx<12, 0, 0> core_rx_00(ni2c_00);
+    mock_core_rx<12, 0, 1> core_rx_01(ni2c_01);
+    mock_core_rx<12, 1, 0> core_rx_10(ni2c_10);
+    mock_core_rx<12, 1, 1> core_rx_11(ni2c_11);
+
+    // ----- Network interfaces -----
+    network_interface_prs<1, 8, 0, 0> ni_00(c2ni_00, ni2r_00, r2ni_00, ni2c_00);
+    network_interface_prs<1, 8, 0, 1> ni_01(c2ni_01, ni2r_01, r2ni_01, ni2c_01);
+    network_interface_prs<1, 8, 1, 0> ni_10(c2ni_10, ni2r_10, r2ni_10, ni2c_10);
+    network_interface_prs<1, 8, 1, 1> ni_11(c2ni_11, ni2r_11, r2ni_11, ni2c_11);
+
+    // ----- Routers (port order: input_N,S,E,W,L  then  output_N,S,E,W,L) -----
+    router_prs<1, 8, 0, 0> r_00(
+        s_01_to_00, in_00_s, w_10_to_00, in_00_w, ni2r_00,
+        n_00_to_01, out_00_s, e_00_to_10, out_00_w, r2ni_00
+    );
+    router_prs<1, 8, 1, 0> r_10(
+        s_11_to_10, in_10_s, in_10_e, e_00_to_10, ni2r_10,
+        n_10_to_11, out_10_s, out_10_e, w_10_to_00, r2ni_10
+    );
+    router_prs<1, 8, 0, 1> r_01(
+        in_01_n, n_00_to_01, w_11_to_01, in_01_w, ni2r_01,
+        out_01_n, s_01_to_00, e_01_to_11, out_01_w, r2ni_01
+    );
+    router_prs<1, 8, 1, 1> r_11(
+        in_11_n, n_10_to_11, in_11_e, e_01_to_11, ni2r_11,
+        out_11_n, s_11_to_10, out_11_e, w_11_to_01, r2ni_11
+    );
+
+    // ----- Edge tie-offs -----
+    null_source_prs<1, 8> ns_00_s(in_00_s);
+    null_source_prs<1, 8> ns_00_w(in_00_w);
+    null_source_prs<1, 8> ns_10_s(in_10_s);
+    null_source_prs<1, 8> ns_10_e(in_10_e);
+    null_source_prs<1, 8> ns_01_n(in_01_n);
+    null_source_prs<1, 8> ns_01_w(in_01_w);
+    null_source_prs<1, 8> ns_11_n(in_11_n);
+    null_source_prs<1, 8> ns_11_e(in_11_e);
+
+    route_sink_prs<1, 8> sk_00_s(out_00_s);
+    route_sink_prs<1, 8> sk_00_w(out_00_w);
+    route_sink_prs<1, 8> sk_10_s(out_10_s);
+    route_sink_prs<1, 8> sk_10_e(out_10_e);
+    route_sink_prs<1, 8> sk_01_n(out_01_n);
+    route_sink_prs<1, 8> sk_01_w(out_01_w);
+    route_sink_prs<1, 8> sk_11_n(out_11_n);
+    route_sink_prs<1, 8> sk_11_e(out_11_e);
+
+    // ----- Stimulus -----
+    chp {
+        log("--- TEST: core(0,0) sends 0xAA, dest (1,1) ---");
+        t_00!1;
+        log("--- trigger fired ---")
+    }
+}
+
+Initialize {
+    actions { Reset+ };
+    actions { Reset- }
+}

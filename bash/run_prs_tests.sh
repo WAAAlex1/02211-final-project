@@ -5,9 +5,9 @@
 #   cd ACT_files/02211-final_project && bash bash/run_prs_tests.sh
 
 echo "============================================"
-echo "R-Block PRS"
+echo "Input Block PRS"
 echo "============================================"
-actsim -Wlang_subst:off test/prs/test_r_block_prs.act test_r_block_prs < scripts/prs/r_block_prs_test.script
+actsim -Wlang_subst:off test/prs/test_input_block.act test_input_block < scripts/prs/input_block_test.script
 
 echo "============================================"
 echo "Arbiter 4 PRS"

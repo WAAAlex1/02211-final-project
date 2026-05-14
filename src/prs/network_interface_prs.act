@@ -1,0 +1,43 @@
+import "src/prs/router_prs.act";
+
+// 2-phase bundled-data network interface (Direct copy of CHP, just with 2-phase ports).
+
+template <pint MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD>
+defproc network_interface_prs (
+    chan?(int<2*MESH_LENGTH + 2 + DATA_WIDTH>)  core_in;
+    pkt_chan!<MESH_LENGTH, DATA_WIDTH>          router_out;
+
+    pkt_chan?<MESH_LENGTH, DATA_WIDTH>          router_in;
+    chan!(int<2*MESH_LENGTH + 2 + DATA_WIDTH>)  core_out
+)
+{
+    int<2*MESH_LENGTH + 2 + DATA_WIDTH>  tx_packet;
+    int<2*MESH_LENGTH + 2 + DATA_WIDTH>  rx_packet;
+
+    int<MESH_LENGTH>                     x_dest_local, y_dest_local;
+    int<1>                               x_dir, y_dir;
+
+    chp {
+        *[
+            core_in?tx_packet;
+
+            x_dest_local := tx_packet{2*MESH_LENGTH + 2 + DATA_WIDTH - 1 .. MESH_LENGTH + 2 + DATA_WIDTH};
+            y_dest_local := tx_packet{MESH_LENGTH + 2 + DATA_WIDTH - 1 .. 2 + DATA_WIDTH};
+
+            (
+                [ x_dest_local > X_COORD -> x_dir := 1 [] else -> x_dir := 0 ],
+                [ y_dest_local > Y_COORD -> y_dir := 1 [] else -> y_dir := 0 ]
+            );
+
+            tx_packet{1 + DATA_WIDTH} := x_dir;
+            tx_packet{DATA_WIDTH}     := y_dir;
+
+            router_out!tx_packet
+        ]
+        ||
+        *[
+            router_in?rx_packet;
+            core_out!rx_packet
+        ]
+    }
+}

@@ -1,5 +1,6 @@
 data_width: 8
 experiment:
+  injection_delay_cycles: 2500
   packets_per_active_core: 5
   spatial_load_percent: 100
-grid_size: 11
+grid_size: 8

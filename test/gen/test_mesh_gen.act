@@ -1,0 +1,3846 @@
+// Automatically generated 11x11 NoC Testbench (CHP mode)
+// Spatial Load: 100% (121/121 Cores Active)
+// Packets per Active Core: 5
+
+import "src/chp/router.act";
+import "src/chp/network_interface.act";
+import "src/chp/route_sink.act";
+
+template <pint PORT_X, PORT_Y>
+defproc mock_core_rx (chan?(int<18>) in_chan) {
+    int<18> pkt;
+    chp {
+        *[
+            in_chan?pkt;
+            log(" [EJECT] Core at (", PORT_X, ",", PORT_Y, ") received Payload: ", pkt{7..0})
+        ]
+    }
+}
+
+defproc mock_core_tx_0_0 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (0,0) to (6,10) payload=218");
+        out_chan!108762;
+        log(" [INJECT] from (0,0) to (7,8) payload=142");
+        out_chan!123022;
+        log(" [INJECT] from (0,0) to (9,4) payload=133");
+        out_chan!151685;
+        log(" [INJECT] from (0,0) to (8,10) payload=37");
+        out_chan!141349;
+        log(" [INJECT] from (0,0) to (0,7) payload=186");
+        out_chan!7354
+    }
+}
+
+defproc mock_core_tx_1_0 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (1,0) to (0,4) payload=50");
+        out_chan!4146;
+        log(" [INJECT] from (1,0) to (8,9) payload=196");
+        out_chan!140484;
+        log(" [INJECT] from (1,0) to (5,8) payload=193");
+        out_chan!90305;
+        log(" [INJECT] from (1,0) to (1,3) payload=168");
+        out_chan!19624;
+        log(" [INJECT] from (1,0) to (4,1) payload=187");
+        out_chan!66747
+    }
+}
+
+defproc mock_core_tx_2_0 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (2,0) to (1,3) payload=199");
+        out_chan!19655;
+        log(" [INJECT] from (2,0) to (6,8) payload=175");
+        out_chan!106671;
+        log(" [INJECT] from (2,0) to (0,5) payload=85");
+        out_chan!5205;
+        log(" [INJECT] from (2,0) to (10,9) payload=41");
+        out_chan!173097;
+        log(" [INJECT] from (2,0) to (4,8) payload=85");
+        out_chan!73813
+    }
+}
+
+defproc mock_core_tx_3_0 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (3,0) to (0,10) payload=88");
+        out_chan!10328;
+        log(" [INJECT] from (3,0) to (7,10) payload=218");
+        out_chan!125146;
+        log(" [INJECT] from (3,0) to (10,4) payload=105");
+        out_chan!168041;
+        log(" [INJECT] from (3,0) to (10,7) payload=198");
+        out_chan!171206;
+        log(" [INJECT] from (3,0) to (2,7) payload=151");
+        out_chan!40087
+    }
+}
+
+defproc mock_core_tx_4_0 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (4,0) to (2,4) payload=167");
+        out_chan!37031;
+        log(" [INJECT] from (4,0) to (5,7) payload=199");
+        out_chan!89287;
+        log(" [INJECT] from (4,0) to (7,5) payload=41");
+        out_chan!119849;
+        log(" [INJECT] from (4,0) to (5,4) payload=140");
+        out_chan!86156;
+        log(" [INJECT] from (4,0) to (3,8) payload=161");
+        out_chan!57505
+    }
+}
+
+defproc mock_core_tx_5_0 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (5,0) to (5,10) payload=127");
+        out_chan!92287;
+        log(" [INJECT] from (5,0) to (0,9) payload=81");
+        out_chan!9297;
+        log(" [INJECT] from (5,0) to (4,4) payload=67");
+        out_chan!69699;
+        log(" [INJECT] from (5,0) to (7,4) payload=22");
+        out_chan!118806;
+        log(" [INJECT] from (5,0) to (0,4) payload=96");
+        out_chan!4192
+    }
+}
+
+defproc mock_core_tx_6_0 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (6,0) to (2,9) payload=106");
+        out_chan!42090;
+        log(" [INJECT] from (6,0) to (5,5) payload=25");
+        out_chan!87065;
+        log(" [INJECT] from (6,0) to (0,8) payload=136");
+        out_chan!8328;
+        log(" [INJECT] from (6,0) to (8,9) payload=34");
+        out_chan!140322;
+        log(" [INJECT] from (6,0) to (6,6) payload=148");
+        out_chan!104596
+    }
+}
+
+defproc mock_core_tx_7_0 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (7,0) to (7,6) payload=116");
+        out_chan!120948;
+        log(" [INJECT] from (7,0) to (10,7) payload=143");
+        out_chan!171151;
+        log(" [INJECT] from (7,0) to (0,5) payload=207");
+        out_chan!5327;
+        log(" [INJECT] from (7,0) to (6,9) payload=130");
+        out_chan!107650;
+        log(" [INJECT] from (7,0) to (0,9) payload=125");
+        out_chan!9341
+    }
+}
+
+defproc mock_core_tx_8_0 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (8,0) to (8,5) payload=86");
+        out_chan!136278;
+        log(" [INJECT] from (8,0) to (9,2) payload=157");
+        out_chan!149661;
+        log(" [INJECT] from (8,0) to (2,2) payload=164");
+        out_chan!34980;
+        log(" [INJECT] from (8,0) to (4,10) payload=129");
+        out_chan!75905;
+        log(" [INJECT] from (8,0) to (1,10) payload=69");
+        out_chan!26693
+    }
+}
+
+defproc mock_core_tx_9_0 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (9,0) to (8,0) payload=133");
+        out_chan!131205;
+        log(" [INJECT] from (9,0) to (8,6) payload=149");
+        out_chan!137365;
+        log(" [INJECT] from (9,0) to (4,7) payload=162");
+        out_chan!72866;
+        log(" [INJECT] from (9,0) to (6,3) payload=180");
+        out_chan!101556;
+        log(" [INJECT] from (9,0) to (0,6) payload=164");
+        out_chan!6308
+    }
+}
+
+defproc mock_core_tx_10_0 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (10,0) to (4,6) payload=91");
+        out_chan!71771;
+        log(" [INJECT] from (10,0) to (0,1) payload=198");
+        out_chan!1222;
+        log(" [INJECT] from (10,0) to (0,2) payload=105");
+        out_chan!2153;
+        log(" [INJECT] from (10,0) to (10,1) payload=253");
+        out_chan!165117;
+        log(" [INJECT] from (10,0) to (2,5) payload=46");
+        out_chan!37934
+    }
+}
+
+defproc mock_core_tx_0_1 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (0,1) to (1,7) payload=106");
+        out_chan!23658;
+        log(" [INJECT] from (0,1) to (2,8) payload=31");
+        out_chan!40991;
+        log(" [INJECT] from (0,1) to (9,4) payload=14");
+        out_chan!151566;
+        log(" [INJECT] from (0,1) to (8,6) payload=133");
+        out_chan!137349;
+        log(" [INJECT] from (0,1) to (0,4) payload=140");
+        out_chan!4236
+    }
+}
+
+defproc mock_core_tx_1_1 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (1,1) to (2,10) payload=252");
+        out_chan!43260;
+        log(" [INJECT] from (1,1) to (7,4) payload=199");
+        out_chan!118983;
+        log(" [INJECT] from (1,1) to (6,10) payload=47");
+        out_chan!108591;
+        log(" [INJECT] from (1,1) to (2,3) payload=103");
+        out_chan!35943;
+        log(" [INJECT] from (1,1) to (9,8) payload=216");
+        out_chan!155864
+    }
+}
+
+defproc mock_core_tx_2_1 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (2,1) to (1,5) payload=151");
+        out_chan!21655;
+        log(" [INJECT] from (2,1) to (9,4) payload=144");
+        out_chan!151696;
+        log(" [INJECT] from (2,1) to (8,1) payload=206");
+        out_chan!132302;
+        log(" [INJECT] from (2,1) to (1,10) payload=61");
+        out_chan!26685;
+        log(" [INJECT] from (2,1) to (9,10) payload=82");
+        out_chan!157778
+    }
+}
+
+defproc mock_core_tx_3_1 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (3,1) to (9,9) payload=88");
+        out_chan!156760;
+        log(" [INJECT] from (3,1) to (4,5) payload=69");
+        out_chan!70725;
+        log(" [INJECT] from (3,1) to (0,0) payload=179");
+        out_chan!179;
+        log(" [INJECT] from (3,1) to (1,0) payload=219");
+        out_chan!16603;
+        log(" [INJECT] from (3,1) to (9,0) payload=99");
+        out_chan!147555
+    }
+}
+
+defproc mock_core_tx_4_1 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (4,1) to (0,3) payload=101");
+        out_chan!3173;
+        log(" [INJECT] from (4,1) to (0,3) payload=57");
+        out_chan!3129;
+        log(" [INJECT] from (4,1) to (4,9) payload=80");
+        out_chan!74832;
+        log(" [INJECT] from (4,1) to (4,2) payload=251");
+        out_chan!67835;
+        log(" [INJECT] from (4,1) to (7,0) payload=75");
+        out_chan!114763
+    }
+}
+
+defproc mock_core_tx_5_1 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (5,1) to (2,1) payload=5");
+        out_chan!33797;
+        log(" [INJECT] from (5,1) to (5,5) payload=184");
+        out_chan!87224;
+        log(" [INJECT] from (5,1) to (7,8) payload=27");
+        out_chan!122907;
+        log(" [INJECT] from (5,1) to (8,8) payload=81");
+        out_chan!139345;
+        log(" [INJECT] from (5,1) to (0,7) payload=53");
+        out_chan!7221
+    }
+}
+
+defproc mock_core_tx_6_1 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (6,1) to (6,3) payload=9");
+        out_chan!101385;
+        log(" [INJECT] from (6,1) to (4,9) payload=74");
+        out_chan!74826;
+        log(" [INJECT] from (6,1) to (2,1) payload=153");
+        out_chan!33945;
+        log(" [INJECT] from (6,1) to (0,7) payload=38");
+        out_chan!7206;
+        log(" [INJECT] from (6,1) to (8,9) payload=162");
+        out_chan!140450
+    }
+}
+
+defproc mock_core_tx_7_1 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (7,1) to (3,7) payload=193");
+        out_chan!56513;
+        log(" [INJECT] from (7,1) to (8,4) payload=127");
+        out_chan!135295;
+        log(" [INJECT] from (7,1) to (6,1) payload=52");
+        out_chan!99380;
+        log(" [INJECT] from (7,1) to (3,8) payload=27");
+        out_chan!57371;
+        log(" [INJECT] from (7,1) to (10,8) payload=140");
+        out_chan!172172
+    }
+}
+
+defproc mock_core_tx_8_1 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (8,1) to (5,8) payload=172");
+        out_chan!90284;
+        log(" [INJECT] from (8,1) to (5,8) payload=21");
+        out_chan!90133;
+        log(" [INJECT] from (8,1) to (4,0) payload=245");
+        out_chan!65781;
+        log(" [INJECT] from (8,1) to (0,6) payload=35");
+        out_chan!6179;
+        log(" [INJECT] from (8,1) to (0,8) payload=120");
+        out_chan!8312
+    }
+}
+
+defproc mock_core_tx_9_1 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (9,1) to (1,6) payload=109");
+        out_chan!22637;
+        log(" [INJECT] from (9,1) to (0,5) payload=145");
+        out_chan!5265;
+        log(" [INJECT] from (9,1) to (6,0) payload=8");
+        out_chan!98312;
+        log(" [INJECT] from (9,1) to (5,10) payload=32");
+        out_chan!92192;
+        log(" [INJECT] from (9,1) to (4,10) payload=223");
+        out_chan!75999
+    }
+}
+
+defproc mock_core_tx_10_1 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (10,1) to (6,7) payload=35");
+        out_chan!105507;
+        log(" [INJECT] from (10,1) to (8,4) payload=4");
+        out_chan!135172;
+        log(" [INJECT] from (10,1) to (4,2) payload=150");
+        out_chan!67734;
+        log(" [INJECT] from (10,1) to (4,2) payload=125");
+        out_chan!67709;
+        log(" [INJECT] from (10,1) to (4,0) payload=214");
+        out_chan!65750
+    }
+}
+
+defproc mock_core_tx_0_2 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (0,2) to (9,7) payload=124");
+        out_chan!154748;
+        log(" [INJECT] from (0,2) to (3,10) payload=19");
+        out_chan!59411;
+        log(" [INJECT] from (0,2) to (2,0) payload=183");
+        out_chan!32951;
+        log(" [INJECT] from (0,2) to (3,8) payload=152");
+        out_chan!57496;
+        log(" [INJECT] from (0,2) to (0,7) payload=19");
+        out_chan!7187
+    }
+}
+
+defproc mock_core_tx_1_2 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (1,2) to (8,10) payload=211");
+        out_chan!141523;
+        log(" [INJECT] from (1,2) to (4,7) payload=162");
+        out_chan!72866;
+        log(" [INJECT] from (1,2) to (4,8) payload=243");
+        out_chan!73971;
+        log(" [INJECT] from (1,2) to (0,8) payload=32");
+        out_chan!8224;
+        log(" [INJECT] from (1,2) to (2,1) payload=213");
+        out_chan!34005
+    }
+}
+
+defproc mock_core_tx_2_2 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (2,2) to (6,8) payload=130");
+        out_chan!106626;
+        log(" [INJECT] from (2,2) to (1,10) payload=102");
+        out_chan!26726;
+        log(" [INJECT] from (2,2) to (8,6) payload=32");
+        out_chan!137248;
+        log(" [INJECT] from (2,2) to (0,7) payload=212");
+        out_chan!7380;
+        log(" [INJECT] from (2,2) to (6,8) payload=118");
+        out_chan!106614
+    }
+}
+
+defproc mock_core_tx_3_2 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (3,2) to (3,4) payload=102");
+        out_chan!53350;
+        log(" [INJECT] from (3,2) to (10,3) payload=139");
+        out_chan!167051;
+        log(" [INJECT] from (3,2) to (8,8) payload=142");
+        out_chan!139406;
+        log(" [INJECT] from (3,2) to (1,10) payload=8");
+        out_chan!26632;
+        log(" [INJECT] from (3,2) to (6,10) payload=18");
+        out_chan!108562
+    }
+}
+
+defproc mock_core_tx_4_2 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (4,2) to (3,9) payload=207");
+        out_chan!58575;
+        log(" [INJECT] from (4,2) to (4,0) payload=6");
+        out_chan!65542;
+        log(" [INJECT] from (4,2) to (9,10) payload=90");
+        out_chan!157786;
+        log(" [INJECT] from (4,2) to (0,7) payload=83");
+        out_chan!7251;
+        log(" [INJECT] from (4,2) to (0,9) payload=236");
+        out_chan!9452
+    }
+}
+
+defproc mock_core_tx_5_2 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (5,2) to (5,6) payload=159");
+        out_chan!88223;
+        log(" [INJECT] from (5,2) to (5,1) payload=148");
+        out_chan!83092;
+        log(" [INJECT] from (5,2) to (8,1) payload=118");
+        out_chan!132214;
+        log(" [INJECT] from (5,2) to (5,4) payload=245");
+        out_chan!86261;
+        log(" [INJECT] from (5,2) to (6,2) payload=94");
+        out_chan!100446
+    }
+}
+
+defproc mock_core_tx_6_2 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (6,2) to (3,0) payload=191");
+        out_chan!49343;
+        log(" [INJECT] from (6,2) to (1,7) payload=159");
+        out_chan!23711;
+        log(" [INJECT] from (6,2) to (4,10) payload=46");
+        out_chan!75822;
+        log(" [INJECT] from (6,2) to (6,4) payload=67");
+        out_chan!102467;
+        log(" [INJECT] from (6,2) to (5,1) payload=122");
+        out_chan!83066
+    }
+}
+
+defproc mock_core_tx_7_2 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (7,2) to (0,1) payload=103");
+        out_chan!1127;
+        log(" [INJECT] from (7,2) to (3,7) payload=162");
+        out_chan!56482;
+        log(" [INJECT] from (7,2) to (10,2) payload=69");
+        out_chan!165957;
+        log(" [INJECT] from (7,2) to (9,3) payload=248");
+        out_chan!150776;
+        log(" [INJECT] from (7,2) to (8,8) payload=81");
+        out_chan!139345
+    }
+}
+
+defproc mock_core_tx_8_2 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (8,2) to (5,6) payload=16");
+        out_chan!88080;
+        log(" [INJECT] from (8,2) to (7,2) payload=154");
+        out_chan!116890;
+        log(" [INJECT] from (8,2) to (10,10) payload=18");
+        out_chan!174098;
+        log(" [INJECT] from (8,2) to (5,3) payload=123");
+        out_chan!85115;
+        log(" [INJECT] from (8,2) to (10,1) payload=207");
+        out_chan!165071
+    }
+}
+
+defproc mock_core_tx_9_2 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (9,2) to (10,9) payload=253");
+        out_chan!173309;
+        log(" [INJECT] from (9,2) to (8,8) payload=25");
+        out_chan!139289;
+        log(" [INJECT] from (9,2) to (4,0) payload=58");
+        out_chan!65594;
+        log(" [INJECT] from (9,2) to (3,10) payload=16");
+        out_chan!59408;
+        log(" [INJECT] from (9,2) to (0,10) payload=63");
+        out_chan!10303
+    }
+}
+
+defproc mock_core_tx_10_2 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (10,2) to (3,10) payload=5");
+        out_chan!59397;
+        log(" [INJECT] from (10,2) to (0,0) payload=94");
+        out_chan!94;
+        log(" [INJECT] from (10,2) to (2,8) payload=2");
+        out_chan!40962;
+        log(" [INJECT] from (10,2) to (5,5) payload=255");
+        out_chan!87295;
+        log(" [INJECT] from (10,2) to (1,5) payload=167");
+        out_chan!21671
+    }
+}
+
+defproc mock_core_tx_0_3 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (0,3) to (2,2) payload=125");
+        out_chan!34941;
+        log(" [INJECT] from (0,3) to (3,7) payload=181");
+        out_chan!56501;
+        log(" [INJECT] from (0,3) to (0,1) payload=236");
+        out_chan!1260;
+        log(" [INJECT] from (0,3) to (8,2) payload=152");
+        out_chan!133272;
+        log(" [INJECT] from (0,3) to (0,5) payload=82");
+        out_chan!5202
+    }
+}
+
+defproc mock_core_tx_1_3 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (1,3) to (0,2) payload=92");
+        out_chan!2140;
+        log(" [INJECT] from (1,3) to (9,10) payload=26");
+        out_chan!157722;
+        log(" [INJECT] from (1,3) to (0,4) payload=228");
+        out_chan!4324;
+        log(" [INJECT] from (1,3) to (7,2) payload=20");
+        out_chan!116756;
+        log(" [INJECT] from (1,3) to (10,6) payload=38");
+        out_chan!170022
+    }
+}
+
+defproc mock_core_tx_2_3 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (2,3) to (9,8) payload=197");
+        out_chan!155845;
+        log(" [INJECT] from (2,3) to (0,10) payload=19");
+        out_chan!10259;
+        log(" [INJECT] from (2,3) to (2,10) payload=128");
+        out_chan!43136;
+        log(" [INJECT] from (2,3) to (8,2) payload=235");
+        out_chan!133355;
+        log(" [INJECT] from (2,3) to (3,8) payload=158");
+        out_chan!57502
+    }
+}
+
+defproc mock_core_tx_3_3 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (3,3) to (3,7) payload=89");
+        out_chan!56409;
+        log(" [INJECT] from (3,3) to (7,3) payload=26");
+        out_chan!117786;
+        log(" [INJECT] from (3,3) to (5,3) payload=137");
+        out_chan!85129;
+        log(" [INJECT] from (3,3) to (2,0) payload=29");
+        out_chan!32797;
+        log(" [INJECT] from (3,3) to (9,4) payload=23");
+        out_chan!151575
+    }
+}
+
+defproc mock_core_tx_4_3 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (4,3) to (7,1) payload=172");
+        out_chan!115884;
+        log(" [INJECT] from (4,3) to (6,8) payload=20");
+        out_chan!106516;
+        log(" [INJECT] from (4,3) to (10,3) payload=75");
+        out_chan!166987;
+        log(" [INJECT] from (4,3) to (9,10) payload=105");
+        out_chan!157801;
+        log(" [INJECT] from (4,3) to (3,10) payload=49");
+        out_chan!59441
+    }
+}
+
+defproc mock_core_tx_5_3 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (5,3) to (5,0) payload=69");
+        out_chan!81989;
+        log(" [INJECT] from (5,3) to (7,10) payload=77");
+        out_chan!125005;
+        log(" [INJECT] from (5,3) to (4,3) payload=228");
+        out_chan!68836;
+        log(" [INJECT] from (5,3) to (2,8) payload=61");
+        out_chan!41021;
+        log(" [INJECT] from (5,3) to (2,2) payload=252");
+        out_chan!35068
+    }
+}
+
+defproc mock_core_tx_6_3 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (6,3) to (9,2) payload=138");
+        out_chan!149642;
+        log(" [INJECT] from (6,3) to (10,10) payload=31");
+        out_chan!174111;
+        log(" [INJECT] from (6,3) to (8,4) payload=47");
+        out_chan!135215;
+        log(" [INJECT] from (6,3) to (10,8) payload=46");
+        out_chan!172078;
+        log(" [INJECT] from (6,3) to (0,4) payload=121");
+        out_chan!4217
+    }
+}
+
+defproc mock_core_tx_7_3 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (7,3) to (4,10) payload=245");
+        out_chan!76021;
+        log(" [INJECT] from (7,3) to (4,5) payload=197");
+        out_chan!70853;
+        log(" [INJECT] from (7,3) to (2,8) payload=47");
+        out_chan!41007;
+        log(" [INJECT] from (7,3) to (4,8) payload=149");
+        out_chan!73877;
+        log(" [INJECT] from (7,3) to (5,7) payload=92");
+        out_chan!89180
+    }
+}
+
+defproc mock_core_tx_8_3 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (8,3) to (4,1) payload=239");
+        out_chan!66799;
+        log(" [INJECT] from (8,3) to (2,2) payload=47");
+        out_chan!34863;
+        log(" [INJECT] from (8,3) to (10,2) payload=50");
+        out_chan!165938;
+        log(" [INJECT] from (8,3) to (8,8) payload=1");
+        out_chan!139265;
+        log(" [INJECT] from (8,3) to (0,3) payload=31");
+        out_chan!3103
+    }
+}
+
+defproc mock_core_tx_9_3 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (9,3) to (5,3) payload=112");
+        out_chan!85104;
+        log(" [INJECT] from (9,3) to (8,5) payload=122");
+        out_chan!136314;
+        log(" [INJECT] from (9,3) to (1,5) payload=118");
+        out_chan!21622;
+        log(" [INJECT] from (9,3) to (1,1) payload=253");
+        out_chan!17661;
+        log(" [INJECT] from (9,3) to (7,5) payload=93");
+        out_chan!119901
+    }
+}
+
+defproc mock_core_tx_10_3 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (10,3) to (8,0) payload=39");
+        out_chan!131111;
+        log(" [INJECT] from (10,3) to (5,4) payload=121");
+        out_chan!86137;
+        log(" [INJECT] from (10,3) to (8,7) payload=75");
+        out_chan!138315;
+        log(" [INJECT] from (10,3) to (9,10) payload=7");
+        out_chan!157703;
+        log(" [INJECT] from (10,3) to (0,9) payload=24");
+        out_chan!9240
+    }
+}
+
+defproc mock_core_tx_0_4 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (0,4) to (2,4) payload=1");
+        out_chan!36865;
+        log(" [INJECT] from (0,4) to (0,0) payload=132");
+        out_chan!132;
+        log(" [INJECT] from (0,4) to (4,7) payload=196");
+        out_chan!72900;
+        log(" [INJECT] from (0,4) to (8,7) payload=181");
+        out_chan!138421;
+        log(" [INJECT] from (0,4) to (7,3) payload=208");
+        out_chan!117968
+    }
+}
+
+defproc mock_core_tx_1_4 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (1,4) to (2,2) payload=78");
+        out_chan!34894;
+        log(" [INJECT] from (1,4) to (10,2) payload=249");
+        out_chan!166137;
+        log(" [INJECT] from (1,4) to (8,7) payload=217");
+        out_chan!138457;
+        log(" [INJECT] from (1,4) to (6,3) payload=129");
+        out_chan!101505;
+        log(" [INJECT] from (1,4) to (6,2) payload=113");
+        out_chan!100465
+    }
+}
+
+defproc mock_core_tx_2_4 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (2,4) to (5,7) payload=29");
+        out_chan!89117;
+        log(" [INJECT] from (2,4) to (7,10) payload=249");
+        out_chan!125177;
+        log(" [INJECT] from (2,4) to (4,0) payload=209");
+        out_chan!65745;
+        log(" [INJECT] from (2,4) to (3,8) payload=27");
+        out_chan!57371;
+        log(" [INJECT] from (2,4) to (3,7) payload=107");
+        out_chan!56427
+    }
+}
+
+defproc mock_core_tx_3_4 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (3,4) to (5,1) payload=126");
+        out_chan!83070;
+        log(" [INJECT] from (3,4) to (10,2) payload=121");
+        out_chan!166009;
+        log(" [INJECT] from (3,4) to (7,2) payload=110");
+        out_chan!116846;
+        log(" [INJECT] from (3,4) to (4,3) payload=107");
+        out_chan!68715;
+        log(" [INJECT] from (3,4) to (8,0) payload=178");
+        out_chan!131250
+    }
+}
+
+defproc mock_core_tx_4_4 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (4,4) to (7,2) payload=247");
+        out_chan!116983;
+        log(" [INJECT] from (4,4) to (0,2) payload=62");
+        out_chan!2110;
+        log(" [INJECT] from (4,4) to (3,0) payload=71");
+        out_chan!49223;
+        log(" [INJECT] from (4,4) to (8,1) payload=133");
+        out_chan!132229;
+        log(" [INJECT] from (4,4) to (6,4) payload=236");
+        out_chan!102636
+    }
+}
+
+defproc mock_core_tx_5_4 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (5,4) to (0,10) payload=60");
+        out_chan!10300;
+        log(" [INJECT] from (5,4) to (7,4) payload=56");
+        out_chan!118840;
+        log(" [INJECT] from (5,4) to (6,0) payload=243");
+        out_chan!98547;
+        log(" [INJECT] from (5,4) to (1,8) payload=145");
+        out_chan!24721;
+        log(" [INJECT] from (5,4) to (0,9) payload=26");
+        out_chan!9242
+    }
+}
+
+defproc mock_core_tx_6_4 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (6,4) to (1,5) payload=121");
+        out_chan!21625;
+        log(" [INJECT] from (6,4) to (6,7) payload=158");
+        out_chan!105630;
+        log(" [INJECT] from (6,4) to (5,1) payload=131");
+        out_chan!83075;
+        log(" [INJECT] from (6,4) to (9,3) payload=16");
+        out_chan!150544;
+        log(" [INJECT] from (6,4) to (6,5) payload=93");
+        out_chan!103517
+    }
+}
+
+defproc mock_core_tx_7_4 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (7,4) to (1,0) payload=37");
+        out_chan!16421;
+        log(" [INJECT] from (7,4) to (0,5) payload=192");
+        out_chan!5312;
+        log(" [INJECT] from (7,4) to (8,0) payload=1");
+        out_chan!131073;
+        log(" [INJECT] from (7,4) to (6,1) payload=157");
+        out_chan!99485;
+        log(" [INJECT] from (7,4) to (7,6) payload=78");
+        out_chan!120910
+    }
+}
+
+defproc mock_core_tx_8_4 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (8,4) to (8,1) payload=89");
+        out_chan!132185;
+        log(" [INJECT] from (8,4) to (6,1) payload=55");
+        out_chan!99383;
+        log(" [INJECT] from (8,4) to (3,7) payload=190");
+        out_chan!56510;
+        log(" [INJECT] from (8,4) to (2,7) payload=29");
+        out_chan!39965;
+        log(" [INJECT] from (8,4) to (5,4) payload=68");
+        out_chan!86084
+    }
+}
+
+defproc mock_core_tx_9_4 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (9,4) to (1,8) payload=136");
+        out_chan!24712;
+        log(" [INJECT] from (9,4) to (7,9) payload=31");
+        out_chan!123935;
+        log(" [INJECT] from (9,4) to (1,1) payload=220");
+        out_chan!17628;
+        log(" [INJECT] from (9,4) to (6,9) payload=251");
+        out_chan!107771;
+        log(" [INJECT] from (9,4) to (0,4) payload=17");
+        out_chan!4113
+    }
+}
+
+defproc mock_core_tx_10_4 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (10,4) to (7,8) payload=127");
+        out_chan!123007;
+        log(" [INJECT] from (10,4) to (1,10) payload=135");
+        out_chan!26759;
+        log(" [INJECT] from (10,4) to (2,9) payload=166");
+        out_chan!42150;
+        log(" [INJECT] from (10,4) to (10,1) payload=185");
+        out_chan!165049;
+        log(" [INJECT] from (10,4) to (6,5) payload=227");
+        out_chan!103651
+    }
+}
+
+defproc mock_core_tx_0_5 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (0,5) to (6,4) payload=37");
+        out_chan!102437;
+        log(" [INJECT] from (0,5) to (7,2) payload=68");
+        out_chan!116804;
+        log(" [INJECT] from (0,5) to (7,8) payload=228");
+        out_chan!123108;
+        log(" [INJECT] from (0,5) to (9,9) payload=34");
+        out_chan!156706;
+        log(" [INJECT] from (0,5) to (9,5) payload=200");
+        out_chan!152776
+    }
+}
+
+defproc mock_core_tx_1_5 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (1,5) to (1,9) payload=173");
+        out_chan!25773;
+        log(" [INJECT] from (1,5) to (1,9) payload=127");
+        out_chan!25727;
+        log(" [INJECT] from (1,5) to (2,0) payload=192");
+        out_chan!32960;
+        log(" [INJECT] from (1,5) to (2,4) payload=63");
+        out_chan!36927;
+        log(" [INJECT] from (1,5) to (4,0) payload=164");
+        out_chan!65700
+    }
+}
+
+defproc mock_core_tx_2_5 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (2,5) to (8,10) payload=223");
+        out_chan!141535;
+        log(" [INJECT] from (2,5) to (7,6) payload=28");
+        out_chan!120860;
+        log(" [INJECT] from (2,5) to (9,1) payload=32");
+        out_chan!148512;
+        log(" [INJECT] from (2,5) to (10,2) payload=77");
+        out_chan!165965;
+        log(" [INJECT] from (2,5) to (5,10) payload=240");
+        out_chan!92400
+    }
+}
+
+defproc mock_core_tx_3_5 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (3,5) to (5,9) payload=153");
+        out_chan!91289;
+        log(" [INJECT] from (3,5) to (1,8) payload=173");
+        out_chan!24749;
+        log(" [INJECT] from (3,5) to (0,9) payload=181");
+        out_chan!9397;
+        log(" [INJECT] from (3,5) to (7,10) payload=107");
+        out_chan!125035;
+        log(" [INJECT] from (3,5) to (2,3) payload=84");
+        out_chan!35924
+    }
+}
+
+defproc mock_core_tx_4_5 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (4,5) to (3,3) payload=232");
+        out_chan!52456;
+        log(" [INJECT] from (4,5) to (8,8) payload=223");
+        out_chan!139487;
+        log(" [INJECT] from (4,5) to (6,6) payload=146");
+        out_chan!104594;
+        log(" [INJECT] from (4,5) to (2,1) payload=153");
+        out_chan!33945;
+        log(" [INJECT] from (4,5) to (8,2) payload=16");
+        out_chan!133136
+    }
+}
+
+defproc mock_core_tx_5_5 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (5,5) to (9,8) payload=195");
+        out_chan!155843;
+        log(" [INJECT] from (5,5) to (1,8) payload=150");
+        out_chan!24726;
+        log(" [INJECT] from (5,5) to (6,2) payload=161");
+        out_chan!100513;
+        log(" [INJECT] from (5,5) to (2,4) payload=94");
+        out_chan!36958;
+        log(" [INJECT] from (5,5) to (1,8) payload=98");
+        out_chan!24674
+    }
+}
+
+defproc mock_core_tx_6_5 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (6,5) to (2,3) payload=249");
+        out_chan!36089;
+        log(" [INJECT] from (6,5) to (7,4) payload=116");
+        out_chan!118900;
+        log(" [INJECT] from (6,5) to (0,5) payload=39");
+        out_chan!5159;
+        log(" [INJECT] from (6,5) to (10,2) payload=170");
+        out_chan!166058;
+        log(" [INJECT] from (6,5) to (10,10) payload=72");
+        out_chan!174152
+    }
+}
+
+defproc mock_core_tx_7_5 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (7,5) to (0,0) payload=202");
+        out_chan!202;
+        log(" [INJECT] from (7,5) to (2,4) payload=157");
+        out_chan!37021;
+        log(" [INJECT] from (7,5) to (5,8) payload=169");
+        out_chan!90281;
+        log(" [INJECT] from (7,5) to (9,3) payload=18");
+        out_chan!150546;
+        log(" [INJECT] from (7,5) to (7,10) payload=35");
+        out_chan!124963
+    }
+}
+
+defproc mock_core_tx_8_5 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (8,5) to (6,0) payload=88");
+        out_chan!98392;
+        log(" [INJECT] from (8,5) to (10,6) payload=100");
+        out_chan!170084;
+        log(" [INJECT] from (8,5) to (7,2) payload=62");
+        out_chan!116798;
+        log(" [INJECT] from (8,5) to (1,5) payload=219");
+        out_chan!21723;
+        log(" [INJECT] from (8,5) to (5,6) payload=29");
+        out_chan!88093
+    }
+}
+
+defproc mock_core_tx_9_5 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (9,5) to (5,5) payload=74");
+        out_chan!87114;
+        log(" [INJECT] from (9,5) to (1,7) payload=61");
+        out_chan!23613;
+        log(" [INJECT] from (9,5) to (6,6) payload=250");
+        out_chan!104698;
+        log(" [INJECT] from (9,5) to (9,2) payload=134");
+        out_chan!149638;
+        log(" [INJECT] from (9,5) to (7,5) payload=223");
+        out_chan!120031
+    }
+}
+
+defproc mock_core_tx_10_5 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (10,5) to (2,8) payload=26");
+        out_chan!40986;
+        log(" [INJECT] from (10,5) to (6,6) payload=199");
+        out_chan!104647;
+        log(" [INJECT] from (10,5) to (10,6) payload=90");
+        out_chan!170074;
+        log(" [INJECT] from (10,5) to (4,5) payload=99");
+        out_chan!70755;
+        log(" [INJECT] from (10,5) to (10,0) payload=192");
+        out_chan!164032
+    }
+}
+
+defproc mock_core_tx_0_6 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (0,6) to (1,2) payload=40");
+        out_chan!18472;
+        log(" [INJECT] from (0,6) to (8,0) payload=94");
+        out_chan!131166;
+        log(" [INJECT] from (0,6) to (0,3) payload=185");
+        out_chan!3257;
+        log(" [INJECT] from (0,6) to (6,3) payload=106");
+        out_chan!101482;
+        log(" [INJECT] from (0,6) to (1,3) payload=98");
+        out_chan!19554
+    }
+}
+
+defproc mock_core_tx_1_6 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (1,6) to (5,7) payload=172");
+        out_chan!89260;
+        log(" [INJECT] from (1,6) to (9,10) payload=135");
+        out_chan!157831;
+        log(" [INJECT] from (1,6) to (5,6) payload=142");
+        out_chan!88206;
+        log(" [INJECT] from (1,6) to (5,8) payload=230");
+        out_chan!90342;
+        log(" [INJECT] from (1,6) to (10,8) payload=30");
+        out_chan!172062
+    }
+}
+
+defproc mock_core_tx_2_6 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (2,6) to (1,9) payload=140");
+        out_chan!25740;
+        log(" [INJECT] from (2,6) to (3,4) payload=242");
+        out_chan!53490;
+        log(" [INJECT] from (2,6) to (4,2) payload=140");
+        out_chan!67724;
+        log(" [INJECT] from (2,6) to (2,9) payload=224");
+        out_chan!42208;
+        log(" [INJECT] from (2,6) to (4,10) payload=218");
+        out_chan!75994
+    }
+}
+
+defproc mock_core_tx_3_6 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (3,6) to (4,7) payload=158");
+        out_chan!72862;
+        log(" [INJECT] from (3,6) to (8,9) payload=229");
+        out_chan!140517;
+        log(" [INJECT] from (3,6) to (3,7) payload=35");
+        out_chan!56355;
+        log(" [INJECT] from (3,6) to (6,8) payload=124");
+        out_chan!106620;
+        log(" [INJECT] from (3,6) to (0,1) payload=198");
+        out_chan!1222
+    }
+}
+
+defproc mock_core_tx_4_6 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (4,6) to (1,5) payload=242");
+        out_chan!21746;
+        log(" [INJECT] from (4,6) to (0,10) payload=21");
+        out_chan!10261;
+        log(" [INJECT] from (4,6) to (7,4) payload=147");
+        out_chan!118931;
+        log(" [INJECT] from (4,6) to (6,5) payload=171");
+        out_chan!103595;
+        log(" [INJECT] from (4,6) to (9,9) payload=246");
+        out_chan!156918
+    }
+}
+
+defproc mock_core_tx_5_6 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (5,6) to (6,4) payload=120");
+        out_chan!102520;
+        log(" [INJECT] from (5,6) to (5,0) payload=28");
+        out_chan!81948;
+        log(" [INJECT] from (5,6) to (9,1) payload=28");
+        out_chan!148508;
+        log(" [INJECT] from (5,6) to (5,3) payload=117");
+        out_chan!85109;
+        log(" [INJECT] from (5,6) to (10,3) payload=163");
+        out_chan!167075
+    }
+}
+
+defproc mock_core_tx_6_6 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (6,6) to (9,3) payload=201");
+        out_chan!150729;
+        log(" [INJECT] from (6,6) to (8,4) payload=154");
+        out_chan!135322;
+        log(" [INJECT] from (6,6) to (6,10) payload=98");
+        out_chan!108642;
+        log(" [INJECT] from (6,6) to (0,2) payload=144");
+        out_chan!2192;
+        log(" [INJECT] from (6,6) to (7,1) payload=89");
+        out_chan!115801
+    }
+}
+
+defproc mock_core_tx_7_6 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (7,6) to (5,8) payload=251");
+        out_chan!90363;
+        log(" [INJECT] from (7,6) to (10,9) payload=178");
+        out_chan!173234;
+        log(" [INJECT] from (7,6) to (3,10) payload=51");
+        out_chan!59443;
+        log(" [INJECT] from (7,6) to (5,3) payload=66");
+        out_chan!85058;
+        log(" [INJECT] from (7,6) to (10,0) payload=75");
+        out_chan!163915
+    }
+}
+
+defproc mock_core_tx_8_6 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (8,6) to (4,0) payload=23");
+        out_chan!65559;
+        log(" [INJECT] from (8,6) to (3,10) payload=163");
+        out_chan!59555;
+        log(" [INJECT] from (8,6) to (2,1) payload=202");
+        out_chan!33994;
+        log(" [INJECT] from (8,6) to (8,9) payload=176");
+        out_chan!140464;
+        log(" [INJECT] from (8,6) to (10,5) payload=78");
+        out_chan!169038
+    }
+}
+
+defproc mock_core_tx_9_6 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (9,6) to (0,8) payload=251");
+        out_chan!8443;
+        log(" [INJECT] from (9,6) to (6,6) payload=86");
+        out_chan!104534;
+        log(" [INJECT] from (9,6) to (2,8) payload=95");
+        out_chan!41055;
+        log(" [INJECT] from (9,6) to (4,2) payload=8");
+        out_chan!67592;
+        log(" [INJECT] from (9,6) to (5,3) payload=43");
+        out_chan!85035
+    }
+}
+
+defproc mock_core_tx_10_6 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (10,6) to (5,7) payload=255");
+        out_chan!89343;
+        log(" [INJECT] from (10,6) to (1,8) payload=173");
+        out_chan!24749;
+        log(" [INJECT] from (10,6) to (4,7) payload=142");
+        out_chan!72846;
+        log(" [INJECT] from (10,6) to (8,5) payload=224");
+        out_chan!136416;
+        log(" [INJECT] from (10,6) to (9,6) payload=158");
+        out_chan!153758
+    }
+}
+
+defproc mock_core_tx_0_7 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (0,7) to (7,9) payload=128");
+        out_chan!124032;
+        log(" [INJECT] from (0,7) to (10,8) payload=213");
+        out_chan!172245;
+        log(" [INJECT] from (0,7) to (2,2) payload=105");
+        out_chan!34921;
+        log(" [INJECT] from (0,7) to (4,4) payload=161");
+        out_chan!69793;
+        log(" [INJECT] from (0,7) to (7,4) payload=197");
+        out_chan!118981
+    }
+}
+
+defproc mock_core_tx_1_7 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (1,7) to (7,6) payload=108");
+        out_chan!120940;
+        log(" [INJECT] from (1,7) to (2,4) payload=10");
+        out_chan!36874;
+        log(" [INJECT] from (1,7) to (2,0) payload=12");
+        out_chan!32780;
+        log(" [INJECT] from (1,7) to (6,10) payload=196");
+        out_chan!108740;
+        log(" [INJECT] from (1,7) to (1,5) payload=116");
+        out_chan!21620
+    }
+}
+
+defproc mock_core_tx_2_7 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (2,7) to (10,6) payload=10");
+        out_chan!169994;
+        log(" [INJECT] from (2,7) to (0,6) payload=184");
+        out_chan!6328;
+        log(" [INJECT] from (2,7) to (4,4) payload=104");
+        out_chan!69736;
+        log(" [INJECT] from (2,7) to (5,1) payload=196");
+        out_chan!83140;
+        log(" [INJECT] from (2,7) to (6,6) payload=206");
+        out_chan!104654
+    }
+}
+
+defproc mock_core_tx_3_7 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (3,7) to (6,6) payload=9");
+        out_chan!104457;
+        log(" [INJECT] from (3,7) to (0,4) payload=128");
+        out_chan!4224;
+        log(" [INJECT] from (3,7) to (7,0) payload=246");
+        out_chan!114934;
+        log(" [INJECT] from (3,7) to (3,5) payload=25");
+        out_chan!54297;
+        log(" [INJECT] from (3,7) to (4,10) payload=93");
+        out_chan!75869
+    }
+}
+
+defproc mock_core_tx_4_7 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (4,7) to (9,9) payload=157");
+        out_chan!156829;
+        log(" [INJECT] from (4,7) to (2,4) payload=4");
+        out_chan!36868;
+        log(" [INJECT] from (4,7) to (3,3) payload=68");
+        out_chan!52292;
+        log(" [INJECT] from (4,7) to (2,6) payload=246");
+        out_chan!39158;
+        log(" [INJECT] from (4,7) to (10,4) payload=97");
+        out_chan!168033
+    }
+}
+
+defproc mock_core_tx_5_7 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (5,7) to (4,0) payload=29");
+        out_chan!65565;
+        log(" [INJECT] from (5,7) to (5,3) payload=146");
+        out_chan!85138;
+        log(" [INJECT] from (5,7) to (3,4) payload=253");
+        out_chan!53501;
+        log(" [INJECT] from (5,7) to (3,7) payload=250");
+        out_chan!56570;
+        log(" [INJECT] from (5,7) to (8,8) payload=79");
+        out_chan!139343
+    }
+}
+
+defproc mock_core_tx_6_7 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (6,7) to (1,6) payload=223");
+        out_chan!22751;
+        log(" [INJECT] from (6,7) to (5,1) payload=254");
+        out_chan!83198;
+        log(" [INJECT] from (6,7) to (2,1) payload=110");
+        out_chan!33902;
+        log(" [INJECT] from (6,7) to (6,8) payload=88");
+        out_chan!106584;
+        log(" [INJECT] from (6,7) to (3,3) payload=120");
+        out_chan!52344
+    }
+}
+
+defproc mock_core_tx_7_7 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (7,7) to (2,9) payload=126");
+        out_chan!42110;
+        log(" [INJECT] from (7,7) to (5,8) payload=158");
+        out_chan!90270;
+        log(" [INJECT] from (7,7) to (10,10) payload=52");
+        out_chan!174132;
+        log(" [INJECT] from (7,7) to (9,3) payload=136");
+        out_chan!150664;
+        log(" [INJECT] from (7,7) to (9,6) payload=133");
+        out_chan!153733
+    }
+}
+
+defproc mock_core_tx_8_7 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (8,7) to (1,7) payload=51");
+        out_chan!23603;
+        log(" [INJECT] from (8,7) to (8,4) payload=51");
+        out_chan!135219;
+        log(" [INJECT] from (8,7) to (2,2) payload=206");
+        out_chan!35022;
+        log(" [INJECT] from (8,7) to (4,0) payload=205");
+        out_chan!65741;
+        log(" [INJECT] from (8,7) to (1,10) payload=3");
+        out_chan!26627
+    }
+}
+
+defproc mock_core_tx_9_7 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (9,7) to (8,2) payload=54");
+        out_chan!133174;
+        log(" [INJECT] from (9,7) to (3,6) payload=198");
+        out_chan!55494;
+        log(" [INJECT] from (9,7) to (8,0) payload=92");
+        out_chan!131164;
+        log(" [INJECT] from (9,7) to (3,7) payload=203");
+        out_chan!56523;
+        log(" [INJECT] from (9,7) to (10,9) payload=149");
+        out_chan!173205
+    }
+}
+
+defproc mock_core_tx_10_7 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (10,7) to (4,1) payload=240");
+        out_chan!66800;
+        log(" [INJECT] from (10,7) to (9,1) payload=229");
+        out_chan!148709;
+        log(" [INJECT] from (10,7) to (2,8) payload=216");
+        out_chan!41176;
+        log(" [INJECT] from (10,7) to (7,4) payload=23");
+        out_chan!118807;
+        log(" [INJECT] from (10,7) to (10,5) payload=70");
+        out_chan!169030
+    }
+}
+
+defproc mock_core_tx_0_8 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (0,8) to (0,5) payload=170");
+        out_chan!5290;
+        log(" [INJECT] from (0,8) to (0,3) payload=128");
+        out_chan!3200;
+        log(" [INJECT] from (0,8) to (3,4) payload=190");
+        out_chan!53438;
+        log(" [INJECT] from (0,8) to (0,5) payload=240");
+        out_chan!5360;
+        log(" [INJECT] from (0,8) to (2,2) payload=50");
+        out_chan!34866
+    }
+}
+
+defproc mock_core_tx_1_8 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (1,8) to (9,6) payload=76");
+        out_chan!153676;
+        log(" [INJECT] from (1,8) to (6,6) payload=27");
+        out_chan!104475;
+        log(" [INJECT] from (1,8) to (8,10) payload=159");
+        out_chan!141471;
+        log(" [INJECT] from (1,8) to (5,7) payload=43");
+        out_chan!89131;
+        log(" [INJECT] from (1,8) to (1,2) payload=140");
+        out_chan!18572
+    }
+}
+
+defproc mock_core_tx_2_8 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (2,8) to (10,6) payload=147");
+        out_chan!170131;
+        log(" [INJECT] from (2,8) to (8,4) payload=10");
+        out_chan!135178;
+        log(" [INJECT] from (2,8) to (0,0) payload=33");
+        out_chan!33;
+        log(" [INJECT] from (2,8) to (9,7) payload=222");
+        out_chan!154846;
+        log(" [INJECT] from (2,8) to (5,5) payload=237");
+        out_chan!87277
+    }
+}
+
+defproc mock_core_tx_3_8 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (3,8) to (0,9) payload=136");
+        out_chan!9352;
+        log(" [INJECT] from (3,8) to (10,1) payload=157");
+        out_chan!165021;
+        log(" [INJECT] from (3,8) to (4,3) payload=66");
+        out_chan!68674;
+        log(" [INJECT] from (3,8) to (2,5) payload=215");
+        out_chan!38103;
+        log(" [INJECT] from (3,8) to (9,6) payload=44");
+        out_chan!153644
+    }
+}
+
+defproc mock_core_tx_4_8 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (4,8) to (3,4) payload=143");
+        out_chan!53391;
+        log(" [INJECT] from (4,8) to (10,10) payload=17");
+        out_chan!174097;
+        log(" [INJECT] from (4,8) to (5,7) payload=230");
+        out_chan!89318;
+        log(" [INJECT] from (4,8) to (5,9) payload=159");
+        out_chan!91295;
+        log(" [INJECT] from (4,8) to (4,10) payload=112");
+        out_chan!75888
+    }
+}
+
+defproc mock_core_tx_5_8 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (5,8) to (1,5) payload=31");
+        out_chan!21535;
+        log(" [INJECT] from (5,8) to (7,6) payload=165");
+        out_chan!120997;
+        log(" [INJECT] from (5,8) to (3,9) payload=14");
+        out_chan!58382;
+        log(" [INJECT] from (5,8) to (3,5) payload=134");
+        out_chan!54406;
+        log(" [INJECT] from (5,8) to (4,1) payload=58");
+        out_chan!66618
+    }
+}
+
+defproc mock_core_tx_6_8 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (6,8) to (8,7) payload=189");
+        out_chan!138429;
+        log(" [INJECT] from (6,8) to (1,8) payload=142");
+        out_chan!24718;
+        log(" [INJECT] from (6,8) to (8,5) payload=200");
+        out_chan!136392;
+        log(" [INJECT] from (6,8) to (9,6) payload=130");
+        out_chan!153730;
+        log(" [INJECT] from (6,8) to (0,4) payload=91");
+        out_chan!4187
+    }
+}
+
+defproc mock_core_tx_7_8 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (7,8) to (7,2) payload=107");
+        out_chan!116843;
+        log(" [INJECT] from (7,8) to (3,3) payload=67");
+        out_chan!52291;
+        log(" [INJECT] from (7,8) to (5,4) payload=197");
+        out_chan!86213;
+        log(" [INJECT] from (7,8) to (5,9) payload=100");
+        out_chan!91236;
+        log(" [INJECT] from (7,8) to (2,2) payload=158");
+        out_chan!34974
+    }
+}
+
+defproc mock_core_tx_8_8 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (8,8) to (6,0) payload=154");
+        out_chan!98458;
+        log(" [INJECT] from (8,8) to (0,4) payload=69");
+        out_chan!4165;
+        log(" [INJECT] from (8,8) to (2,7) payload=61");
+        out_chan!39997;
+        log(" [INJECT] from (8,8) to (0,6) payload=240");
+        out_chan!6384;
+        log(" [INJECT] from (8,8) to (6,2) payload=129");
+        out_chan!100481
+    }
+}
+
+defproc mock_core_tx_9_8 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (9,8) to (4,9) payload=10");
+        out_chan!74762;
+        log(" [INJECT] from (9,8) to (8,1) payload=20");
+        out_chan!132116;
+        log(" [INJECT] from (9,8) to (2,1) payload=21");
+        out_chan!33813;
+        log(" [INJECT] from (9,8) to (9,10) payload=1");
+        out_chan!157697;
+        log(" [INJECT] from (9,8) to (6,10) payload=139");
+        out_chan!108683
+    }
+}
+
+defproc mock_core_tx_10_8 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (10,8) to (5,8) payload=115");
+        out_chan!90227;
+        log(" [INJECT] from (10,8) to (4,7) payload=29");
+        out_chan!72733;
+        log(" [INJECT] from (10,8) to (8,8) payload=219");
+        out_chan!139483;
+        log(" [INJECT] from (10,8) to (2,10) payload=207");
+        out_chan!43215;
+        log(" [INJECT] from (10,8) to (3,1) payload=136");
+        out_chan!50312
+    }
+}
+
+defproc mock_core_tx_0_9 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (0,9) to (7,0) payload=86");
+        out_chan!114774;
+        log(" [INJECT] from (0,9) to (2,10) payload=202");
+        out_chan!43210;
+        log(" [INJECT] from (0,9) to (5,10) payload=5");
+        out_chan!92165;
+        log(" [INJECT] from (0,9) to (7,2) payload=55");
+        out_chan!116791;
+        log(" [INJECT] from (0,9) to (4,6) payload=120");
+        out_chan!71800
+    }
+}
+
+defproc mock_core_tx_1_9 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (1,9) to (5,0) payload=201");
+        out_chan!82121;
+        log(" [INJECT] from (1,9) to (9,1) payload=150");
+        out_chan!148630;
+        log(" [INJECT] from (1,9) to (7,5) payload=168");
+        out_chan!119976;
+        log(" [INJECT] from (1,9) to (3,2) payload=88");
+        out_chan!51288;
+        log(" [INJECT] from (1,9) to (1,6) payload=141");
+        out_chan!22669
+    }
+}
+
+defproc mock_core_tx_2_9 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (2,9) to (4,10) payload=237");
+        out_chan!76013;
+        log(" [INJECT] from (2,9) to (8,7) payload=97");
+        out_chan!138337;
+        log(" [INJECT] from (2,9) to (9,8) payload=167");
+        out_chan!155815;
+        log(" [INJECT] from (2,9) to (1,8) payload=192");
+        out_chan!24768;
+        log(" [INJECT] from (2,9) to (8,8) payload=123");
+        out_chan!139387
+    }
+}
+
+defproc mock_core_tx_3_9 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (3,9) to (3,1) payload=169");
+        out_chan!50345;
+        log(" [INJECT] from (3,9) to (1,3) payload=234");
+        out_chan!19690;
+        log(" [INJECT] from (3,9) to (5,5) payload=189");
+        out_chan!87229;
+        log(" [INJECT] from (3,9) to (2,6) payload=46");
+        out_chan!38958;
+        log(" [INJECT] from (3,9) to (6,9) payload=107");
+        out_chan!107627
+    }
+}
+
+defproc mock_core_tx_4_9 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (4,9) to (5,5) payload=215");
+        out_chan!87255;
+        log(" [INJECT] from (4,9) to (4,1) payload=55");
+        out_chan!66615;
+        log(" [INJECT] from (4,9) to (5,7) payload=156");
+        out_chan!89244;
+        log(" [INJECT] from (4,9) to (2,3) payload=29");
+        out_chan!35869;
+        log(" [INJECT] from (4,9) to (3,6) payload=54");
+        out_chan!55350
+    }
+}
+
+defproc mock_core_tx_5_9 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (5,9) to (4,9) payload=67");
+        out_chan!74819;
+        log(" [INJECT] from (5,9) to (6,9) payload=119");
+        out_chan!107639;
+        log(" [INJECT] from (5,9) to (2,2) payload=181");
+        out_chan!34997;
+        log(" [INJECT] from (5,9) to (6,5) payload=78");
+        out_chan!103502;
+        log(" [INJECT] from (5,9) to (2,5) payload=8");
+        out_chan!37896
+    }
+}
+
+defproc mock_core_tx_6_9 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (6,9) to (9,10) payload=162");
+        out_chan!157858;
+        log(" [INJECT] from (6,9) to (10,0) payload=237");
+        out_chan!164077;
+        log(" [INJECT] from (6,9) to (2,6) payload=207");
+        out_chan!39119;
+        log(" [INJECT] from (6,9) to (3,5) payload=11");
+        out_chan!54283;
+        log(" [INJECT] from (6,9) to (1,2) payload=6");
+        out_chan!18438
+    }
+}
+
+defproc mock_core_tx_7_9 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (7,9) to (4,4) payload=22");
+        out_chan!69654;
+        log(" [INJECT] from (7,9) to (4,4) payload=48");
+        out_chan!69680;
+        log(" [INJECT] from (7,9) to (7,7) payload=193");
+        out_chan!122049;
+        log(" [INJECT] from (7,9) to (6,6) payload=26");
+        out_chan!104474;
+        log(" [INJECT] from (7,9) to (10,10) payload=164");
+        out_chan!174244
+    }
+}
+
+defproc mock_core_tx_8_9 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (8,9) to (7,1) payload=74");
+        out_chan!115786;
+        log(" [INJECT] from (8,9) to (0,0) payload=92");
+        out_chan!92;
+        log(" [INJECT] from (8,9) to (1,9) payload=114");
+        out_chan!25714;
+        log(" [INJECT] from (8,9) to (7,8) payload=165");
+        out_chan!123045;
+        log(" [INJECT] from (8,9) to (6,9) payload=247");
+        out_chan!107767
+    }
+}
+
+defproc mock_core_tx_9_9 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (9,9) to (10,4) payload=3");
+        out_chan!167939;
+        log(" [INJECT] from (9,9) to (6,0) payload=166");
+        out_chan!98470;
+        log(" [INJECT] from (9,9) to (0,10) payload=146");
+        out_chan!10386;
+        log(" [INJECT] from (9,9) to (0,10) payload=164");
+        out_chan!10404;
+        log(" [INJECT] from (9,9) to (1,4) payload=127");
+        out_chan!20607
+    }
+}
+
+defproc mock_core_tx_10_9 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (10,9) to (5,5) payload=221");
+        out_chan!87261;
+        log(" [INJECT] from (10,9) to (0,10) payload=66");
+        out_chan!10306;
+        log(" [INJECT] from (10,9) to (5,7) payload=203");
+        out_chan!89291;
+        log(" [INJECT] from (10,9) to (6,4) payload=62");
+        out_chan!102462;
+        log(" [INJECT] from (10,9) to (6,0) payload=45");
+        out_chan!98349
+    }
+}
+
+defproc mock_core_tx_0_10 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (0,10) to (8,4) payload=140");
+        out_chan!135308;
+        log(" [INJECT] from (0,10) to (7,9) payload=237");
+        out_chan!124141;
+        log(" [INJECT] from (0,10) to (1,10) payload=12");
+        out_chan!26636;
+        log(" [INJECT] from (0,10) to (8,4) payload=78");
+        out_chan!135246;
+        log(" [INJECT] from (0,10) to (9,7) payload=74");
+        out_chan!154698
+    }
+}
+
+defproc mock_core_tx_1_10 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (1,10) to (4,8) payload=131");
+        out_chan!73859;
+        log(" [INJECT] from (1,10) to (2,2) payload=11");
+        out_chan!34827;
+        log(" [INJECT] from (1,10) to (3,1) payload=46");
+        out_chan!50222;
+        log(" [INJECT] from (1,10) to (5,4) payload=228");
+        out_chan!86244;
+        log(" [INJECT] from (1,10) to (6,0) payload=57");
+        out_chan!98361
+    }
+}
+
+defproc mock_core_tx_2_10 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (2,10) to (0,9) payload=94");
+        out_chan!9310;
+        log(" [INJECT] from (2,10) to (6,0) payload=29");
+        out_chan!98333;
+        log(" [INJECT] from (2,10) to (3,4) payload=99");
+        out_chan!53347;
+        log(" [INJECT] from (2,10) to (1,2) payload=228");
+        out_chan!18660;
+        log(" [INJECT] from (2,10) to (9,8) payload=124");
+        out_chan!155772
+    }
+}
+
+defproc mock_core_tx_3_10 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (3,10) to (4,1) payload=223");
+        out_chan!66783;
+        log(" [INJECT] from (3,10) to (8,7) payload=77");
+        out_chan!138317;
+        log(" [INJECT] from (3,10) to (3,0) payload=31");
+        out_chan!49183;
+        log(" [INJECT] from (3,10) to (4,0) payload=129");
+        out_chan!65665;
+        log(" [INJECT] from (3,10) to (0,3) payload=38");
+        out_chan!3110
+    }
+}
+
+defproc mock_core_tx_4_10 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (4,10) to (3,8) payload=210");
+        out_chan!57554;
+        log(" [INJECT] from (4,10) to (7,2) payload=244");
+        out_chan!116980;
+        log(" [INJECT] from (4,10) to (4,7) payload=253");
+        out_chan!72957;
+        log(" [INJECT] from (4,10) to (7,3) payload=220");
+        out_chan!117980;
+        log(" [INJECT] from (4,10) to (7,5) payload=50");
+        out_chan!119858
+    }
+}
+
+defproc mock_core_tx_5_10 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (5,10) to (1,6) payload=134");
+        out_chan!22662;
+        log(" [INJECT] from (5,10) to (1,8) payload=49");
+        out_chan!24625;
+        log(" [INJECT] from (5,10) to (7,2) payload=84");
+        out_chan!116820;
+        log(" [INJECT] from (5,10) to (1,9) payload=21");
+        out_chan!25621;
+        log(" [INJECT] from (5,10) to (7,6) payload=109");
+        out_chan!120941
+    }
+}
+
+defproc mock_core_tx_6_10 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (6,10) to (10,3) payload=235");
+        out_chan!167147;
+        log(" [INJECT] from (6,10) to (5,7) payload=182");
+        out_chan!89270;
+        log(" [INJECT] from (6,10) to (1,4) payload=6");
+        out_chan!20486;
+        log(" [INJECT] from (6,10) to (8,3) payload=100");
+        out_chan!134244;
+        log(" [INJECT] from (6,10) to (9,9) payload=14");
+        out_chan!156686
+    }
+}
+
+defproc mock_core_tx_7_10 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (7,10) to (8,9) payload=131");
+        out_chan!140419;
+        log(" [INJECT] from (7,10) to (1,5) payload=243");
+        out_chan!21747;
+        log(" [INJECT] from (7,10) to (2,3) payload=122");
+        out_chan!35962;
+        log(" [INJECT] from (7,10) to (0,6) payload=140");
+        out_chan!6284;
+        log(" [INJECT] from (7,10) to (1,5) payload=87");
+        out_chan!21591
+    }
+}
+
+defproc mock_core_tx_8_10 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (8,10) to (9,7) payload=160");
+        out_chan!154784;
+        log(" [INJECT] from (8,10) to (5,8) payload=110");
+        out_chan!90222;
+        log(" [INJECT] from (8,10) to (2,3) payload=170");
+        out_chan!36010;
+        log(" [INJECT] from (8,10) to (1,10) payload=145");
+        out_chan!26769;
+        log(" [INJECT] from (8,10) to (1,8) payload=14");
+        out_chan!24590
+    }
+}
+
+defproc mock_core_tx_9_10 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (9,10) to (5,6) payload=186");
+        out_chan!88250;
+        log(" [INJECT] from (9,10) to (6,9) payload=214");
+        out_chan!107734;
+        log(" [INJECT] from (9,10) to (1,5) payload=231");
+        out_chan!21735;
+        log(" [INJECT] from (9,10) to (8,9) payload=157");
+        out_chan!140445;
+        log(" [INJECT] from (9,10) to (10,3) payload=214");
+        out_chan!167126
+    }
+}
+
+defproc mock_core_tx_10_10 (chan?(int<1>) trigger; chan!(int<18>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (10,10) to (6,1) payload=115");
+        out_chan!99443;
+        log(" [INJECT] from (10,10) to (0,1) payload=58");
+        out_chan!1082;
+        log(" [INJECT] from (10,10) to (8,7) payload=151");
+        out_chan!138391;
+        log(" [INJECT] from (10,10) to (7,4) payload=19");
+        out_chan!118803;
+        log(" [INJECT] from (10,10) to (5,4) payload=87");
+        out_chan!86103
+    }
+}
+
+defproc test_mesh () {
+    chan(int<1>) t_0_0;
+    chan(int<18>) core_to_ni_0_0, ni_to_core_0_0;
+    chan(int<1>) t_1_0;
+    chan(int<18>) core_to_ni_1_0, ni_to_core_1_0;
+    chan(int<1>) t_2_0;
+    chan(int<18>) core_to_ni_2_0, ni_to_core_2_0;
+    chan(int<1>) t_3_0;
+    chan(int<18>) core_to_ni_3_0, ni_to_core_3_0;
+    chan(int<1>) t_4_0;
+    chan(int<18>) core_to_ni_4_0, ni_to_core_4_0;
+    chan(int<1>) t_5_0;
+    chan(int<18>) core_to_ni_5_0, ni_to_core_5_0;
+    chan(int<1>) t_6_0;
+    chan(int<18>) core_to_ni_6_0, ni_to_core_6_0;
+    chan(int<1>) t_7_0;
+    chan(int<18>) core_to_ni_7_0, ni_to_core_7_0;
+    chan(int<1>) t_8_0;
+    chan(int<18>) core_to_ni_8_0, ni_to_core_8_0;
+    chan(int<1>) t_9_0;
+    chan(int<18>) core_to_ni_9_0, ni_to_core_9_0;
+    chan(int<1>) t_10_0;
+    chan(int<18>) core_to_ni_10_0, ni_to_core_10_0;
+    chan(int<1>) t_0_1;
+    chan(int<18>) core_to_ni_0_1, ni_to_core_0_1;
+    chan(int<1>) t_1_1;
+    chan(int<18>) core_to_ni_1_1, ni_to_core_1_1;
+    chan(int<1>) t_2_1;
+    chan(int<18>) core_to_ni_2_1, ni_to_core_2_1;
+    chan(int<1>) t_3_1;
+    chan(int<18>) core_to_ni_3_1, ni_to_core_3_1;
+    chan(int<1>) t_4_1;
+    chan(int<18>) core_to_ni_4_1, ni_to_core_4_1;
+    chan(int<1>) t_5_1;
+    chan(int<18>) core_to_ni_5_1, ni_to_core_5_1;
+    chan(int<1>) t_6_1;
+    chan(int<18>) core_to_ni_6_1, ni_to_core_6_1;
+    chan(int<1>) t_7_1;
+    chan(int<18>) core_to_ni_7_1, ni_to_core_7_1;
+    chan(int<1>) t_8_1;
+    chan(int<18>) core_to_ni_8_1, ni_to_core_8_1;
+    chan(int<1>) t_9_1;
+    chan(int<18>) core_to_ni_9_1, ni_to_core_9_1;
+    chan(int<1>) t_10_1;
+    chan(int<18>) core_to_ni_10_1, ni_to_core_10_1;
+    chan(int<1>) t_0_2;
+    chan(int<18>) core_to_ni_0_2, ni_to_core_0_2;
+    chan(int<1>) t_1_2;
+    chan(int<18>) core_to_ni_1_2, ni_to_core_1_2;
+    chan(int<1>) t_2_2;
+    chan(int<18>) core_to_ni_2_2, ni_to_core_2_2;
+    chan(int<1>) t_3_2;
+    chan(int<18>) core_to_ni_3_2, ni_to_core_3_2;
+    chan(int<1>) t_4_2;
+    chan(int<18>) core_to_ni_4_2, ni_to_core_4_2;
+    chan(int<1>) t_5_2;
+    chan(int<18>) core_to_ni_5_2, ni_to_core_5_2;
+    chan(int<1>) t_6_2;
+    chan(int<18>) core_to_ni_6_2, ni_to_core_6_2;
+    chan(int<1>) t_7_2;
+    chan(int<18>) core_to_ni_7_2, ni_to_core_7_2;
+    chan(int<1>) t_8_2;
+    chan(int<18>) core_to_ni_8_2, ni_to_core_8_2;
+    chan(int<1>) t_9_2;
+    chan(int<18>) core_to_ni_9_2, ni_to_core_9_2;
+    chan(int<1>) t_10_2;
+    chan(int<18>) core_to_ni_10_2, ni_to_core_10_2;
+    chan(int<1>) t_0_3;
+    chan(int<18>) core_to_ni_0_3, ni_to_core_0_3;
+    chan(int<1>) t_1_3;
+    chan(int<18>) core_to_ni_1_3, ni_to_core_1_3;
+    chan(int<1>) t_2_3;
+    chan(int<18>) core_to_ni_2_3, ni_to_core_2_3;
+    chan(int<1>) t_3_3;
+    chan(int<18>) core_to_ni_3_3, ni_to_core_3_3;
+    chan(int<1>) t_4_3;
+    chan(int<18>) core_to_ni_4_3, ni_to_core_4_3;
+    chan(int<1>) t_5_3;
+    chan(int<18>) core_to_ni_5_3, ni_to_core_5_3;
+    chan(int<1>) t_6_3;
+    chan(int<18>) core_to_ni_6_3, ni_to_core_6_3;
+    chan(int<1>) t_7_3;
+    chan(int<18>) core_to_ni_7_3, ni_to_core_7_3;
+    chan(int<1>) t_8_3;
+    chan(int<18>) core_to_ni_8_3, ni_to_core_8_3;
+    chan(int<1>) t_9_3;
+    chan(int<18>) core_to_ni_9_3, ni_to_core_9_3;
+    chan(int<1>) t_10_3;
+    chan(int<18>) core_to_ni_10_3, ni_to_core_10_3;
+    chan(int<1>) t_0_4;
+    chan(int<18>) core_to_ni_0_4, ni_to_core_0_4;
+    chan(int<1>) t_1_4;
+    chan(int<18>) core_to_ni_1_4, ni_to_core_1_4;
+    chan(int<1>) t_2_4;
+    chan(int<18>) core_to_ni_2_4, ni_to_core_2_4;
+    chan(int<1>) t_3_4;
+    chan(int<18>) core_to_ni_3_4, ni_to_core_3_4;
+    chan(int<1>) t_4_4;
+    chan(int<18>) core_to_ni_4_4, ni_to_core_4_4;
+    chan(int<1>) t_5_4;
+    chan(int<18>) core_to_ni_5_4, ni_to_core_5_4;
+    chan(int<1>) t_6_4;
+    chan(int<18>) core_to_ni_6_4, ni_to_core_6_4;
+    chan(int<1>) t_7_4;
+    chan(int<18>) core_to_ni_7_4, ni_to_core_7_4;
+    chan(int<1>) t_8_4;
+    chan(int<18>) core_to_ni_8_4, ni_to_core_8_4;
+    chan(int<1>) t_9_4;
+    chan(int<18>) core_to_ni_9_4, ni_to_core_9_4;
+    chan(int<1>) t_10_4;
+    chan(int<18>) core_to_ni_10_4, ni_to_core_10_4;
+    chan(int<1>) t_0_5;
+    chan(int<18>) core_to_ni_0_5, ni_to_core_0_5;
+    chan(int<1>) t_1_5;
+    chan(int<18>) core_to_ni_1_5, ni_to_core_1_5;
+    chan(int<1>) t_2_5;
+    chan(int<18>) core_to_ni_2_5, ni_to_core_2_5;
+    chan(int<1>) t_3_5;
+    chan(int<18>) core_to_ni_3_5, ni_to_core_3_5;
+    chan(int<1>) t_4_5;
+    chan(int<18>) core_to_ni_4_5, ni_to_core_4_5;
+    chan(int<1>) t_5_5;
+    chan(int<18>) core_to_ni_5_5, ni_to_core_5_5;
+    chan(int<1>) t_6_5;
+    chan(int<18>) core_to_ni_6_5, ni_to_core_6_5;
+    chan(int<1>) t_7_5;
+    chan(int<18>) core_to_ni_7_5, ni_to_core_7_5;
+    chan(int<1>) t_8_5;
+    chan(int<18>) core_to_ni_8_5, ni_to_core_8_5;
+    chan(int<1>) t_9_5;
+    chan(int<18>) core_to_ni_9_5, ni_to_core_9_5;
+    chan(int<1>) t_10_5;
+    chan(int<18>) core_to_ni_10_5, ni_to_core_10_5;
+    chan(int<1>) t_0_6;
+    chan(int<18>) core_to_ni_0_6, ni_to_core_0_6;
+    chan(int<1>) t_1_6;
+    chan(int<18>) core_to_ni_1_6, ni_to_core_1_6;
+    chan(int<1>) t_2_6;
+    chan(int<18>) core_to_ni_2_6, ni_to_core_2_6;
+    chan(int<1>) t_3_6;
+    chan(int<18>) core_to_ni_3_6, ni_to_core_3_6;
+    chan(int<1>) t_4_6;
+    chan(int<18>) core_to_ni_4_6, ni_to_core_4_6;
+    chan(int<1>) t_5_6;
+    chan(int<18>) core_to_ni_5_6, ni_to_core_5_6;
+    chan(int<1>) t_6_6;
+    chan(int<18>) core_to_ni_6_6, ni_to_core_6_6;
+    chan(int<1>) t_7_6;
+    chan(int<18>) core_to_ni_7_6, ni_to_core_7_6;
+    chan(int<1>) t_8_6;
+    chan(int<18>) core_to_ni_8_6, ni_to_core_8_6;
+    chan(int<1>) t_9_6;
+    chan(int<18>) core_to_ni_9_6, ni_to_core_9_6;
+    chan(int<1>) t_10_6;
+    chan(int<18>) core_to_ni_10_6, ni_to_core_10_6;
+    chan(int<1>) t_0_7;
+    chan(int<18>) core_to_ni_0_7, ni_to_core_0_7;
+    chan(int<1>) t_1_7;
+    chan(int<18>) core_to_ni_1_7, ni_to_core_1_7;
+    chan(int<1>) t_2_7;
+    chan(int<18>) core_to_ni_2_7, ni_to_core_2_7;
+    chan(int<1>) t_3_7;
+    chan(int<18>) core_to_ni_3_7, ni_to_core_3_7;
+    chan(int<1>) t_4_7;
+    chan(int<18>) core_to_ni_4_7, ni_to_core_4_7;
+    chan(int<1>) t_5_7;
+    chan(int<18>) core_to_ni_5_7, ni_to_core_5_7;
+    chan(int<1>) t_6_7;
+    chan(int<18>) core_to_ni_6_7, ni_to_core_6_7;
+    chan(int<1>) t_7_7;
+    chan(int<18>) core_to_ni_7_7, ni_to_core_7_7;
+    chan(int<1>) t_8_7;
+    chan(int<18>) core_to_ni_8_7, ni_to_core_8_7;
+    chan(int<1>) t_9_7;
+    chan(int<18>) core_to_ni_9_7, ni_to_core_9_7;
+    chan(int<1>) t_10_7;
+    chan(int<18>) core_to_ni_10_7, ni_to_core_10_7;
+    chan(int<1>) t_0_8;
+    chan(int<18>) core_to_ni_0_8, ni_to_core_0_8;
+    chan(int<1>) t_1_8;
+    chan(int<18>) core_to_ni_1_8, ni_to_core_1_8;
+    chan(int<1>) t_2_8;
+    chan(int<18>) core_to_ni_2_8, ni_to_core_2_8;
+    chan(int<1>) t_3_8;
+    chan(int<18>) core_to_ni_3_8, ni_to_core_3_8;
+    chan(int<1>) t_4_8;
+    chan(int<18>) core_to_ni_4_8, ni_to_core_4_8;
+    chan(int<1>) t_5_8;
+    chan(int<18>) core_to_ni_5_8, ni_to_core_5_8;
+    chan(int<1>) t_6_8;
+    chan(int<18>) core_to_ni_6_8, ni_to_core_6_8;
+    chan(int<1>) t_7_8;
+    chan(int<18>) core_to_ni_7_8, ni_to_core_7_8;
+    chan(int<1>) t_8_8;
+    chan(int<18>) core_to_ni_8_8, ni_to_core_8_8;
+    chan(int<1>) t_9_8;
+    chan(int<18>) core_to_ni_9_8, ni_to_core_9_8;
+    chan(int<1>) t_10_8;
+    chan(int<18>) core_to_ni_10_8, ni_to_core_10_8;
+    chan(int<1>) t_0_9;
+    chan(int<18>) core_to_ni_0_9, ni_to_core_0_9;
+    chan(int<1>) t_1_9;
+    chan(int<18>) core_to_ni_1_9, ni_to_core_1_9;
+    chan(int<1>) t_2_9;
+    chan(int<18>) core_to_ni_2_9, ni_to_core_2_9;
+    chan(int<1>) t_3_9;
+    chan(int<18>) core_to_ni_3_9, ni_to_core_3_9;
+    chan(int<1>) t_4_9;
+    chan(int<18>) core_to_ni_4_9, ni_to_core_4_9;
+    chan(int<1>) t_5_9;
+    chan(int<18>) core_to_ni_5_9, ni_to_core_5_9;
+    chan(int<1>) t_6_9;
+    chan(int<18>) core_to_ni_6_9, ni_to_core_6_9;
+    chan(int<1>) t_7_9;
+    chan(int<18>) core_to_ni_7_9, ni_to_core_7_9;
+    chan(int<1>) t_8_9;
+    chan(int<18>) core_to_ni_8_9, ni_to_core_8_9;
+    chan(int<1>) t_9_9;
+    chan(int<18>) core_to_ni_9_9, ni_to_core_9_9;
+    chan(int<1>) t_10_9;
+    chan(int<18>) core_to_ni_10_9, ni_to_core_10_9;
+    chan(int<1>) t_0_10;
+    chan(int<18>) core_to_ni_0_10, ni_to_core_0_10;
+    chan(int<1>) t_1_10;
+    chan(int<18>) core_to_ni_1_10, ni_to_core_1_10;
+    chan(int<1>) t_2_10;
+    chan(int<18>) core_to_ni_2_10, ni_to_core_2_10;
+    chan(int<1>) t_3_10;
+    chan(int<18>) core_to_ni_3_10, ni_to_core_3_10;
+    chan(int<1>) t_4_10;
+    chan(int<18>) core_to_ni_4_10, ni_to_core_4_10;
+    chan(int<1>) t_5_10;
+    chan(int<18>) core_to_ni_5_10, ni_to_core_5_10;
+    chan(int<1>) t_6_10;
+    chan(int<18>) core_to_ni_6_10, ni_to_core_6_10;
+    chan(int<1>) t_7_10;
+    chan(int<18>) core_to_ni_7_10, ni_to_core_7_10;
+    chan(int<1>) t_8_10;
+    chan(int<18>) core_to_ni_8_10, ni_to_core_8_10;
+    chan(int<1>) t_9_10;
+    chan(int<18>) core_to_ni_9_10, ni_to_core_9_10;
+    chan(int<1>) t_10_10;
+    chan(int<18>) core_to_ni_10_10, ni_to_core_10_10;
+
+    chan(int<18>) ni_to_r_0_0, r_to_ni_0_0;
+    chan(int<18>) ni_to_r_1_0, r_to_ni_1_0;
+    chan(int<18>) ni_to_r_2_0, r_to_ni_2_0;
+    chan(int<18>) ni_to_r_3_0, r_to_ni_3_0;
+    chan(int<18>) ni_to_r_4_0, r_to_ni_4_0;
+    chan(int<18>) ni_to_r_5_0, r_to_ni_5_0;
+    chan(int<18>) ni_to_r_6_0, r_to_ni_6_0;
+    chan(int<18>) ni_to_r_7_0, r_to_ni_7_0;
+    chan(int<18>) ni_to_r_8_0, r_to_ni_8_0;
+    chan(int<18>) ni_to_r_9_0, r_to_ni_9_0;
+    chan(int<18>) ni_to_r_10_0, r_to_ni_10_0;
+    chan(int<18>) ni_to_r_0_1, r_to_ni_0_1;
+    chan(int<18>) ni_to_r_1_1, r_to_ni_1_1;
+    chan(int<18>) ni_to_r_2_1, r_to_ni_2_1;
+    chan(int<18>) ni_to_r_3_1, r_to_ni_3_1;
+    chan(int<18>) ni_to_r_4_1, r_to_ni_4_1;
+    chan(int<18>) ni_to_r_5_1, r_to_ni_5_1;
+    chan(int<18>) ni_to_r_6_1, r_to_ni_6_1;
+    chan(int<18>) ni_to_r_7_1, r_to_ni_7_1;
+    chan(int<18>) ni_to_r_8_1, r_to_ni_8_1;
+    chan(int<18>) ni_to_r_9_1, r_to_ni_9_1;
+    chan(int<18>) ni_to_r_10_1, r_to_ni_10_1;
+    chan(int<18>) ni_to_r_0_2, r_to_ni_0_2;
+    chan(int<18>) ni_to_r_1_2, r_to_ni_1_2;
+    chan(int<18>) ni_to_r_2_2, r_to_ni_2_2;
+    chan(int<18>) ni_to_r_3_2, r_to_ni_3_2;
+    chan(int<18>) ni_to_r_4_2, r_to_ni_4_2;
+    chan(int<18>) ni_to_r_5_2, r_to_ni_5_2;
+    chan(int<18>) ni_to_r_6_2, r_to_ni_6_2;
+    chan(int<18>) ni_to_r_7_2, r_to_ni_7_2;
+    chan(int<18>) ni_to_r_8_2, r_to_ni_8_2;
+    chan(int<18>) ni_to_r_9_2, r_to_ni_9_2;
+    chan(int<18>) ni_to_r_10_2, r_to_ni_10_2;
+    chan(int<18>) ni_to_r_0_3, r_to_ni_0_3;
+    chan(int<18>) ni_to_r_1_3, r_to_ni_1_3;
+    chan(int<18>) ni_to_r_2_3, r_to_ni_2_3;
+    chan(int<18>) ni_to_r_3_3, r_to_ni_3_3;
+    chan(int<18>) ni_to_r_4_3, r_to_ni_4_3;
+    chan(int<18>) ni_to_r_5_3, r_to_ni_5_3;
+    chan(int<18>) ni_to_r_6_3, r_to_ni_6_3;
+    chan(int<18>) ni_to_r_7_3, r_to_ni_7_3;
+    chan(int<18>) ni_to_r_8_3, r_to_ni_8_3;
+    chan(int<18>) ni_to_r_9_3, r_to_ni_9_3;
+    chan(int<18>) ni_to_r_10_3, r_to_ni_10_3;
+    chan(int<18>) ni_to_r_0_4, r_to_ni_0_4;
+    chan(int<18>) ni_to_r_1_4, r_to_ni_1_4;
+    chan(int<18>) ni_to_r_2_4, r_to_ni_2_4;
+    chan(int<18>) ni_to_r_3_4, r_to_ni_3_4;
+    chan(int<18>) ni_to_r_4_4, r_to_ni_4_4;
+    chan(int<18>) ni_to_r_5_4, r_to_ni_5_4;
+    chan(int<18>) ni_to_r_6_4, r_to_ni_6_4;
+    chan(int<18>) ni_to_r_7_4, r_to_ni_7_4;
+    chan(int<18>) ni_to_r_8_4, r_to_ni_8_4;
+    chan(int<18>) ni_to_r_9_4, r_to_ni_9_4;
+    chan(int<18>) ni_to_r_10_4, r_to_ni_10_4;
+    chan(int<18>) ni_to_r_0_5, r_to_ni_0_5;
+    chan(int<18>) ni_to_r_1_5, r_to_ni_1_5;
+    chan(int<18>) ni_to_r_2_5, r_to_ni_2_5;
+    chan(int<18>) ni_to_r_3_5, r_to_ni_3_5;
+    chan(int<18>) ni_to_r_4_5, r_to_ni_4_5;
+    chan(int<18>) ni_to_r_5_5, r_to_ni_5_5;
+    chan(int<18>) ni_to_r_6_5, r_to_ni_6_5;
+    chan(int<18>) ni_to_r_7_5, r_to_ni_7_5;
+    chan(int<18>) ni_to_r_8_5, r_to_ni_8_5;
+    chan(int<18>) ni_to_r_9_5, r_to_ni_9_5;
+    chan(int<18>) ni_to_r_10_5, r_to_ni_10_5;
+    chan(int<18>) ni_to_r_0_6, r_to_ni_0_6;
+    chan(int<18>) ni_to_r_1_6, r_to_ni_1_6;
+    chan(int<18>) ni_to_r_2_6, r_to_ni_2_6;
+    chan(int<18>) ni_to_r_3_6, r_to_ni_3_6;
+    chan(int<18>) ni_to_r_4_6, r_to_ni_4_6;
+    chan(int<18>) ni_to_r_5_6, r_to_ni_5_6;
+    chan(int<18>) ni_to_r_6_6, r_to_ni_6_6;
+    chan(int<18>) ni_to_r_7_6, r_to_ni_7_6;
+    chan(int<18>) ni_to_r_8_6, r_to_ni_8_6;
+    chan(int<18>) ni_to_r_9_6, r_to_ni_9_6;
+    chan(int<18>) ni_to_r_10_6, r_to_ni_10_6;
+    chan(int<18>) ni_to_r_0_7, r_to_ni_0_7;
+    chan(int<18>) ni_to_r_1_7, r_to_ni_1_7;
+    chan(int<18>) ni_to_r_2_7, r_to_ni_2_7;
+    chan(int<18>) ni_to_r_3_7, r_to_ni_3_7;
+    chan(int<18>) ni_to_r_4_7, r_to_ni_4_7;
+    chan(int<18>) ni_to_r_5_7, r_to_ni_5_7;
+    chan(int<18>) ni_to_r_6_7, r_to_ni_6_7;
+    chan(int<18>) ni_to_r_7_7, r_to_ni_7_7;
+    chan(int<18>) ni_to_r_8_7, r_to_ni_8_7;
+    chan(int<18>) ni_to_r_9_7, r_to_ni_9_7;
+    chan(int<18>) ni_to_r_10_7, r_to_ni_10_7;
+    chan(int<18>) ni_to_r_0_8, r_to_ni_0_8;
+    chan(int<18>) ni_to_r_1_8, r_to_ni_1_8;
+    chan(int<18>) ni_to_r_2_8, r_to_ni_2_8;
+    chan(int<18>) ni_to_r_3_8, r_to_ni_3_8;
+    chan(int<18>) ni_to_r_4_8, r_to_ni_4_8;
+    chan(int<18>) ni_to_r_5_8, r_to_ni_5_8;
+    chan(int<18>) ni_to_r_6_8, r_to_ni_6_8;
+    chan(int<18>) ni_to_r_7_8, r_to_ni_7_8;
+    chan(int<18>) ni_to_r_8_8, r_to_ni_8_8;
+    chan(int<18>) ni_to_r_9_8, r_to_ni_9_8;
+    chan(int<18>) ni_to_r_10_8, r_to_ni_10_8;
+    chan(int<18>) ni_to_r_0_9, r_to_ni_0_9;
+    chan(int<18>) ni_to_r_1_9, r_to_ni_1_9;
+    chan(int<18>) ni_to_r_2_9, r_to_ni_2_9;
+    chan(int<18>) ni_to_r_3_9, r_to_ni_3_9;
+    chan(int<18>) ni_to_r_4_9, r_to_ni_4_9;
+    chan(int<18>) ni_to_r_5_9, r_to_ni_5_9;
+    chan(int<18>) ni_to_r_6_9, r_to_ni_6_9;
+    chan(int<18>) ni_to_r_7_9, r_to_ni_7_9;
+    chan(int<18>) ni_to_r_8_9, r_to_ni_8_9;
+    chan(int<18>) ni_to_r_9_9, r_to_ni_9_9;
+    chan(int<18>) ni_to_r_10_9, r_to_ni_10_9;
+    chan(int<18>) ni_to_r_0_10, r_to_ni_0_10;
+    chan(int<18>) ni_to_r_1_10, r_to_ni_1_10;
+    chan(int<18>) ni_to_r_2_10, r_to_ni_2_10;
+    chan(int<18>) ni_to_r_3_10, r_to_ni_3_10;
+    chan(int<18>) ni_to_r_4_10, r_to_ni_4_10;
+    chan(int<18>) ni_to_r_5_10, r_to_ni_5_10;
+    chan(int<18>) ni_to_r_6_10, r_to_ni_6_10;
+    chan(int<18>) ni_to_r_7_10, r_to_ni_7_10;
+    chan(int<18>) ni_to_r_8_10, r_to_ni_8_10;
+    chan(int<18>) ni_to_r_9_10, r_to_ni_9_10;
+    chan(int<18>) ni_to_r_10_10, r_to_ni_10_10;
+
+    chan(int<18>) e_0_0_to_1_0, w_1_0_to_0_0;
+    chan(int<18>) e_1_0_to_2_0, w_2_0_to_1_0;
+    chan(int<18>) e_2_0_to_3_0, w_3_0_to_2_0;
+    chan(int<18>) e_3_0_to_4_0, w_4_0_to_3_0;
+    chan(int<18>) e_4_0_to_5_0, w_5_0_to_4_0;
+    chan(int<18>) e_5_0_to_6_0, w_6_0_to_5_0;
+    chan(int<18>) e_6_0_to_7_0, w_7_0_to_6_0;
+    chan(int<18>) e_7_0_to_8_0, w_8_0_to_7_0;
+    chan(int<18>) e_8_0_to_9_0, w_9_0_to_8_0;
+    chan(int<18>) e_9_0_to_10_0, w_10_0_to_9_0;
+    chan(int<18>) e_0_1_to_1_1, w_1_1_to_0_1;
+    chan(int<18>) e_1_1_to_2_1, w_2_1_to_1_1;
+    chan(int<18>) e_2_1_to_3_1, w_3_1_to_2_1;
+    chan(int<18>) e_3_1_to_4_1, w_4_1_to_3_1;
+    chan(int<18>) e_4_1_to_5_1, w_5_1_to_4_1;
+    chan(int<18>) e_5_1_to_6_1, w_6_1_to_5_1;
+    chan(int<18>) e_6_1_to_7_1, w_7_1_to_6_1;
+    chan(int<18>) e_7_1_to_8_1, w_8_1_to_7_1;
+    chan(int<18>) e_8_1_to_9_1, w_9_1_to_8_1;
+    chan(int<18>) e_9_1_to_10_1, w_10_1_to_9_1;
+    chan(int<18>) e_0_2_to_1_2, w_1_2_to_0_2;
+    chan(int<18>) e_1_2_to_2_2, w_2_2_to_1_2;
+    chan(int<18>) e_2_2_to_3_2, w_3_2_to_2_2;
+    chan(int<18>) e_3_2_to_4_2, w_4_2_to_3_2;
+    chan(int<18>) e_4_2_to_5_2, w_5_2_to_4_2;
+    chan(int<18>) e_5_2_to_6_2, w_6_2_to_5_2;
+    chan(int<18>) e_6_2_to_7_2, w_7_2_to_6_2;
+    chan(int<18>) e_7_2_to_8_2, w_8_2_to_7_2;
+    chan(int<18>) e_8_2_to_9_2, w_9_2_to_8_2;
+    chan(int<18>) e_9_2_to_10_2, w_10_2_to_9_2;
+    chan(int<18>) e_0_3_to_1_3, w_1_3_to_0_3;
+    chan(int<18>) e_1_3_to_2_3, w_2_3_to_1_3;
+    chan(int<18>) e_2_3_to_3_3, w_3_3_to_2_3;
+    chan(int<18>) e_3_3_to_4_3, w_4_3_to_3_3;
+    chan(int<18>) e_4_3_to_5_3, w_5_3_to_4_3;
+    chan(int<18>) e_5_3_to_6_3, w_6_3_to_5_3;
+    chan(int<18>) e_6_3_to_7_3, w_7_3_to_6_3;
+    chan(int<18>) e_7_3_to_8_3, w_8_3_to_7_3;
+    chan(int<18>) e_8_3_to_9_3, w_9_3_to_8_3;
+    chan(int<18>) e_9_3_to_10_3, w_10_3_to_9_3;
+    chan(int<18>) e_0_4_to_1_4, w_1_4_to_0_4;
+    chan(int<18>) e_1_4_to_2_4, w_2_4_to_1_4;
+    chan(int<18>) e_2_4_to_3_4, w_3_4_to_2_4;
+    chan(int<18>) e_3_4_to_4_4, w_4_4_to_3_4;
+    chan(int<18>) e_4_4_to_5_4, w_5_4_to_4_4;
+    chan(int<18>) e_5_4_to_6_4, w_6_4_to_5_4;
+    chan(int<18>) e_6_4_to_7_4, w_7_4_to_6_4;
+    chan(int<18>) e_7_4_to_8_4, w_8_4_to_7_4;
+    chan(int<18>) e_8_4_to_9_4, w_9_4_to_8_4;
+    chan(int<18>) e_9_4_to_10_4, w_10_4_to_9_4;
+    chan(int<18>) e_0_5_to_1_5, w_1_5_to_0_5;
+    chan(int<18>) e_1_5_to_2_5, w_2_5_to_1_5;
+    chan(int<18>) e_2_5_to_3_5, w_3_5_to_2_5;
+    chan(int<18>) e_3_5_to_4_5, w_4_5_to_3_5;
+    chan(int<18>) e_4_5_to_5_5, w_5_5_to_4_5;
+    chan(int<18>) e_5_5_to_6_5, w_6_5_to_5_5;
+    chan(int<18>) e_6_5_to_7_5, w_7_5_to_6_5;
+    chan(int<18>) e_7_5_to_8_5, w_8_5_to_7_5;
+    chan(int<18>) e_8_5_to_9_5, w_9_5_to_8_5;
+    chan(int<18>) e_9_5_to_10_5, w_10_5_to_9_5;
+    chan(int<18>) e_0_6_to_1_6, w_1_6_to_0_6;
+    chan(int<18>) e_1_6_to_2_6, w_2_6_to_1_6;
+    chan(int<18>) e_2_6_to_3_6, w_3_6_to_2_6;
+    chan(int<18>) e_3_6_to_4_6, w_4_6_to_3_6;
+    chan(int<18>) e_4_6_to_5_6, w_5_6_to_4_6;
+    chan(int<18>) e_5_6_to_6_6, w_6_6_to_5_6;
+    chan(int<18>) e_6_6_to_7_6, w_7_6_to_6_6;
+    chan(int<18>) e_7_6_to_8_6, w_8_6_to_7_6;
+    chan(int<18>) e_8_6_to_9_6, w_9_6_to_8_6;
+    chan(int<18>) e_9_6_to_10_6, w_10_6_to_9_6;
+    chan(int<18>) e_0_7_to_1_7, w_1_7_to_0_7;
+    chan(int<18>) e_1_7_to_2_7, w_2_7_to_1_7;
+    chan(int<18>) e_2_7_to_3_7, w_3_7_to_2_7;
+    chan(int<18>) e_3_7_to_4_7, w_4_7_to_3_7;
+    chan(int<18>) e_4_7_to_5_7, w_5_7_to_4_7;
+    chan(int<18>) e_5_7_to_6_7, w_6_7_to_5_7;
+    chan(int<18>) e_6_7_to_7_7, w_7_7_to_6_7;
+    chan(int<18>) e_7_7_to_8_7, w_8_7_to_7_7;
+    chan(int<18>) e_8_7_to_9_7, w_9_7_to_8_7;
+    chan(int<18>) e_9_7_to_10_7, w_10_7_to_9_7;
+    chan(int<18>) e_0_8_to_1_8, w_1_8_to_0_8;
+    chan(int<18>) e_1_8_to_2_8, w_2_8_to_1_8;
+    chan(int<18>) e_2_8_to_3_8, w_3_8_to_2_8;
+    chan(int<18>) e_3_8_to_4_8, w_4_8_to_3_8;
+    chan(int<18>) e_4_8_to_5_8, w_5_8_to_4_8;
+    chan(int<18>) e_5_8_to_6_8, w_6_8_to_5_8;
+    chan(int<18>) e_6_8_to_7_8, w_7_8_to_6_8;
+    chan(int<18>) e_7_8_to_8_8, w_8_8_to_7_8;
+    chan(int<18>) e_8_8_to_9_8, w_9_8_to_8_8;
+    chan(int<18>) e_9_8_to_10_8, w_10_8_to_9_8;
+    chan(int<18>) e_0_9_to_1_9, w_1_9_to_0_9;
+    chan(int<18>) e_1_9_to_2_9, w_2_9_to_1_9;
+    chan(int<18>) e_2_9_to_3_9, w_3_9_to_2_9;
+    chan(int<18>) e_3_9_to_4_9, w_4_9_to_3_9;
+    chan(int<18>) e_4_9_to_5_9, w_5_9_to_4_9;
+    chan(int<18>) e_5_9_to_6_9, w_6_9_to_5_9;
+    chan(int<18>) e_6_9_to_7_9, w_7_9_to_6_9;
+    chan(int<18>) e_7_9_to_8_9, w_8_9_to_7_9;
+    chan(int<18>) e_8_9_to_9_9, w_9_9_to_8_9;
+    chan(int<18>) e_9_9_to_10_9, w_10_9_to_9_9;
+    chan(int<18>) e_0_10_to_1_10, w_1_10_to_0_10;
+    chan(int<18>) e_1_10_to_2_10, w_2_10_to_1_10;
+    chan(int<18>) e_2_10_to_3_10, w_3_10_to_2_10;
+    chan(int<18>) e_3_10_to_4_10, w_4_10_to_3_10;
+    chan(int<18>) e_4_10_to_5_10, w_5_10_to_4_10;
+    chan(int<18>) e_5_10_to_6_10, w_6_10_to_5_10;
+    chan(int<18>) e_6_10_to_7_10, w_7_10_to_6_10;
+    chan(int<18>) e_7_10_to_8_10, w_8_10_to_7_10;
+    chan(int<18>) e_8_10_to_9_10, w_9_10_to_8_10;
+    chan(int<18>) e_9_10_to_10_10, w_10_10_to_9_10;
+    chan(int<18>) n_0_0_to_0_1, s_0_1_to_0_0;
+    chan(int<18>) n_0_1_to_0_2, s_0_2_to_0_1;
+    chan(int<18>) n_0_2_to_0_3, s_0_3_to_0_2;
+    chan(int<18>) n_0_3_to_0_4, s_0_4_to_0_3;
+    chan(int<18>) n_0_4_to_0_5, s_0_5_to_0_4;
+    chan(int<18>) n_0_5_to_0_6, s_0_6_to_0_5;
+    chan(int<18>) n_0_6_to_0_7, s_0_7_to_0_6;
+    chan(int<18>) n_0_7_to_0_8, s_0_8_to_0_7;
+    chan(int<18>) n_0_8_to_0_9, s_0_9_to_0_8;
+    chan(int<18>) n_0_9_to_0_10, s_0_10_to_0_9;
+    chan(int<18>) n_1_0_to_1_1, s_1_1_to_1_0;
+    chan(int<18>) n_1_1_to_1_2, s_1_2_to_1_1;
+    chan(int<18>) n_1_2_to_1_3, s_1_3_to_1_2;
+    chan(int<18>) n_1_3_to_1_4, s_1_4_to_1_3;
+    chan(int<18>) n_1_4_to_1_5, s_1_5_to_1_4;
+    chan(int<18>) n_1_5_to_1_6, s_1_6_to_1_5;
+    chan(int<18>) n_1_6_to_1_7, s_1_7_to_1_6;
+    chan(int<18>) n_1_7_to_1_8, s_1_8_to_1_7;
+    chan(int<18>) n_1_8_to_1_9, s_1_9_to_1_8;
+    chan(int<18>) n_1_9_to_1_10, s_1_10_to_1_9;
+    chan(int<18>) n_2_0_to_2_1, s_2_1_to_2_0;
+    chan(int<18>) n_2_1_to_2_2, s_2_2_to_2_1;
+    chan(int<18>) n_2_2_to_2_3, s_2_3_to_2_2;
+    chan(int<18>) n_2_3_to_2_4, s_2_4_to_2_3;
+    chan(int<18>) n_2_4_to_2_5, s_2_5_to_2_4;
+    chan(int<18>) n_2_5_to_2_6, s_2_6_to_2_5;
+    chan(int<18>) n_2_6_to_2_7, s_2_7_to_2_6;
+    chan(int<18>) n_2_7_to_2_8, s_2_8_to_2_7;
+    chan(int<18>) n_2_8_to_2_9, s_2_9_to_2_8;
+    chan(int<18>) n_2_9_to_2_10, s_2_10_to_2_9;
+    chan(int<18>) n_3_0_to_3_1, s_3_1_to_3_0;
+    chan(int<18>) n_3_1_to_3_2, s_3_2_to_3_1;
+    chan(int<18>) n_3_2_to_3_3, s_3_3_to_3_2;
+    chan(int<18>) n_3_3_to_3_4, s_3_4_to_3_3;
+    chan(int<18>) n_3_4_to_3_5, s_3_5_to_3_4;
+    chan(int<18>) n_3_5_to_3_6, s_3_6_to_3_5;
+    chan(int<18>) n_3_6_to_3_7, s_3_7_to_3_6;
+    chan(int<18>) n_3_7_to_3_8, s_3_8_to_3_7;
+    chan(int<18>) n_3_8_to_3_9, s_3_9_to_3_8;
+    chan(int<18>) n_3_9_to_3_10, s_3_10_to_3_9;
+    chan(int<18>) n_4_0_to_4_1, s_4_1_to_4_0;
+    chan(int<18>) n_4_1_to_4_2, s_4_2_to_4_1;
+    chan(int<18>) n_4_2_to_4_3, s_4_3_to_4_2;
+    chan(int<18>) n_4_3_to_4_4, s_4_4_to_4_3;
+    chan(int<18>) n_4_4_to_4_5, s_4_5_to_4_4;
+    chan(int<18>) n_4_5_to_4_6, s_4_6_to_4_5;
+    chan(int<18>) n_4_6_to_4_7, s_4_7_to_4_6;
+    chan(int<18>) n_4_7_to_4_8, s_4_8_to_4_7;
+    chan(int<18>) n_4_8_to_4_9, s_4_9_to_4_8;
+    chan(int<18>) n_4_9_to_4_10, s_4_10_to_4_9;
+    chan(int<18>) n_5_0_to_5_1, s_5_1_to_5_0;
+    chan(int<18>) n_5_1_to_5_2, s_5_2_to_5_1;
+    chan(int<18>) n_5_2_to_5_3, s_5_3_to_5_2;
+    chan(int<18>) n_5_3_to_5_4, s_5_4_to_5_3;
+    chan(int<18>) n_5_4_to_5_5, s_5_5_to_5_4;
+    chan(int<18>) n_5_5_to_5_6, s_5_6_to_5_5;
+    chan(int<18>) n_5_6_to_5_7, s_5_7_to_5_6;
+    chan(int<18>) n_5_7_to_5_8, s_5_8_to_5_7;
+    chan(int<18>) n_5_8_to_5_9, s_5_9_to_5_8;
+    chan(int<18>) n_5_9_to_5_10, s_5_10_to_5_9;
+    chan(int<18>) n_6_0_to_6_1, s_6_1_to_6_0;
+    chan(int<18>) n_6_1_to_6_2, s_6_2_to_6_1;
+    chan(int<18>) n_6_2_to_6_3, s_6_3_to_6_2;
+    chan(int<18>) n_6_3_to_6_4, s_6_4_to_6_3;
+    chan(int<18>) n_6_4_to_6_5, s_6_5_to_6_4;
+    chan(int<18>) n_6_5_to_6_6, s_6_6_to_6_5;
+    chan(int<18>) n_6_6_to_6_7, s_6_7_to_6_6;
+    chan(int<18>) n_6_7_to_6_8, s_6_8_to_6_7;
+    chan(int<18>) n_6_8_to_6_9, s_6_9_to_6_8;
+    chan(int<18>) n_6_9_to_6_10, s_6_10_to_6_9;
+    chan(int<18>) n_7_0_to_7_1, s_7_1_to_7_0;
+    chan(int<18>) n_7_1_to_7_2, s_7_2_to_7_1;
+    chan(int<18>) n_7_2_to_7_3, s_7_3_to_7_2;
+    chan(int<18>) n_7_3_to_7_4, s_7_4_to_7_3;
+    chan(int<18>) n_7_4_to_7_5, s_7_5_to_7_4;
+    chan(int<18>) n_7_5_to_7_6, s_7_6_to_7_5;
+    chan(int<18>) n_7_6_to_7_7, s_7_7_to_7_6;
+    chan(int<18>) n_7_7_to_7_8, s_7_8_to_7_7;
+    chan(int<18>) n_7_8_to_7_9, s_7_9_to_7_8;
+    chan(int<18>) n_7_9_to_7_10, s_7_10_to_7_9;
+    chan(int<18>) n_8_0_to_8_1, s_8_1_to_8_0;
+    chan(int<18>) n_8_1_to_8_2, s_8_2_to_8_1;
+    chan(int<18>) n_8_2_to_8_3, s_8_3_to_8_2;
+    chan(int<18>) n_8_3_to_8_4, s_8_4_to_8_3;
+    chan(int<18>) n_8_4_to_8_5, s_8_5_to_8_4;
+    chan(int<18>) n_8_5_to_8_6, s_8_6_to_8_5;
+    chan(int<18>) n_8_6_to_8_7, s_8_7_to_8_6;
+    chan(int<18>) n_8_7_to_8_8, s_8_8_to_8_7;
+    chan(int<18>) n_8_8_to_8_9, s_8_9_to_8_8;
+    chan(int<18>) n_8_9_to_8_10, s_8_10_to_8_9;
+    chan(int<18>) n_9_0_to_9_1, s_9_1_to_9_0;
+    chan(int<18>) n_9_1_to_9_2, s_9_2_to_9_1;
+    chan(int<18>) n_9_2_to_9_3, s_9_3_to_9_2;
+    chan(int<18>) n_9_3_to_9_4, s_9_4_to_9_3;
+    chan(int<18>) n_9_4_to_9_5, s_9_5_to_9_4;
+    chan(int<18>) n_9_5_to_9_6, s_9_6_to_9_5;
+    chan(int<18>) n_9_6_to_9_7, s_9_7_to_9_6;
+    chan(int<18>) n_9_7_to_9_8, s_9_8_to_9_7;
+    chan(int<18>) n_9_8_to_9_9, s_9_9_to_9_8;
+    chan(int<18>) n_9_9_to_9_10, s_9_10_to_9_9;
+    chan(int<18>) n_10_0_to_10_1, s_10_1_to_10_0;
+    chan(int<18>) n_10_1_to_10_2, s_10_2_to_10_1;
+    chan(int<18>) n_10_2_to_10_3, s_10_3_to_10_2;
+    chan(int<18>) n_10_3_to_10_4, s_10_4_to_10_3;
+    chan(int<18>) n_10_4_to_10_5, s_10_5_to_10_4;
+    chan(int<18>) n_10_5_to_10_6, s_10_6_to_10_5;
+    chan(int<18>) n_10_6_to_10_7, s_10_7_to_10_6;
+    chan(int<18>) n_10_7_to_10_8, s_10_8_to_10_7;
+    chan(int<18>) n_10_8_to_10_9, s_10_9_to_10_8;
+    chan(int<18>) n_10_9_to_10_10, s_10_10_to_10_9;
+
+    chan(int<18>) in_0_0_s, out_0_0_s; // Bottom Edge S
+    chan(int<18>) in_0_10_n, out_0_10_n; // Top Edge N
+    chan(int<18>) in_0_0_w, out_0_0_w; // Left Edge W
+    chan(int<18>) in_10_0_e, out_10_0_e; // Right Edge E
+    chan(int<18>) in_1_0_s, out_1_0_s; // Bottom Edge S
+    chan(int<18>) in_1_10_n, out_1_10_n; // Top Edge N
+    chan(int<18>) in_0_1_w, out_0_1_w; // Left Edge W
+    chan(int<18>) in_10_1_e, out_10_1_e; // Right Edge E
+    chan(int<18>) in_2_0_s, out_2_0_s; // Bottom Edge S
+    chan(int<18>) in_2_10_n, out_2_10_n; // Top Edge N
+    chan(int<18>) in_0_2_w, out_0_2_w; // Left Edge W
+    chan(int<18>) in_10_2_e, out_10_2_e; // Right Edge E
+    chan(int<18>) in_3_0_s, out_3_0_s; // Bottom Edge S
+    chan(int<18>) in_3_10_n, out_3_10_n; // Top Edge N
+    chan(int<18>) in_0_3_w, out_0_3_w; // Left Edge W
+    chan(int<18>) in_10_3_e, out_10_3_e; // Right Edge E
+    chan(int<18>) in_4_0_s, out_4_0_s; // Bottom Edge S
+    chan(int<18>) in_4_10_n, out_4_10_n; // Top Edge N
+    chan(int<18>) in_0_4_w, out_0_4_w; // Left Edge W
+    chan(int<18>) in_10_4_e, out_10_4_e; // Right Edge E
+    chan(int<18>) in_5_0_s, out_5_0_s; // Bottom Edge S
+    chan(int<18>) in_5_10_n, out_5_10_n; // Top Edge N
+    chan(int<18>) in_0_5_w, out_0_5_w; // Left Edge W
+    chan(int<18>) in_10_5_e, out_10_5_e; // Right Edge E
+    chan(int<18>) in_6_0_s, out_6_0_s; // Bottom Edge S
+    chan(int<18>) in_6_10_n, out_6_10_n; // Top Edge N
+    chan(int<18>) in_0_6_w, out_0_6_w; // Left Edge W
+    chan(int<18>) in_10_6_e, out_10_6_e; // Right Edge E
+    chan(int<18>) in_7_0_s, out_7_0_s; // Bottom Edge S
+    chan(int<18>) in_7_10_n, out_7_10_n; // Top Edge N
+    chan(int<18>) in_0_7_w, out_0_7_w; // Left Edge W
+    chan(int<18>) in_10_7_e, out_10_7_e; // Right Edge E
+    chan(int<18>) in_8_0_s, out_8_0_s; // Bottom Edge S
+    chan(int<18>) in_8_10_n, out_8_10_n; // Top Edge N
+    chan(int<18>) in_0_8_w, out_0_8_w; // Left Edge W
+    chan(int<18>) in_10_8_e, out_10_8_e; // Right Edge E
+    chan(int<18>) in_9_0_s, out_9_0_s; // Bottom Edge S
+    chan(int<18>) in_9_10_n, out_9_10_n; // Top Edge N
+    chan(int<18>) in_0_9_w, out_0_9_w; // Left Edge W
+    chan(int<18>) in_10_9_e, out_10_9_e; // Right Edge E
+    chan(int<18>) in_10_0_s, out_10_0_s; // Bottom Edge S
+    chan(int<18>) in_10_10_n, out_10_10_n; // Top Edge N
+    chan(int<18>) in_0_10_w, out_0_10_w; // Left Edge W
+    chan(int<18>) in_10_10_e, out_10_10_e; // Right Edge E
+
+    mock_core_tx_0_0 core_tx_0_0(t_0_0, core_to_ni_0_0);
+    mock_core_rx<0, 0> core_rx_0_0(ni_to_core_0_0);
+    network_interface<4, 8, 0, 0> ni_0_0(core_to_ni_0_0, ni_to_r_0_0, r_to_ni_0_0, ni_to_core_0_0);
+    router<4, 8, 0, 0> r_0_0(
+        w_1_0_to_0_0, in_0_0_w, s_0_1_to_0_0, in_0_0_s, ni_to_r_0_0,
+        e_0_0_to_1_0, out_0_0_w, n_0_0_to_0_1, out_0_0_s, r_to_ni_0_0
+    );
+
+    mock_core_tx_1_0 core_tx_1_0(t_1_0, core_to_ni_1_0);
+    mock_core_rx<1, 0> core_rx_1_0(ni_to_core_1_0);
+    network_interface<4, 8, 1, 0> ni_1_0(core_to_ni_1_0, ni_to_r_1_0, r_to_ni_1_0, ni_to_core_1_0);
+    router<4, 8, 1, 0> r_1_0(
+        w_2_0_to_1_0, e_0_0_to_1_0, s_1_1_to_1_0, in_1_0_s, ni_to_r_1_0,
+        e_1_0_to_2_0, w_1_0_to_0_0, n_1_0_to_1_1, out_1_0_s, r_to_ni_1_0
+    );
+
+    mock_core_tx_2_0 core_tx_2_0(t_2_0, core_to_ni_2_0);
+    mock_core_rx<2, 0> core_rx_2_0(ni_to_core_2_0);
+    network_interface<4, 8, 2, 0> ni_2_0(core_to_ni_2_0, ni_to_r_2_0, r_to_ni_2_0, ni_to_core_2_0);
+    router<4, 8, 2, 0> r_2_0(
+        w_3_0_to_2_0, e_1_0_to_2_0, s_2_1_to_2_0, in_2_0_s, ni_to_r_2_0,
+        e_2_0_to_3_0, w_2_0_to_1_0, n_2_0_to_2_1, out_2_0_s, r_to_ni_2_0
+    );
+
+    mock_core_tx_3_0 core_tx_3_0(t_3_0, core_to_ni_3_0);
+    mock_core_rx<3, 0> core_rx_3_0(ni_to_core_3_0);
+    network_interface<4, 8, 3, 0> ni_3_0(core_to_ni_3_0, ni_to_r_3_0, r_to_ni_3_0, ni_to_core_3_0);
+    router<4, 8, 3, 0> r_3_0(
+        w_4_0_to_3_0, e_2_0_to_3_0, s_3_1_to_3_0, in_3_0_s, ni_to_r_3_0,
+        e_3_0_to_4_0, w_3_0_to_2_0, n_3_0_to_3_1, out_3_0_s, r_to_ni_3_0
+    );
+
+    mock_core_tx_4_0 core_tx_4_0(t_4_0, core_to_ni_4_0);
+    mock_core_rx<4, 0> core_rx_4_0(ni_to_core_4_0);
+    network_interface<4, 8, 4, 0> ni_4_0(core_to_ni_4_0, ni_to_r_4_0, r_to_ni_4_0, ni_to_core_4_0);
+    router<4, 8, 4, 0> r_4_0(
+        w_5_0_to_4_0, e_3_0_to_4_0, s_4_1_to_4_0, in_4_0_s, ni_to_r_4_0,
+        e_4_0_to_5_0, w_4_0_to_3_0, n_4_0_to_4_1, out_4_0_s, r_to_ni_4_0
+    );
+
+    mock_core_tx_5_0 core_tx_5_0(t_5_0, core_to_ni_5_0);
+    mock_core_rx<5, 0> core_rx_5_0(ni_to_core_5_0);
+    network_interface<4, 8, 5, 0> ni_5_0(core_to_ni_5_0, ni_to_r_5_0, r_to_ni_5_0, ni_to_core_5_0);
+    router<4, 8, 5, 0> r_5_0(
+        w_6_0_to_5_0, e_4_0_to_5_0, s_5_1_to_5_0, in_5_0_s, ni_to_r_5_0,
+        e_5_0_to_6_0, w_5_0_to_4_0, n_5_0_to_5_1, out_5_0_s, r_to_ni_5_0
+    );
+
+    mock_core_tx_6_0 core_tx_6_0(t_6_0, core_to_ni_6_0);
+    mock_core_rx<6, 0> core_rx_6_0(ni_to_core_6_0);
+    network_interface<4, 8, 6, 0> ni_6_0(core_to_ni_6_0, ni_to_r_6_0, r_to_ni_6_0, ni_to_core_6_0);
+    router<4, 8, 6, 0> r_6_0(
+        w_7_0_to_6_0, e_5_0_to_6_0, s_6_1_to_6_0, in_6_0_s, ni_to_r_6_0,
+        e_6_0_to_7_0, w_6_0_to_5_0, n_6_0_to_6_1, out_6_0_s, r_to_ni_6_0
+    );
+
+    mock_core_tx_7_0 core_tx_7_0(t_7_0, core_to_ni_7_0);
+    mock_core_rx<7, 0> core_rx_7_0(ni_to_core_7_0);
+    network_interface<4, 8, 7, 0> ni_7_0(core_to_ni_7_0, ni_to_r_7_0, r_to_ni_7_0, ni_to_core_7_0);
+    router<4, 8, 7, 0> r_7_0(
+        w_8_0_to_7_0, e_6_0_to_7_0, s_7_1_to_7_0, in_7_0_s, ni_to_r_7_0,
+        e_7_0_to_8_0, w_7_0_to_6_0, n_7_0_to_7_1, out_7_0_s, r_to_ni_7_0
+    );
+
+    mock_core_tx_8_0 core_tx_8_0(t_8_0, core_to_ni_8_0);
+    mock_core_rx<8, 0> core_rx_8_0(ni_to_core_8_0);
+    network_interface<4, 8, 8, 0> ni_8_0(core_to_ni_8_0, ni_to_r_8_0, r_to_ni_8_0, ni_to_core_8_0);
+    router<4, 8, 8, 0> r_8_0(
+        w_9_0_to_8_0, e_7_0_to_8_0, s_8_1_to_8_0, in_8_0_s, ni_to_r_8_0,
+        e_8_0_to_9_0, w_8_0_to_7_0, n_8_0_to_8_1, out_8_0_s, r_to_ni_8_0
+    );
+
+    mock_core_tx_9_0 core_tx_9_0(t_9_0, core_to_ni_9_0);
+    mock_core_rx<9, 0> core_rx_9_0(ni_to_core_9_0);
+    network_interface<4, 8, 9, 0> ni_9_0(core_to_ni_9_0, ni_to_r_9_0, r_to_ni_9_0, ni_to_core_9_0);
+    router<4, 8, 9, 0> r_9_0(
+        w_10_0_to_9_0, e_8_0_to_9_0, s_9_1_to_9_0, in_9_0_s, ni_to_r_9_0,
+        e_9_0_to_10_0, w_9_0_to_8_0, n_9_0_to_9_1, out_9_0_s, r_to_ni_9_0
+    );
+
+    mock_core_tx_10_0 core_tx_10_0(t_10_0, core_to_ni_10_0);
+    mock_core_rx<10, 0> core_rx_10_0(ni_to_core_10_0);
+    network_interface<4, 8, 10, 0> ni_10_0(core_to_ni_10_0, ni_to_r_10_0, r_to_ni_10_0, ni_to_core_10_0);
+    router<4, 8, 10, 0> r_10_0(
+        in_10_0_e, e_9_0_to_10_0, s_10_1_to_10_0, in_10_0_s, ni_to_r_10_0,
+        out_10_0_e, w_10_0_to_9_0, n_10_0_to_10_1, out_10_0_s, r_to_ni_10_0
+    );
+
+    mock_core_tx_0_1 core_tx_0_1(t_0_1, core_to_ni_0_1);
+    mock_core_rx<0, 1> core_rx_0_1(ni_to_core_0_1);
+    network_interface<4, 8, 0, 1> ni_0_1(core_to_ni_0_1, ni_to_r_0_1, r_to_ni_0_1, ni_to_core_0_1);
+    router<4, 8, 0, 1> r_0_1(
+        w_1_1_to_0_1, in_0_1_w, s_0_2_to_0_1, n_0_0_to_0_1, ni_to_r_0_1,
+        e_0_1_to_1_1, out_0_1_w, n_0_1_to_0_2, s_0_1_to_0_0, r_to_ni_0_1
+    );
+
+    mock_core_tx_1_1 core_tx_1_1(t_1_1, core_to_ni_1_1);
+    mock_core_rx<1, 1> core_rx_1_1(ni_to_core_1_1);
+    network_interface<4, 8, 1, 1> ni_1_1(core_to_ni_1_1, ni_to_r_1_1, r_to_ni_1_1, ni_to_core_1_1);
+    router<4, 8, 1, 1> r_1_1(
+        w_2_1_to_1_1, e_0_1_to_1_1, s_1_2_to_1_1, n_1_0_to_1_1, ni_to_r_1_1,
+        e_1_1_to_2_1, w_1_1_to_0_1, n_1_1_to_1_2, s_1_1_to_1_0, r_to_ni_1_1
+    );
+
+    mock_core_tx_2_1 core_tx_2_1(t_2_1, core_to_ni_2_1);
+    mock_core_rx<2, 1> core_rx_2_1(ni_to_core_2_1);
+    network_interface<4, 8, 2, 1> ni_2_1(core_to_ni_2_1, ni_to_r_2_1, r_to_ni_2_1, ni_to_core_2_1);
+    router<4, 8, 2, 1> r_2_1(
+        w_3_1_to_2_1, e_1_1_to_2_1, s_2_2_to_2_1, n_2_0_to_2_1, ni_to_r_2_1,
+        e_2_1_to_3_1, w_2_1_to_1_1, n_2_1_to_2_2, s_2_1_to_2_0, r_to_ni_2_1
+    );
+
+    mock_core_tx_3_1 core_tx_3_1(t_3_1, core_to_ni_3_1);
+    mock_core_rx<3, 1> core_rx_3_1(ni_to_core_3_1);
+    network_interface<4, 8, 3, 1> ni_3_1(core_to_ni_3_1, ni_to_r_3_1, r_to_ni_3_1, ni_to_core_3_1);
+    router<4, 8, 3, 1> r_3_1(
+        w_4_1_to_3_1, e_2_1_to_3_1, s_3_2_to_3_1, n_3_0_to_3_1, ni_to_r_3_1,
+        e_3_1_to_4_1, w_3_1_to_2_1, n_3_1_to_3_2, s_3_1_to_3_0, r_to_ni_3_1
+    );
+
+    mock_core_tx_4_1 core_tx_4_1(t_4_1, core_to_ni_4_1);
+    mock_core_rx<4, 1> core_rx_4_1(ni_to_core_4_1);
+    network_interface<4, 8, 4, 1> ni_4_1(core_to_ni_4_1, ni_to_r_4_1, r_to_ni_4_1, ni_to_core_4_1);
+    router<4, 8, 4, 1> r_4_1(
+        w_5_1_to_4_1, e_3_1_to_4_1, s_4_2_to_4_1, n_4_0_to_4_1, ni_to_r_4_1,
+        e_4_1_to_5_1, w_4_1_to_3_1, n_4_1_to_4_2, s_4_1_to_4_0, r_to_ni_4_1
+    );
+
+    mock_core_tx_5_1 core_tx_5_1(t_5_1, core_to_ni_5_1);
+    mock_core_rx<5, 1> core_rx_5_1(ni_to_core_5_1);
+    network_interface<4, 8, 5, 1> ni_5_1(core_to_ni_5_1, ni_to_r_5_1, r_to_ni_5_1, ni_to_core_5_1);
+    router<4, 8, 5, 1> r_5_1(
+        w_6_1_to_5_1, e_4_1_to_5_1, s_5_2_to_5_1, n_5_0_to_5_1, ni_to_r_5_1,
+        e_5_1_to_6_1, w_5_1_to_4_1, n_5_1_to_5_2, s_5_1_to_5_0, r_to_ni_5_1
+    );
+
+    mock_core_tx_6_1 core_tx_6_1(t_6_1, core_to_ni_6_1);
+    mock_core_rx<6, 1> core_rx_6_1(ni_to_core_6_1);
+    network_interface<4, 8, 6, 1> ni_6_1(core_to_ni_6_1, ni_to_r_6_1, r_to_ni_6_1, ni_to_core_6_1);
+    router<4, 8, 6, 1> r_6_1(
+        w_7_1_to_6_1, e_5_1_to_6_1, s_6_2_to_6_1, n_6_0_to_6_1, ni_to_r_6_1,
+        e_6_1_to_7_1, w_6_1_to_5_1, n_6_1_to_6_2, s_6_1_to_6_0, r_to_ni_6_1
+    );
+
+    mock_core_tx_7_1 core_tx_7_1(t_7_1, core_to_ni_7_1);
+    mock_core_rx<7, 1> core_rx_7_1(ni_to_core_7_1);
+    network_interface<4, 8, 7, 1> ni_7_1(core_to_ni_7_1, ni_to_r_7_1, r_to_ni_7_1, ni_to_core_7_1);
+    router<4, 8, 7, 1> r_7_1(
+        w_8_1_to_7_1, e_6_1_to_7_1, s_7_2_to_7_1, n_7_0_to_7_1, ni_to_r_7_1,
+        e_7_1_to_8_1, w_7_1_to_6_1, n_7_1_to_7_2, s_7_1_to_7_0, r_to_ni_7_1
+    );
+
+    mock_core_tx_8_1 core_tx_8_1(t_8_1, core_to_ni_8_1);
+    mock_core_rx<8, 1> core_rx_8_1(ni_to_core_8_1);
+    network_interface<4, 8, 8, 1> ni_8_1(core_to_ni_8_1, ni_to_r_8_1, r_to_ni_8_1, ni_to_core_8_1);
+    router<4, 8, 8, 1> r_8_1(
+        w_9_1_to_8_1, e_7_1_to_8_1, s_8_2_to_8_1, n_8_0_to_8_1, ni_to_r_8_1,
+        e_8_1_to_9_1, w_8_1_to_7_1, n_8_1_to_8_2, s_8_1_to_8_0, r_to_ni_8_1
+    );
+
+    mock_core_tx_9_1 core_tx_9_1(t_9_1, core_to_ni_9_1);
+    mock_core_rx<9, 1> core_rx_9_1(ni_to_core_9_1);
+    network_interface<4, 8, 9, 1> ni_9_1(core_to_ni_9_1, ni_to_r_9_1, r_to_ni_9_1, ni_to_core_9_1);
+    router<4, 8, 9, 1> r_9_1(
+        w_10_1_to_9_1, e_8_1_to_9_1, s_9_2_to_9_1, n_9_0_to_9_1, ni_to_r_9_1,
+        e_9_1_to_10_1, w_9_1_to_8_1, n_9_1_to_9_2, s_9_1_to_9_0, r_to_ni_9_1
+    );
+
+    mock_core_tx_10_1 core_tx_10_1(t_10_1, core_to_ni_10_1);
+    mock_core_rx<10, 1> core_rx_10_1(ni_to_core_10_1);
+    network_interface<4, 8, 10, 1> ni_10_1(core_to_ni_10_1, ni_to_r_10_1, r_to_ni_10_1, ni_to_core_10_1);
+    router<4, 8, 10, 1> r_10_1(
+        in_10_1_e, e_9_1_to_10_1, s_10_2_to_10_1, n_10_0_to_10_1, ni_to_r_10_1,
+        out_10_1_e, w_10_1_to_9_1, n_10_1_to_10_2, s_10_1_to_10_0, r_to_ni_10_1
+    );
+
+    mock_core_tx_0_2 core_tx_0_2(t_0_2, core_to_ni_0_2);
+    mock_core_rx<0, 2> core_rx_0_2(ni_to_core_0_2);
+    network_interface<4, 8, 0, 2> ni_0_2(core_to_ni_0_2, ni_to_r_0_2, r_to_ni_0_2, ni_to_core_0_2);
+    router<4, 8, 0, 2> r_0_2(
+        w_1_2_to_0_2, in_0_2_w, s_0_3_to_0_2, n_0_1_to_0_2, ni_to_r_0_2,
+        e_0_2_to_1_2, out_0_2_w, n_0_2_to_0_3, s_0_2_to_0_1, r_to_ni_0_2
+    );
+
+    mock_core_tx_1_2 core_tx_1_2(t_1_2, core_to_ni_1_2);
+    mock_core_rx<1, 2> core_rx_1_2(ni_to_core_1_2);
+    network_interface<4, 8, 1, 2> ni_1_2(core_to_ni_1_2, ni_to_r_1_2, r_to_ni_1_2, ni_to_core_1_2);
+    router<4, 8, 1, 2> r_1_2(
+        w_2_2_to_1_2, e_0_2_to_1_2, s_1_3_to_1_2, n_1_1_to_1_2, ni_to_r_1_2,
+        e_1_2_to_2_2, w_1_2_to_0_2, n_1_2_to_1_3, s_1_2_to_1_1, r_to_ni_1_2
+    );
+
+    mock_core_tx_2_2 core_tx_2_2(t_2_2, core_to_ni_2_2);
+    mock_core_rx<2, 2> core_rx_2_2(ni_to_core_2_2);
+    network_interface<4, 8, 2, 2> ni_2_2(core_to_ni_2_2, ni_to_r_2_2, r_to_ni_2_2, ni_to_core_2_2);
+    router<4, 8, 2, 2> r_2_2(
+        w_3_2_to_2_2, e_1_2_to_2_2, s_2_3_to_2_2, n_2_1_to_2_2, ni_to_r_2_2,
+        e_2_2_to_3_2, w_2_2_to_1_2, n_2_2_to_2_3, s_2_2_to_2_1, r_to_ni_2_2
+    );
+
+    mock_core_tx_3_2 core_tx_3_2(t_3_2, core_to_ni_3_2);
+    mock_core_rx<3, 2> core_rx_3_2(ni_to_core_3_2);
+    network_interface<4, 8, 3, 2> ni_3_2(core_to_ni_3_2, ni_to_r_3_2, r_to_ni_3_2, ni_to_core_3_2);
+    router<4, 8, 3, 2> r_3_2(
+        w_4_2_to_3_2, e_2_2_to_3_2, s_3_3_to_3_2, n_3_1_to_3_2, ni_to_r_3_2,
+        e_3_2_to_4_2, w_3_2_to_2_2, n_3_2_to_3_3, s_3_2_to_3_1, r_to_ni_3_2
+    );
+
+    mock_core_tx_4_2 core_tx_4_2(t_4_2, core_to_ni_4_2);
+    mock_core_rx<4, 2> core_rx_4_2(ni_to_core_4_2);
+    network_interface<4, 8, 4, 2> ni_4_2(core_to_ni_4_2, ni_to_r_4_2, r_to_ni_4_2, ni_to_core_4_2);
+    router<4, 8, 4, 2> r_4_2(
+        w_5_2_to_4_2, e_3_2_to_4_2, s_4_3_to_4_2, n_4_1_to_4_2, ni_to_r_4_2,
+        e_4_2_to_5_2, w_4_2_to_3_2, n_4_2_to_4_3, s_4_2_to_4_1, r_to_ni_4_2
+    );
+
+    mock_core_tx_5_2 core_tx_5_2(t_5_2, core_to_ni_5_2);
+    mock_core_rx<5, 2> core_rx_5_2(ni_to_core_5_2);
+    network_interface<4, 8, 5, 2> ni_5_2(core_to_ni_5_2, ni_to_r_5_2, r_to_ni_5_2, ni_to_core_5_2);
+    router<4, 8, 5, 2> r_5_2(
+        w_6_2_to_5_2, e_4_2_to_5_2, s_5_3_to_5_2, n_5_1_to_5_2, ni_to_r_5_2,
+        e_5_2_to_6_2, w_5_2_to_4_2, n_5_2_to_5_3, s_5_2_to_5_1, r_to_ni_5_2
+    );
+
+    mock_core_tx_6_2 core_tx_6_2(t_6_2, core_to_ni_6_2);
+    mock_core_rx<6, 2> core_rx_6_2(ni_to_core_6_2);
+    network_interface<4, 8, 6, 2> ni_6_2(core_to_ni_6_2, ni_to_r_6_2, r_to_ni_6_2, ni_to_core_6_2);
+    router<4, 8, 6, 2> r_6_2(
+        w_7_2_to_6_2, e_5_2_to_6_2, s_6_3_to_6_2, n_6_1_to_6_2, ni_to_r_6_2,
+        e_6_2_to_7_2, w_6_2_to_5_2, n_6_2_to_6_3, s_6_2_to_6_1, r_to_ni_6_2
+    );
+
+    mock_core_tx_7_2 core_tx_7_2(t_7_2, core_to_ni_7_2);
+    mock_core_rx<7, 2> core_rx_7_2(ni_to_core_7_2);
+    network_interface<4, 8, 7, 2> ni_7_2(core_to_ni_7_2, ni_to_r_7_2, r_to_ni_7_2, ni_to_core_7_2);
+    router<4, 8, 7, 2> r_7_2(
+        w_8_2_to_7_2, e_6_2_to_7_2, s_7_3_to_7_2, n_7_1_to_7_2, ni_to_r_7_2,
+        e_7_2_to_8_2, w_7_2_to_6_2, n_7_2_to_7_3, s_7_2_to_7_1, r_to_ni_7_2
+    );
+
+    mock_core_tx_8_2 core_tx_8_2(t_8_2, core_to_ni_8_2);
+    mock_core_rx<8, 2> core_rx_8_2(ni_to_core_8_2);
+    network_interface<4, 8, 8, 2> ni_8_2(core_to_ni_8_2, ni_to_r_8_2, r_to_ni_8_2, ni_to_core_8_2);
+    router<4, 8, 8, 2> r_8_2(
+        w_9_2_to_8_2, e_7_2_to_8_2, s_8_3_to_8_2, n_8_1_to_8_2, ni_to_r_8_2,
+        e_8_2_to_9_2, w_8_2_to_7_2, n_8_2_to_8_3, s_8_2_to_8_1, r_to_ni_8_2
+    );
+
+    mock_core_tx_9_2 core_tx_9_2(t_9_2, core_to_ni_9_2);
+    mock_core_rx<9, 2> core_rx_9_2(ni_to_core_9_2);
+    network_interface<4, 8, 9, 2> ni_9_2(core_to_ni_9_2, ni_to_r_9_2, r_to_ni_9_2, ni_to_core_9_2);
+    router<4, 8, 9, 2> r_9_2(
+        w_10_2_to_9_2, e_8_2_to_9_2, s_9_3_to_9_2, n_9_1_to_9_2, ni_to_r_9_2,
+        e_9_2_to_10_2, w_9_2_to_8_2, n_9_2_to_9_3, s_9_2_to_9_1, r_to_ni_9_2
+    );
+
+    mock_core_tx_10_2 core_tx_10_2(t_10_2, core_to_ni_10_2);
+    mock_core_rx<10, 2> core_rx_10_2(ni_to_core_10_2);
+    network_interface<4, 8, 10, 2> ni_10_2(core_to_ni_10_2, ni_to_r_10_2, r_to_ni_10_2, ni_to_core_10_2);
+    router<4, 8, 10, 2> r_10_2(
+        in_10_2_e, e_9_2_to_10_2, s_10_3_to_10_2, n_10_1_to_10_2, ni_to_r_10_2,
+        out_10_2_e, w_10_2_to_9_2, n_10_2_to_10_3, s_10_2_to_10_1, r_to_ni_10_2
+    );
+
+    mock_core_tx_0_3 core_tx_0_3(t_0_3, core_to_ni_0_3);
+    mock_core_rx<0, 3> core_rx_0_3(ni_to_core_0_3);
+    network_interface<4, 8, 0, 3> ni_0_3(core_to_ni_0_3, ni_to_r_0_3, r_to_ni_0_3, ni_to_core_0_3);
+    router<4, 8, 0, 3> r_0_3(
+        w_1_3_to_0_3, in_0_3_w, s_0_4_to_0_3, n_0_2_to_0_3, ni_to_r_0_3,
+        e_0_3_to_1_3, out_0_3_w, n_0_3_to_0_4, s_0_3_to_0_2, r_to_ni_0_3
+    );
+
+    mock_core_tx_1_3 core_tx_1_3(t_1_3, core_to_ni_1_3);
+    mock_core_rx<1, 3> core_rx_1_3(ni_to_core_1_3);
+    network_interface<4, 8, 1, 3> ni_1_3(core_to_ni_1_3, ni_to_r_1_3, r_to_ni_1_3, ni_to_core_1_3);
+    router<4, 8, 1, 3> r_1_3(
+        w_2_3_to_1_3, e_0_3_to_1_3, s_1_4_to_1_3, n_1_2_to_1_3, ni_to_r_1_3,
+        e_1_3_to_2_3, w_1_3_to_0_3, n_1_3_to_1_4, s_1_3_to_1_2, r_to_ni_1_3
+    );
+
+    mock_core_tx_2_3 core_tx_2_3(t_2_3, core_to_ni_2_3);
+    mock_core_rx<2, 3> core_rx_2_3(ni_to_core_2_3);
+    network_interface<4, 8, 2, 3> ni_2_3(core_to_ni_2_3, ni_to_r_2_3, r_to_ni_2_3, ni_to_core_2_3);
+    router<4, 8, 2, 3> r_2_3(
+        w_3_3_to_2_3, e_1_3_to_2_3, s_2_4_to_2_3, n_2_2_to_2_3, ni_to_r_2_3,
+        e_2_3_to_3_3, w_2_3_to_1_3, n_2_3_to_2_4, s_2_3_to_2_2, r_to_ni_2_3
+    );
+
+    mock_core_tx_3_3 core_tx_3_3(t_3_3, core_to_ni_3_3);
+    mock_core_rx<3, 3> core_rx_3_3(ni_to_core_3_3);
+    network_interface<4, 8, 3, 3> ni_3_3(core_to_ni_3_3, ni_to_r_3_3, r_to_ni_3_3, ni_to_core_3_3);
+    router<4, 8, 3, 3> r_3_3(
+        w_4_3_to_3_3, e_2_3_to_3_3, s_3_4_to_3_3, n_3_2_to_3_3, ni_to_r_3_3,
+        e_3_3_to_4_3, w_3_3_to_2_3, n_3_3_to_3_4, s_3_3_to_3_2, r_to_ni_3_3
+    );
+
+    mock_core_tx_4_3 core_tx_4_3(t_4_3, core_to_ni_4_3);
+    mock_core_rx<4, 3> core_rx_4_3(ni_to_core_4_3);
+    network_interface<4, 8, 4, 3> ni_4_3(core_to_ni_4_3, ni_to_r_4_3, r_to_ni_4_3, ni_to_core_4_3);
+    router<4, 8, 4, 3> r_4_3(
+        w_5_3_to_4_3, e_3_3_to_4_3, s_4_4_to_4_3, n_4_2_to_4_3, ni_to_r_4_3,
+        e_4_3_to_5_3, w_4_3_to_3_3, n_4_3_to_4_4, s_4_3_to_4_2, r_to_ni_4_3
+    );
+
+    mock_core_tx_5_3 core_tx_5_3(t_5_3, core_to_ni_5_3);
+    mock_core_rx<5, 3> core_rx_5_3(ni_to_core_5_3);
+    network_interface<4, 8, 5, 3> ni_5_3(core_to_ni_5_3, ni_to_r_5_3, r_to_ni_5_3, ni_to_core_5_3);
+    router<4, 8, 5, 3> r_5_3(
+        w_6_3_to_5_3, e_4_3_to_5_3, s_5_4_to_5_3, n_5_2_to_5_3, ni_to_r_5_3,
+        e_5_3_to_6_3, w_5_3_to_4_3, n_5_3_to_5_4, s_5_3_to_5_2, r_to_ni_5_3
+    );
+
+    mock_core_tx_6_3 core_tx_6_3(t_6_3, core_to_ni_6_3);
+    mock_core_rx<6, 3> core_rx_6_3(ni_to_core_6_3);
+    network_interface<4, 8, 6, 3> ni_6_3(core_to_ni_6_3, ni_to_r_6_3, r_to_ni_6_3, ni_to_core_6_3);
+    router<4, 8, 6, 3> r_6_3(
+        w_7_3_to_6_3, e_5_3_to_6_3, s_6_4_to_6_3, n_6_2_to_6_3, ni_to_r_6_3,
+        e_6_3_to_7_3, w_6_3_to_5_3, n_6_3_to_6_4, s_6_3_to_6_2, r_to_ni_6_3
+    );
+
+    mock_core_tx_7_3 core_tx_7_3(t_7_3, core_to_ni_7_3);
+    mock_core_rx<7, 3> core_rx_7_3(ni_to_core_7_3);
+    network_interface<4, 8, 7, 3> ni_7_3(core_to_ni_7_3, ni_to_r_7_3, r_to_ni_7_3, ni_to_core_7_3);
+    router<4, 8, 7, 3> r_7_3(
+        w_8_3_to_7_3, e_6_3_to_7_3, s_7_4_to_7_3, n_7_2_to_7_3, ni_to_r_7_3,
+        e_7_3_to_8_3, w_7_3_to_6_3, n_7_3_to_7_4, s_7_3_to_7_2, r_to_ni_7_3
+    );
+
+    mock_core_tx_8_3 core_tx_8_3(t_8_3, core_to_ni_8_3);
+    mock_core_rx<8, 3> core_rx_8_3(ni_to_core_8_3);
+    network_interface<4, 8, 8, 3> ni_8_3(core_to_ni_8_3, ni_to_r_8_3, r_to_ni_8_3, ni_to_core_8_3);
+    router<4, 8, 8, 3> r_8_3(
+        w_9_3_to_8_3, e_7_3_to_8_3, s_8_4_to_8_3, n_8_2_to_8_3, ni_to_r_8_3,
+        e_8_3_to_9_3, w_8_3_to_7_3, n_8_3_to_8_4, s_8_3_to_8_2, r_to_ni_8_3
+    );
+
+    mock_core_tx_9_3 core_tx_9_3(t_9_3, core_to_ni_9_3);
+    mock_core_rx<9, 3> core_rx_9_3(ni_to_core_9_3);
+    network_interface<4, 8, 9, 3> ni_9_3(core_to_ni_9_3, ni_to_r_9_3, r_to_ni_9_3, ni_to_core_9_3);
+    router<4, 8, 9, 3> r_9_3(
+        w_10_3_to_9_3, e_8_3_to_9_3, s_9_4_to_9_3, n_9_2_to_9_3, ni_to_r_9_3,
+        e_9_3_to_10_3, w_9_3_to_8_3, n_9_3_to_9_4, s_9_3_to_9_2, r_to_ni_9_3
+    );
+
+    mock_core_tx_10_3 core_tx_10_3(t_10_3, core_to_ni_10_3);
+    mock_core_rx<10, 3> core_rx_10_3(ni_to_core_10_3);
+    network_interface<4, 8, 10, 3> ni_10_3(core_to_ni_10_3, ni_to_r_10_3, r_to_ni_10_3, ni_to_core_10_3);
+    router<4, 8, 10, 3> r_10_3(
+        in_10_3_e, e_9_3_to_10_3, s_10_4_to_10_3, n_10_2_to_10_3, ni_to_r_10_3,
+        out_10_3_e, w_10_3_to_9_3, n_10_3_to_10_4, s_10_3_to_10_2, r_to_ni_10_3
+    );
+
+    mock_core_tx_0_4 core_tx_0_4(t_0_4, core_to_ni_0_4);
+    mock_core_rx<0, 4> core_rx_0_4(ni_to_core_0_4);
+    network_interface<4, 8, 0, 4> ni_0_4(core_to_ni_0_4, ni_to_r_0_4, r_to_ni_0_4, ni_to_core_0_4);
+    router<4, 8, 0, 4> r_0_4(
+        w_1_4_to_0_4, in_0_4_w, s_0_5_to_0_4, n_0_3_to_0_4, ni_to_r_0_4,
+        e_0_4_to_1_4, out_0_4_w, n_0_4_to_0_5, s_0_4_to_0_3, r_to_ni_0_4
+    );
+
+    mock_core_tx_1_4 core_tx_1_4(t_1_4, core_to_ni_1_4);
+    mock_core_rx<1, 4> core_rx_1_4(ni_to_core_1_4);
+    network_interface<4, 8, 1, 4> ni_1_4(core_to_ni_1_4, ni_to_r_1_4, r_to_ni_1_4, ni_to_core_1_4);
+    router<4, 8, 1, 4> r_1_4(
+        w_2_4_to_1_4, e_0_4_to_1_4, s_1_5_to_1_4, n_1_3_to_1_4, ni_to_r_1_4,
+        e_1_4_to_2_4, w_1_4_to_0_4, n_1_4_to_1_5, s_1_4_to_1_3, r_to_ni_1_4
+    );
+
+    mock_core_tx_2_4 core_tx_2_4(t_2_4, core_to_ni_2_4);
+    mock_core_rx<2, 4> core_rx_2_4(ni_to_core_2_4);
+    network_interface<4, 8, 2, 4> ni_2_4(core_to_ni_2_4, ni_to_r_2_4, r_to_ni_2_4, ni_to_core_2_4);
+    router<4, 8, 2, 4> r_2_4(
+        w_3_4_to_2_4, e_1_4_to_2_4, s_2_5_to_2_4, n_2_3_to_2_4, ni_to_r_2_4,
+        e_2_4_to_3_4, w_2_4_to_1_4, n_2_4_to_2_5, s_2_4_to_2_3, r_to_ni_2_4
+    );
+
+    mock_core_tx_3_4 core_tx_3_4(t_3_4, core_to_ni_3_4);
+    mock_core_rx<3, 4> core_rx_3_4(ni_to_core_3_4);
+    network_interface<4, 8, 3, 4> ni_3_4(core_to_ni_3_4, ni_to_r_3_4, r_to_ni_3_4, ni_to_core_3_4);
+    router<4, 8, 3, 4> r_3_4(
+        w_4_4_to_3_4, e_2_4_to_3_4, s_3_5_to_3_4, n_3_3_to_3_4, ni_to_r_3_4,
+        e_3_4_to_4_4, w_3_4_to_2_4, n_3_4_to_3_5, s_3_4_to_3_3, r_to_ni_3_4
+    );
+
+    mock_core_tx_4_4 core_tx_4_4(t_4_4, core_to_ni_4_4);
+    mock_core_rx<4, 4> core_rx_4_4(ni_to_core_4_4);
+    network_interface<4, 8, 4, 4> ni_4_4(core_to_ni_4_4, ni_to_r_4_4, r_to_ni_4_4, ni_to_core_4_4);
+    router<4, 8, 4, 4> r_4_4(
+        w_5_4_to_4_4, e_3_4_to_4_4, s_4_5_to_4_4, n_4_3_to_4_4, ni_to_r_4_4,
+        e_4_4_to_5_4, w_4_4_to_3_4, n_4_4_to_4_5, s_4_4_to_4_3, r_to_ni_4_4
+    );
+
+    mock_core_tx_5_4 core_tx_5_4(t_5_4, core_to_ni_5_4);
+    mock_core_rx<5, 4> core_rx_5_4(ni_to_core_5_4);
+    network_interface<4, 8, 5, 4> ni_5_4(core_to_ni_5_4, ni_to_r_5_4, r_to_ni_5_4, ni_to_core_5_4);
+    router<4, 8, 5, 4> r_5_4(
+        w_6_4_to_5_4, e_4_4_to_5_4, s_5_5_to_5_4, n_5_3_to_5_4, ni_to_r_5_4,
+        e_5_4_to_6_4, w_5_4_to_4_4, n_5_4_to_5_5, s_5_4_to_5_3, r_to_ni_5_4
+    );
+
+    mock_core_tx_6_4 core_tx_6_4(t_6_4, core_to_ni_6_4);
+    mock_core_rx<6, 4> core_rx_6_4(ni_to_core_6_4);
+    network_interface<4, 8, 6, 4> ni_6_4(core_to_ni_6_4, ni_to_r_6_4, r_to_ni_6_4, ni_to_core_6_4);
+    router<4, 8, 6, 4> r_6_4(
+        w_7_4_to_6_4, e_5_4_to_6_4, s_6_5_to_6_4, n_6_3_to_6_4, ni_to_r_6_4,
+        e_6_4_to_7_4, w_6_4_to_5_4, n_6_4_to_6_5, s_6_4_to_6_3, r_to_ni_6_4
+    );
+
+    mock_core_tx_7_4 core_tx_7_4(t_7_4, core_to_ni_7_4);
+    mock_core_rx<7, 4> core_rx_7_4(ni_to_core_7_4);
+    network_interface<4, 8, 7, 4> ni_7_4(core_to_ni_7_4, ni_to_r_7_4, r_to_ni_7_4, ni_to_core_7_4);
+    router<4, 8, 7, 4> r_7_4(
+        w_8_4_to_7_4, e_6_4_to_7_4, s_7_5_to_7_4, n_7_3_to_7_4, ni_to_r_7_4,
+        e_7_4_to_8_4, w_7_4_to_6_4, n_7_4_to_7_5, s_7_4_to_7_3, r_to_ni_7_4
+    );
+
+    mock_core_tx_8_4 core_tx_8_4(t_8_4, core_to_ni_8_4);
+    mock_core_rx<8, 4> core_rx_8_4(ni_to_core_8_4);
+    network_interface<4, 8, 8, 4> ni_8_4(core_to_ni_8_4, ni_to_r_8_4, r_to_ni_8_4, ni_to_core_8_4);
+    router<4, 8, 8, 4> r_8_4(
+        w_9_4_to_8_4, e_7_4_to_8_4, s_8_5_to_8_4, n_8_3_to_8_4, ni_to_r_8_4,
+        e_8_4_to_9_4, w_8_4_to_7_4, n_8_4_to_8_5, s_8_4_to_8_3, r_to_ni_8_4
+    );
+
+    mock_core_tx_9_4 core_tx_9_4(t_9_4, core_to_ni_9_4);
+    mock_core_rx<9, 4> core_rx_9_4(ni_to_core_9_4);
+    network_interface<4, 8, 9, 4> ni_9_4(core_to_ni_9_4, ni_to_r_9_4, r_to_ni_9_4, ni_to_core_9_4);
+    router<4, 8, 9, 4> r_9_4(
+        w_10_4_to_9_4, e_8_4_to_9_4, s_9_5_to_9_4, n_9_3_to_9_4, ni_to_r_9_4,
+        e_9_4_to_10_4, w_9_4_to_8_4, n_9_4_to_9_5, s_9_4_to_9_3, r_to_ni_9_4
+    );
+
+    mock_core_tx_10_4 core_tx_10_4(t_10_4, core_to_ni_10_4);
+    mock_core_rx<10, 4> core_rx_10_4(ni_to_core_10_4);
+    network_interface<4, 8, 10, 4> ni_10_4(core_to_ni_10_4, ni_to_r_10_4, r_to_ni_10_4, ni_to_core_10_4);
+    router<4, 8, 10, 4> r_10_4(
+        in_10_4_e, e_9_4_to_10_4, s_10_5_to_10_4, n_10_3_to_10_4, ni_to_r_10_4,
+        out_10_4_e, w_10_4_to_9_4, n_10_4_to_10_5, s_10_4_to_10_3, r_to_ni_10_4
+    );
+
+    mock_core_tx_0_5 core_tx_0_5(t_0_5, core_to_ni_0_5);
+    mock_core_rx<0, 5> core_rx_0_5(ni_to_core_0_5);
+    network_interface<4, 8, 0, 5> ni_0_5(core_to_ni_0_5, ni_to_r_0_5, r_to_ni_0_5, ni_to_core_0_5);
+    router<4, 8, 0, 5> r_0_5(
+        w_1_5_to_0_5, in_0_5_w, s_0_6_to_0_5, n_0_4_to_0_5, ni_to_r_0_5,
+        e_0_5_to_1_5, out_0_5_w, n_0_5_to_0_6, s_0_5_to_0_4, r_to_ni_0_5
+    );
+
+    mock_core_tx_1_5 core_tx_1_5(t_1_5, core_to_ni_1_5);
+    mock_core_rx<1, 5> core_rx_1_5(ni_to_core_1_5);
+    network_interface<4, 8, 1, 5> ni_1_5(core_to_ni_1_5, ni_to_r_1_5, r_to_ni_1_5, ni_to_core_1_5);
+    router<4, 8, 1, 5> r_1_5(
+        w_2_5_to_1_5, e_0_5_to_1_5, s_1_6_to_1_5, n_1_4_to_1_5, ni_to_r_1_5,
+        e_1_5_to_2_5, w_1_5_to_0_5, n_1_5_to_1_6, s_1_5_to_1_4, r_to_ni_1_5
+    );
+
+    mock_core_tx_2_5 core_tx_2_5(t_2_5, core_to_ni_2_5);
+    mock_core_rx<2, 5> core_rx_2_5(ni_to_core_2_5);
+    network_interface<4, 8, 2, 5> ni_2_5(core_to_ni_2_5, ni_to_r_2_5, r_to_ni_2_5, ni_to_core_2_5);
+    router<4, 8, 2, 5> r_2_5(
+        w_3_5_to_2_5, e_1_5_to_2_5, s_2_6_to_2_5, n_2_4_to_2_5, ni_to_r_2_5,
+        e_2_5_to_3_5, w_2_5_to_1_5, n_2_5_to_2_6, s_2_5_to_2_4, r_to_ni_2_5
+    );
+
+    mock_core_tx_3_5 core_tx_3_5(t_3_5, core_to_ni_3_5);
+    mock_core_rx<3, 5> core_rx_3_5(ni_to_core_3_5);
+    network_interface<4, 8, 3, 5> ni_3_5(core_to_ni_3_5, ni_to_r_3_5, r_to_ni_3_5, ni_to_core_3_5);
+    router<4, 8, 3, 5> r_3_5(
+        w_4_5_to_3_5, e_2_5_to_3_5, s_3_6_to_3_5, n_3_4_to_3_5, ni_to_r_3_5,
+        e_3_5_to_4_5, w_3_5_to_2_5, n_3_5_to_3_6, s_3_5_to_3_4, r_to_ni_3_5
+    );
+
+    mock_core_tx_4_5 core_tx_4_5(t_4_5, core_to_ni_4_5);
+    mock_core_rx<4, 5> core_rx_4_5(ni_to_core_4_5);
+    network_interface<4, 8, 4, 5> ni_4_5(core_to_ni_4_5, ni_to_r_4_5, r_to_ni_4_5, ni_to_core_4_5);
+    router<4, 8, 4, 5> r_4_5(
+        w_5_5_to_4_5, e_3_5_to_4_5, s_4_6_to_4_5, n_4_4_to_4_5, ni_to_r_4_5,
+        e_4_5_to_5_5, w_4_5_to_3_5, n_4_5_to_4_6, s_4_5_to_4_4, r_to_ni_4_5
+    );
+
+    mock_core_tx_5_5 core_tx_5_5(t_5_5, core_to_ni_5_5);
+    mock_core_rx<5, 5> core_rx_5_5(ni_to_core_5_5);
+    network_interface<4, 8, 5, 5> ni_5_5(core_to_ni_5_5, ni_to_r_5_5, r_to_ni_5_5, ni_to_core_5_5);
+    router<4, 8, 5, 5> r_5_5(
+        w_6_5_to_5_5, e_4_5_to_5_5, s_5_6_to_5_5, n_5_4_to_5_5, ni_to_r_5_5,
+        e_5_5_to_6_5, w_5_5_to_4_5, n_5_5_to_5_6, s_5_5_to_5_4, r_to_ni_5_5
+    );
+
+    mock_core_tx_6_5 core_tx_6_5(t_6_5, core_to_ni_6_5);
+    mock_core_rx<6, 5> core_rx_6_5(ni_to_core_6_5);
+    network_interface<4, 8, 6, 5> ni_6_5(core_to_ni_6_5, ni_to_r_6_5, r_to_ni_6_5, ni_to_core_6_5);
+    router<4, 8, 6, 5> r_6_5(
+        w_7_5_to_6_5, e_5_5_to_6_5, s_6_6_to_6_5, n_6_4_to_6_5, ni_to_r_6_5,
+        e_6_5_to_7_5, w_6_5_to_5_5, n_6_5_to_6_6, s_6_5_to_6_4, r_to_ni_6_5
+    );
+
+    mock_core_tx_7_5 core_tx_7_5(t_7_5, core_to_ni_7_5);
+    mock_core_rx<7, 5> core_rx_7_5(ni_to_core_7_5);
+    network_interface<4, 8, 7, 5> ni_7_5(core_to_ni_7_5, ni_to_r_7_5, r_to_ni_7_5, ni_to_core_7_5);
+    router<4, 8, 7, 5> r_7_5(
+        w_8_5_to_7_5, e_6_5_to_7_5, s_7_6_to_7_5, n_7_4_to_7_5, ni_to_r_7_5,
+        e_7_5_to_8_5, w_7_5_to_6_5, n_7_5_to_7_6, s_7_5_to_7_4, r_to_ni_7_5
+    );
+
+    mock_core_tx_8_5 core_tx_8_5(t_8_5, core_to_ni_8_5);
+    mock_core_rx<8, 5> core_rx_8_5(ni_to_core_8_5);
+    network_interface<4, 8, 8, 5> ni_8_5(core_to_ni_8_5, ni_to_r_8_5, r_to_ni_8_5, ni_to_core_8_5);
+    router<4, 8, 8, 5> r_8_5(
+        w_9_5_to_8_5, e_7_5_to_8_5, s_8_6_to_8_5, n_8_4_to_8_5, ni_to_r_8_5,
+        e_8_5_to_9_5, w_8_5_to_7_5, n_8_5_to_8_6, s_8_5_to_8_4, r_to_ni_8_5
+    );
+
+    mock_core_tx_9_5 core_tx_9_5(t_9_5, core_to_ni_9_5);
+    mock_core_rx<9, 5> core_rx_9_5(ni_to_core_9_5);
+    network_interface<4, 8, 9, 5> ni_9_5(core_to_ni_9_5, ni_to_r_9_5, r_to_ni_9_5, ni_to_core_9_5);
+    router<4, 8, 9, 5> r_9_5(
+        w_10_5_to_9_5, e_8_5_to_9_5, s_9_6_to_9_5, n_9_4_to_9_5, ni_to_r_9_5,
+        e_9_5_to_10_5, w_9_5_to_8_5, n_9_5_to_9_6, s_9_5_to_9_4, r_to_ni_9_5
+    );
+
+    mock_core_tx_10_5 core_tx_10_5(t_10_5, core_to_ni_10_5);
+    mock_core_rx<10, 5> core_rx_10_5(ni_to_core_10_5);
+    network_interface<4, 8, 10, 5> ni_10_5(core_to_ni_10_5, ni_to_r_10_5, r_to_ni_10_5, ni_to_core_10_5);
+    router<4, 8, 10, 5> r_10_5(
+        in_10_5_e, e_9_5_to_10_5, s_10_6_to_10_5, n_10_4_to_10_5, ni_to_r_10_5,
+        out_10_5_e, w_10_5_to_9_5, n_10_5_to_10_6, s_10_5_to_10_4, r_to_ni_10_5
+    );
+
+    mock_core_tx_0_6 core_tx_0_6(t_0_6, core_to_ni_0_6);
+    mock_core_rx<0, 6> core_rx_0_6(ni_to_core_0_6);
+    network_interface<4, 8, 0, 6> ni_0_6(core_to_ni_0_6, ni_to_r_0_6, r_to_ni_0_6, ni_to_core_0_6);
+    router<4, 8, 0, 6> r_0_6(
+        w_1_6_to_0_6, in_0_6_w, s_0_7_to_0_6, n_0_5_to_0_6, ni_to_r_0_6,
+        e_0_6_to_1_6, out_0_6_w, n_0_6_to_0_7, s_0_6_to_0_5, r_to_ni_0_6
+    );
+
+    mock_core_tx_1_6 core_tx_1_6(t_1_6, core_to_ni_1_6);
+    mock_core_rx<1, 6> core_rx_1_6(ni_to_core_1_6);
+    network_interface<4, 8, 1, 6> ni_1_6(core_to_ni_1_6, ni_to_r_1_6, r_to_ni_1_6, ni_to_core_1_6);
+    router<4, 8, 1, 6> r_1_6(
+        w_2_6_to_1_6, e_0_6_to_1_6, s_1_7_to_1_6, n_1_5_to_1_6, ni_to_r_1_6,
+        e_1_6_to_2_6, w_1_6_to_0_6, n_1_6_to_1_7, s_1_6_to_1_5, r_to_ni_1_6
+    );
+
+    mock_core_tx_2_6 core_tx_2_6(t_2_6, core_to_ni_2_6);
+    mock_core_rx<2, 6> core_rx_2_6(ni_to_core_2_6);
+    network_interface<4, 8, 2, 6> ni_2_6(core_to_ni_2_6, ni_to_r_2_6, r_to_ni_2_6, ni_to_core_2_6);
+    router<4, 8, 2, 6> r_2_6(
+        w_3_6_to_2_6, e_1_6_to_2_6, s_2_7_to_2_6, n_2_5_to_2_6, ni_to_r_2_6,
+        e_2_6_to_3_6, w_2_6_to_1_6, n_2_6_to_2_7, s_2_6_to_2_5, r_to_ni_2_6
+    );
+
+    mock_core_tx_3_6 core_tx_3_6(t_3_6, core_to_ni_3_6);
+    mock_core_rx<3, 6> core_rx_3_6(ni_to_core_3_6);
+    network_interface<4, 8, 3, 6> ni_3_6(core_to_ni_3_6, ni_to_r_3_6, r_to_ni_3_6, ni_to_core_3_6);
+    router<4, 8, 3, 6> r_3_6(
+        w_4_6_to_3_6, e_2_6_to_3_6, s_3_7_to_3_6, n_3_5_to_3_6, ni_to_r_3_6,
+        e_3_6_to_4_6, w_3_6_to_2_6, n_3_6_to_3_7, s_3_6_to_3_5, r_to_ni_3_6
+    );
+
+    mock_core_tx_4_6 core_tx_4_6(t_4_6, core_to_ni_4_6);
+    mock_core_rx<4, 6> core_rx_4_6(ni_to_core_4_6);
+    network_interface<4, 8, 4, 6> ni_4_6(core_to_ni_4_6, ni_to_r_4_6, r_to_ni_4_6, ni_to_core_4_6);
+    router<4, 8, 4, 6> r_4_6(
+        w_5_6_to_4_6, e_3_6_to_4_6, s_4_7_to_4_6, n_4_5_to_4_6, ni_to_r_4_6,
+        e_4_6_to_5_6, w_4_6_to_3_6, n_4_6_to_4_7, s_4_6_to_4_5, r_to_ni_4_6
+    );
+
+    mock_core_tx_5_6 core_tx_5_6(t_5_6, core_to_ni_5_6);
+    mock_core_rx<5, 6> core_rx_5_6(ni_to_core_5_6);
+    network_interface<4, 8, 5, 6> ni_5_6(core_to_ni_5_6, ni_to_r_5_6, r_to_ni_5_6, ni_to_core_5_6);
+    router<4, 8, 5, 6> r_5_6(
+        w_6_6_to_5_6, e_4_6_to_5_6, s_5_7_to_5_6, n_5_5_to_5_6, ni_to_r_5_6,
+        e_5_6_to_6_6, w_5_6_to_4_6, n_5_6_to_5_7, s_5_6_to_5_5, r_to_ni_5_6
+    );
+
+    mock_core_tx_6_6 core_tx_6_6(t_6_6, core_to_ni_6_6);
+    mock_core_rx<6, 6> core_rx_6_6(ni_to_core_6_6);
+    network_interface<4, 8, 6, 6> ni_6_6(core_to_ni_6_6, ni_to_r_6_6, r_to_ni_6_6, ni_to_core_6_6);
+    router<4, 8, 6, 6> r_6_6(
+        w_7_6_to_6_6, e_5_6_to_6_6, s_6_7_to_6_6, n_6_5_to_6_6, ni_to_r_6_6,
+        e_6_6_to_7_6, w_6_6_to_5_6, n_6_6_to_6_7, s_6_6_to_6_5, r_to_ni_6_6
+    );
+
+    mock_core_tx_7_6 core_tx_7_6(t_7_6, core_to_ni_7_6);
+    mock_core_rx<7, 6> core_rx_7_6(ni_to_core_7_6);
+    network_interface<4, 8, 7, 6> ni_7_6(core_to_ni_7_6, ni_to_r_7_6, r_to_ni_7_6, ni_to_core_7_6);
+    router<4, 8, 7, 6> r_7_6(
+        w_8_6_to_7_6, e_6_6_to_7_6, s_7_7_to_7_6, n_7_5_to_7_6, ni_to_r_7_6,
+        e_7_6_to_8_6, w_7_6_to_6_6, n_7_6_to_7_7, s_7_6_to_7_5, r_to_ni_7_6
+    );
+
+    mock_core_tx_8_6 core_tx_8_6(t_8_6, core_to_ni_8_6);
+    mock_core_rx<8, 6> core_rx_8_6(ni_to_core_8_6);
+    network_interface<4, 8, 8, 6> ni_8_6(core_to_ni_8_6, ni_to_r_8_6, r_to_ni_8_6, ni_to_core_8_6);
+    router<4, 8, 8, 6> r_8_6(
+        w_9_6_to_8_6, e_7_6_to_8_6, s_8_7_to_8_6, n_8_5_to_8_6, ni_to_r_8_6,
+        e_8_6_to_9_6, w_8_6_to_7_6, n_8_6_to_8_7, s_8_6_to_8_5, r_to_ni_8_6
+    );
+
+    mock_core_tx_9_6 core_tx_9_6(t_9_6, core_to_ni_9_6);
+    mock_core_rx<9, 6> core_rx_9_6(ni_to_core_9_6);
+    network_interface<4, 8, 9, 6> ni_9_6(core_to_ni_9_6, ni_to_r_9_6, r_to_ni_9_6, ni_to_core_9_6);
+    router<4, 8, 9, 6> r_9_6(
+        w_10_6_to_9_6, e_8_6_to_9_6, s_9_7_to_9_6, n_9_5_to_9_6, ni_to_r_9_6,
+        e_9_6_to_10_6, w_9_6_to_8_6, n_9_6_to_9_7, s_9_6_to_9_5, r_to_ni_9_6
+    );
+
+    mock_core_tx_10_6 core_tx_10_6(t_10_6, core_to_ni_10_6);
+    mock_core_rx<10, 6> core_rx_10_6(ni_to_core_10_6);
+    network_interface<4, 8, 10, 6> ni_10_6(core_to_ni_10_6, ni_to_r_10_6, r_to_ni_10_6, ni_to_core_10_6);
+    router<4, 8, 10, 6> r_10_6(
+        in_10_6_e, e_9_6_to_10_6, s_10_7_to_10_6, n_10_5_to_10_6, ni_to_r_10_6,
+        out_10_6_e, w_10_6_to_9_6, n_10_6_to_10_7, s_10_6_to_10_5, r_to_ni_10_6
+    );
+
+    mock_core_tx_0_7 core_tx_0_7(t_0_7, core_to_ni_0_7);
+    mock_core_rx<0, 7> core_rx_0_7(ni_to_core_0_7);
+    network_interface<4, 8, 0, 7> ni_0_7(core_to_ni_0_7, ni_to_r_0_7, r_to_ni_0_7, ni_to_core_0_7);
+    router<4, 8, 0, 7> r_0_7(
+        w_1_7_to_0_7, in_0_7_w, s_0_8_to_0_7, n_0_6_to_0_7, ni_to_r_0_7,
+        e_0_7_to_1_7, out_0_7_w, n_0_7_to_0_8, s_0_7_to_0_6, r_to_ni_0_7
+    );
+
+    mock_core_tx_1_7 core_tx_1_7(t_1_7, core_to_ni_1_7);
+    mock_core_rx<1, 7> core_rx_1_7(ni_to_core_1_7);
+    network_interface<4, 8, 1, 7> ni_1_7(core_to_ni_1_7, ni_to_r_1_7, r_to_ni_1_7, ni_to_core_1_7);
+    router<4, 8, 1, 7> r_1_7(
+        w_2_7_to_1_7, e_0_7_to_1_7, s_1_8_to_1_7, n_1_6_to_1_7, ni_to_r_1_7,
+        e_1_7_to_2_7, w_1_7_to_0_7, n_1_7_to_1_8, s_1_7_to_1_6, r_to_ni_1_7
+    );
+
+    mock_core_tx_2_7 core_tx_2_7(t_2_7, core_to_ni_2_7);
+    mock_core_rx<2, 7> core_rx_2_7(ni_to_core_2_7);
+    network_interface<4, 8, 2, 7> ni_2_7(core_to_ni_2_7, ni_to_r_2_7, r_to_ni_2_7, ni_to_core_2_7);
+    router<4, 8, 2, 7> r_2_7(
+        w_3_7_to_2_7, e_1_7_to_2_7, s_2_8_to_2_7, n_2_6_to_2_7, ni_to_r_2_7,
+        e_2_7_to_3_7, w_2_7_to_1_7, n_2_7_to_2_8, s_2_7_to_2_6, r_to_ni_2_7
+    );
+
+    mock_core_tx_3_7 core_tx_3_7(t_3_7, core_to_ni_3_7);
+    mock_core_rx<3, 7> core_rx_3_7(ni_to_core_3_7);
+    network_interface<4, 8, 3, 7> ni_3_7(core_to_ni_3_7, ni_to_r_3_7, r_to_ni_3_7, ni_to_core_3_7);
+    router<4, 8, 3, 7> r_3_7(
+        w_4_7_to_3_7, e_2_7_to_3_7, s_3_8_to_3_7, n_3_6_to_3_7, ni_to_r_3_7,
+        e_3_7_to_4_7, w_3_7_to_2_7, n_3_7_to_3_8, s_3_7_to_3_6, r_to_ni_3_7
+    );
+
+    mock_core_tx_4_7 core_tx_4_7(t_4_7, core_to_ni_4_7);
+    mock_core_rx<4, 7> core_rx_4_7(ni_to_core_4_7);
+    network_interface<4, 8, 4, 7> ni_4_7(core_to_ni_4_7, ni_to_r_4_7, r_to_ni_4_7, ni_to_core_4_7);
+    router<4, 8, 4, 7> r_4_7(
+        w_5_7_to_4_7, e_3_7_to_4_7, s_4_8_to_4_7, n_4_6_to_4_7, ni_to_r_4_7,
+        e_4_7_to_5_7, w_4_7_to_3_7, n_4_7_to_4_8, s_4_7_to_4_6, r_to_ni_4_7
+    );
+
+    mock_core_tx_5_7 core_tx_5_7(t_5_7, core_to_ni_5_7);
+    mock_core_rx<5, 7> core_rx_5_7(ni_to_core_5_7);
+    network_interface<4, 8, 5, 7> ni_5_7(core_to_ni_5_7, ni_to_r_5_7, r_to_ni_5_7, ni_to_core_5_7);
+    router<4, 8, 5, 7> r_5_7(
+        w_6_7_to_5_7, e_4_7_to_5_7, s_5_8_to_5_7, n_5_6_to_5_7, ni_to_r_5_7,
+        e_5_7_to_6_7, w_5_7_to_4_7, n_5_7_to_5_8, s_5_7_to_5_6, r_to_ni_5_7
+    );
+
+    mock_core_tx_6_7 core_tx_6_7(t_6_7, core_to_ni_6_7);
+    mock_core_rx<6, 7> core_rx_6_7(ni_to_core_6_7);
+    network_interface<4, 8, 6, 7> ni_6_7(core_to_ni_6_7, ni_to_r_6_7, r_to_ni_6_7, ni_to_core_6_7);
+    router<4, 8, 6, 7> r_6_7(
+        w_7_7_to_6_7, e_5_7_to_6_7, s_6_8_to_6_7, n_6_6_to_6_7, ni_to_r_6_7,
+        e_6_7_to_7_7, w_6_7_to_5_7, n_6_7_to_6_8, s_6_7_to_6_6, r_to_ni_6_7
+    );
+
+    mock_core_tx_7_7 core_tx_7_7(t_7_7, core_to_ni_7_7);
+    mock_core_rx<7, 7> core_rx_7_7(ni_to_core_7_7);
+    network_interface<4, 8, 7, 7> ni_7_7(core_to_ni_7_7, ni_to_r_7_7, r_to_ni_7_7, ni_to_core_7_7);
+    router<4, 8, 7, 7> r_7_7(
+        w_8_7_to_7_7, e_6_7_to_7_7, s_7_8_to_7_7, n_7_6_to_7_7, ni_to_r_7_7,
+        e_7_7_to_8_7, w_7_7_to_6_7, n_7_7_to_7_8, s_7_7_to_7_6, r_to_ni_7_7
+    );
+
+    mock_core_tx_8_7 core_tx_8_7(t_8_7, core_to_ni_8_7);
+    mock_core_rx<8, 7> core_rx_8_7(ni_to_core_8_7);
+    network_interface<4, 8, 8, 7> ni_8_7(core_to_ni_8_7, ni_to_r_8_7, r_to_ni_8_7, ni_to_core_8_7);
+    router<4, 8, 8, 7> r_8_7(
+        w_9_7_to_8_7, e_7_7_to_8_7, s_8_8_to_8_7, n_8_6_to_8_7, ni_to_r_8_7,
+        e_8_7_to_9_7, w_8_7_to_7_7, n_8_7_to_8_8, s_8_7_to_8_6, r_to_ni_8_7
+    );
+
+    mock_core_tx_9_7 core_tx_9_7(t_9_7, core_to_ni_9_7);
+    mock_core_rx<9, 7> core_rx_9_7(ni_to_core_9_7);
+    network_interface<4, 8, 9, 7> ni_9_7(core_to_ni_9_7, ni_to_r_9_7, r_to_ni_9_7, ni_to_core_9_7);
+    router<4, 8, 9, 7> r_9_7(
+        w_10_7_to_9_7, e_8_7_to_9_7, s_9_8_to_9_7, n_9_6_to_9_7, ni_to_r_9_7,
+        e_9_7_to_10_7, w_9_7_to_8_7, n_9_7_to_9_8, s_9_7_to_9_6, r_to_ni_9_7
+    );
+
+    mock_core_tx_10_7 core_tx_10_7(t_10_7, core_to_ni_10_7);
+    mock_core_rx<10, 7> core_rx_10_7(ni_to_core_10_7);
+    network_interface<4, 8, 10, 7> ni_10_7(core_to_ni_10_7, ni_to_r_10_7, r_to_ni_10_7, ni_to_core_10_7);
+    router<4, 8, 10, 7> r_10_7(
+        in_10_7_e, e_9_7_to_10_7, s_10_8_to_10_7, n_10_6_to_10_7, ni_to_r_10_7,
+        out_10_7_e, w_10_7_to_9_7, n_10_7_to_10_8, s_10_7_to_10_6, r_to_ni_10_7
+    );
+
+    mock_core_tx_0_8 core_tx_0_8(t_0_8, core_to_ni_0_8);
+    mock_core_rx<0, 8> core_rx_0_8(ni_to_core_0_8);
+    network_interface<4, 8, 0, 8> ni_0_8(core_to_ni_0_8, ni_to_r_0_8, r_to_ni_0_8, ni_to_core_0_8);
+    router<4, 8, 0, 8> r_0_8(
+        w_1_8_to_0_8, in_0_8_w, s_0_9_to_0_8, n_0_7_to_0_8, ni_to_r_0_8,
+        e_0_8_to_1_8, out_0_8_w, n_0_8_to_0_9, s_0_8_to_0_7, r_to_ni_0_8
+    );
+
+    mock_core_tx_1_8 core_tx_1_8(t_1_8, core_to_ni_1_8);
+    mock_core_rx<1, 8> core_rx_1_8(ni_to_core_1_8);
+    network_interface<4, 8, 1, 8> ni_1_8(core_to_ni_1_8, ni_to_r_1_8, r_to_ni_1_8, ni_to_core_1_8);
+    router<4, 8, 1, 8> r_1_8(
+        w_2_8_to_1_8, e_0_8_to_1_8, s_1_9_to_1_8, n_1_7_to_1_8, ni_to_r_1_8,
+        e_1_8_to_2_8, w_1_8_to_0_8, n_1_8_to_1_9, s_1_8_to_1_7, r_to_ni_1_8
+    );
+
+    mock_core_tx_2_8 core_tx_2_8(t_2_8, core_to_ni_2_8);
+    mock_core_rx<2, 8> core_rx_2_8(ni_to_core_2_8);
+    network_interface<4, 8, 2, 8> ni_2_8(core_to_ni_2_8, ni_to_r_2_8, r_to_ni_2_8, ni_to_core_2_8);
+    router<4, 8, 2, 8> r_2_8(
+        w_3_8_to_2_8, e_1_8_to_2_8, s_2_9_to_2_8, n_2_7_to_2_8, ni_to_r_2_8,
+        e_2_8_to_3_8, w_2_8_to_1_8, n_2_8_to_2_9, s_2_8_to_2_7, r_to_ni_2_8
+    );
+
+    mock_core_tx_3_8 core_tx_3_8(t_3_8, core_to_ni_3_8);
+    mock_core_rx<3, 8> core_rx_3_8(ni_to_core_3_8);
+    network_interface<4, 8, 3, 8> ni_3_8(core_to_ni_3_8, ni_to_r_3_8, r_to_ni_3_8, ni_to_core_3_8);
+    router<4, 8, 3, 8> r_3_8(
+        w_4_8_to_3_8, e_2_8_to_3_8, s_3_9_to_3_8, n_3_7_to_3_8, ni_to_r_3_8,
+        e_3_8_to_4_8, w_3_8_to_2_8, n_3_8_to_3_9, s_3_8_to_3_7, r_to_ni_3_8
+    );
+
+    mock_core_tx_4_8 core_tx_4_8(t_4_8, core_to_ni_4_8);
+    mock_core_rx<4, 8> core_rx_4_8(ni_to_core_4_8);
+    network_interface<4, 8, 4, 8> ni_4_8(core_to_ni_4_8, ni_to_r_4_8, r_to_ni_4_8, ni_to_core_4_8);
+    router<4, 8, 4, 8> r_4_8(
+        w_5_8_to_4_8, e_3_8_to_4_8, s_4_9_to_4_8, n_4_7_to_4_8, ni_to_r_4_8,
+        e_4_8_to_5_8, w_4_8_to_3_8, n_4_8_to_4_9, s_4_8_to_4_7, r_to_ni_4_8
+    );
+
+    mock_core_tx_5_8 core_tx_5_8(t_5_8, core_to_ni_5_8);
+    mock_core_rx<5, 8> core_rx_5_8(ni_to_core_5_8);
+    network_interface<4, 8, 5, 8> ni_5_8(core_to_ni_5_8, ni_to_r_5_8, r_to_ni_5_8, ni_to_core_5_8);
+    router<4, 8, 5, 8> r_5_8(
+        w_6_8_to_5_8, e_4_8_to_5_8, s_5_9_to_5_8, n_5_7_to_5_8, ni_to_r_5_8,
+        e_5_8_to_6_8, w_5_8_to_4_8, n_5_8_to_5_9, s_5_8_to_5_7, r_to_ni_5_8
+    );
+
+    mock_core_tx_6_8 core_tx_6_8(t_6_8, core_to_ni_6_8);
+    mock_core_rx<6, 8> core_rx_6_8(ni_to_core_6_8);
+    network_interface<4, 8, 6, 8> ni_6_8(core_to_ni_6_8, ni_to_r_6_8, r_to_ni_6_8, ni_to_core_6_8);
+    router<4, 8, 6, 8> r_6_8(
+        w_7_8_to_6_8, e_5_8_to_6_8, s_6_9_to_6_8, n_6_7_to_6_8, ni_to_r_6_8,
+        e_6_8_to_7_8, w_6_8_to_5_8, n_6_8_to_6_9, s_6_8_to_6_7, r_to_ni_6_8
+    );
+
+    mock_core_tx_7_8 core_tx_7_8(t_7_8, core_to_ni_7_8);
+    mock_core_rx<7, 8> core_rx_7_8(ni_to_core_7_8);
+    network_interface<4, 8, 7, 8> ni_7_8(core_to_ni_7_8, ni_to_r_7_8, r_to_ni_7_8, ni_to_core_7_8);
+    router<4, 8, 7, 8> r_7_8(
+        w_8_8_to_7_8, e_6_8_to_7_8, s_7_9_to_7_8, n_7_7_to_7_8, ni_to_r_7_8,
+        e_7_8_to_8_8, w_7_8_to_6_8, n_7_8_to_7_9, s_7_8_to_7_7, r_to_ni_7_8
+    );
+
+    mock_core_tx_8_8 core_tx_8_8(t_8_8, core_to_ni_8_8);
+    mock_core_rx<8, 8> core_rx_8_8(ni_to_core_8_8);
+    network_interface<4, 8, 8, 8> ni_8_8(core_to_ni_8_8, ni_to_r_8_8, r_to_ni_8_8, ni_to_core_8_8);
+    router<4, 8, 8, 8> r_8_8(
+        w_9_8_to_8_8, e_7_8_to_8_8, s_8_9_to_8_8, n_8_7_to_8_8, ni_to_r_8_8,
+        e_8_8_to_9_8, w_8_8_to_7_8, n_8_8_to_8_9, s_8_8_to_8_7, r_to_ni_8_8
+    );
+
+    mock_core_tx_9_8 core_tx_9_8(t_9_8, core_to_ni_9_8);
+    mock_core_rx<9, 8> core_rx_9_8(ni_to_core_9_8);
+    network_interface<4, 8, 9, 8> ni_9_8(core_to_ni_9_8, ni_to_r_9_8, r_to_ni_9_8, ni_to_core_9_8);
+    router<4, 8, 9, 8> r_9_8(
+        w_10_8_to_9_8, e_8_8_to_9_8, s_9_9_to_9_8, n_9_7_to_9_8, ni_to_r_9_8,
+        e_9_8_to_10_8, w_9_8_to_8_8, n_9_8_to_9_9, s_9_8_to_9_7, r_to_ni_9_8
+    );
+
+    mock_core_tx_10_8 core_tx_10_8(t_10_8, core_to_ni_10_8);
+    mock_core_rx<10, 8> core_rx_10_8(ni_to_core_10_8);
+    network_interface<4, 8, 10, 8> ni_10_8(core_to_ni_10_8, ni_to_r_10_8, r_to_ni_10_8, ni_to_core_10_8);
+    router<4, 8, 10, 8> r_10_8(
+        in_10_8_e, e_9_8_to_10_8, s_10_9_to_10_8, n_10_7_to_10_8, ni_to_r_10_8,
+        out_10_8_e, w_10_8_to_9_8, n_10_8_to_10_9, s_10_8_to_10_7, r_to_ni_10_8
+    );
+
+    mock_core_tx_0_9 core_tx_0_9(t_0_9, core_to_ni_0_9);
+    mock_core_rx<0, 9> core_rx_0_9(ni_to_core_0_9);
+    network_interface<4, 8, 0, 9> ni_0_9(core_to_ni_0_9, ni_to_r_0_9, r_to_ni_0_9, ni_to_core_0_9);
+    router<4, 8, 0, 9> r_0_9(
+        w_1_9_to_0_9, in_0_9_w, s_0_10_to_0_9, n_0_8_to_0_9, ni_to_r_0_9,
+        e_0_9_to_1_9, out_0_9_w, n_0_9_to_0_10, s_0_9_to_0_8, r_to_ni_0_9
+    );
+
+    mock_core_tx_1_9 core_tx_1_9(t_1_9, core_to_ni_1_9);
+    mock_core_rx<1, 9> core_rx_1_9(ni_to_core_1_9);
+    network_interface<4, 8, 1, 9> ni_1_9(core_to_ni_1_9, ni_to_r_1_9, r_to_ni_1_9, ni_to_core_1_9);
+    router<4, 8, 1, 9> r_1_9(
+        w_2_9_to_1_9, e_0_9_to_1_9, s_1_10_to_1_9, n_1_8_to_1_9, ni_to_r_1_9,
+        e_1_9_to_2_9, w_1_9_to_0_9, n_1_9_to_1_10, s_1_9_to_1_8, r_to_ni_1_9
+    );
+
+    mock_core_tx_2_9 core_tx_2_9(t_2_9, core_to_ni_2_9);
+    mock_core_rx<2, 9> core_rx_2_9(ni_to_core_2_9);
+    network_interface<4, 8, 2, 9> ni_2_9(core_to_ni_2_9, ni_to_r_2_9, r_to_ni_2_9, ni_to_core_2_9);
+    router<4, 8, 2, 9> r_2_9(
+        w_3_9_to_2_9, e_1_9_to_2_9, s_2_10_to_2_9, n_2_8_to_2_9, ni_to_r_2_9,
+        e_2_9_to_3_9, w_2_9_to_1_9, n_2_9_to_2_10, s_2_9_to_2_8, r_to_ni_2_9
+    );
+
+    mock_core_tx_3_9 core_tx_3_9(t_3_9, core_to_ni_3_9);
+    mock_core_rx<3, 9> core_rx_3_9(ni_to_core_3_9);
+    network_interface<4, 8, 3, 9> ni_3_9(core_to_ni_3_9, ni_to_r_3_9, r_to_ni_3_9, ni_to_core_3_9);
+    router<4, 8, 3, 9> r_3_9(
+        w_4_9_to_3_9, e_2_9_to_3_9, s_3_10_to_3_9, n_3_8_to_3_9, ni_to_r_3_9,
+        e_3_9_to_4_9, w_3_9_to_2_9, n_3_9_to_3_10, s_3_9_to_3_8, r_to_ni_3_9
+    );
+
+    mock_core_tx_4_9 core_tx_4_9(t_4_9, core_to_ni_4_9);
+    mock_core_rx<4, 9> core_rx_4_9(ni_to_core_4_9);
+    network_interface<4, 8, 4, 9> ni_4_9(core_to_ni_4_9, ni_to_r_4_9, r_to_ni_4_9, ni_to_core_4_9);
+    router<4, 8, 4, 9> r_4_9(
+        w_5_9_to_4_9, e_3_9_to_4_9, s_4_10_to_4_9, n_4_8_to_4_9, ni_to_r_4_9,
+        e_4_9_to_5_9, w_4_9_to_3_9, n_4_9_to_4_10, s_4_9_to_4_8, r_to_ni_4_9
+    );
+
+    mock_core_tx_5_9 core_tx_5_9(t_5_9, core_to_ni_5_9);
+    mock_core_rx<5, 9> core_rx_5_9(ni_to_core_5_9);
+    network_interface<4, 8, 5, 9> ni_5_9(core_to_ni_5_9, ni_to_r_5_9, r_to_ni_5_9, ni_to_core_5_9);
+    router<4, 8, 5, 9> r_5_9(
+        w_6_9_to_5_9, e_4_9_to_5_9, s_5_10_to_5_9, n_5_8_to_5_9, ni_to_r_5_9,
+        e_5_9_to_6_9, w_5_9_to_4_9, n_5_9_to_5_10, s_5_9_to_5_8, r_to_ni_5_9
+    );
+
+    mock_core_tx_6_9 core_tx_6_9(t_6_9, core_to_ni_6_9);
+    mock_core_rx<6, 9> core_rx_6_9(ni_to_core_6_9);
+    network_interface<4, 8, 6, 9> ni_6_9(core_to_ni_6_9, ni_to_r_6_9, r_to_ni_6_9, ni_to_core_6_9);
+    router<4, 8, 6, 9> r_6_9(
+        w_7_9_to_6_9, e_5_9_to_6_9, s_6_10_to_6_9, n_6_8_to_6_9, ni_to_r_6_9,
+        e_6_9_to_7_9, w_6_9_to_5_9, n_6_9_to_6_10, s_6_9_to_6_8, r_to_ni_6_9
+    );
+
+    mock_core_tx_7_9 core_tx_7_9(t_7_9, core_to_ni_7_9);
+    mock_core_rx<7, 9> core_rx_7_9(ni_to_core_7_9);
+    network_interface<4, 8, 7, 9> ni_7_9(core_to_ni_7_9, ni_to_r_7_9, r_to_ni_7_9, ni_to_core_7_9);
+    router<4, 8, 7, 9> r_7_9(
+        w_8_9_to_7_9, e_6_9_to_7_9, s_7_10_to_7_9, n_7_8_to_7_9, ni_to_r_7_9,
+        e_7_9_to_8_9, w_7_9_to_6_9, n_7_9_to_7_10, s_7_9_to_7_8, r_to_ni_7_9
+    );
+
+    mock_core_tx_8_9 core_tx_8_9(t_8_9, core_to_ni_8_9);
+    mock_core_rx<8, 9> core_rx_8_9(ni_to_core_8_9);
+    network_interface<4, 8, 8, 9> ni_8_9(core_to_ni_8_9, ni_to_r_8_9, r_to_ni_8_9, ni_to_core_8_9);
+    router<4, 8, 8, 9> r_8_9(
+        w_9_9_to_8_9, e_7_9_to_8_9, s_8_10_to_8_9, n_8_8_to_8_9, ni_to_r_8_9,
+        e_8_9_to_9_9, w_8_9_to_7_9, n_8_9_to_8_10, s_8_9_to_8_8, r_to_ni_8_9
+    );
+
+    mock_core_tx_9_9 core_tx_9_9(t_9_9, core_to_ni_9_9);
+    mock_core_rx<9, 9> core_rx_9_9(ni_to_core_9_9);
+    network_interface<4, 8, 9, 9> ni_9_9(core_to_ni_9_9, ni_to_r_9_9, r_to_ni_9_9, ni_to_core_9_9);
+    router<4, 8, 9, 9> r_9_9(
+        w_10_9_to_9_9, e_8_9_to_9_9, s_9_10_to_9_9, n_9_8_to_9_9, ni_to_r_9_9,
+        e_9_9_to_10_9, w_9_9_to_8_9, n_9_9_to_9_10, s_9_9_to_9_8, r_to_ni_9_9
+    );
+
+    mock_core_tx_10_9 core_tx_10_9(t_10_9, core_to_ni_10_9);
+    mock_core_rx<10, 9> core_rx_10_9(ni_to_core_10_9);
+    network_interface<4, 8, 10, 9> ni_10_9(core_to_ni_10_9, ni_to_r_10_9, r_to_ni_10_9, ni_to_core_10_9);
+    router<4, 8, 10, 9> r_10_9(
+        in_10_9_e, e_9_9_to_10_9, s_10_10_to_10_9, n_10_8_to_10_9, ni_to_r_10_9,
+        out_10_9_e, w_10_9_to_9_9, n_10_9_to_10_10, s_10_9_to_10_8, r_to_ni_10_9
+    );
+
+    mock_core_tx_0_10 core_tx_0_10(t_0_10, core_to_ni_0_10);
+    mock_core_rx<0, 10> core_rx_0_10(ni_to_core_0_10);
+    network_interface<4, 8, 0, 10> ni_0_10(core_to_ni_0_10, ni_to_r_0_10, r_to_ni_0_10, ni_to_core_0_10);
+    router<4, 8, 0, 10> r_0_10(
+        w_1_10_to_0_10, in_0_10_w, in_0_10_n, n_0_9_to_0_10, ni_to_r_0_10,
+        e_0_10_to_1_10, out_0_10_w, out_0_10_n, s_0_10_to_0_9, r_to_ni_0_10
+    );
+
+    mock_core_tx_1_10 core_tx_1_10(t_1_10, core_to_ni_1_10);
+    mock_core_rx<1, 10> core_rx_1_10(ni_to_core_1_10);
+    network_interface<4, 8, 1, 10> ni_1_10(core_to_ni_1_10, ni_to_r_1_10, r_to_ni_1_10, ni_to_core_1_10);
+    router<4, 8, 1, 10> r_1_10(
+        w_2_10_to_1_10, e_0_10_to_1_10, in_1_10_n, n_1_9_to_1_10, ni_to_r_1_10,
+        e_1_10_to_2_10, w_1_10_to_0_10, out_1_10_n, s_1_10_to_1_9, r_to_ni_1_10
+    );
+
+    mock_core_tx_2_10 core_tx_2_10(t_2_10, core_to_ni_2_10);
+    mock_core_rx<2, 10> core_rx_2_10(ni_to_core_2_10);
+    network_interface<4, 8, 2, 10> ni_2_10(core_to_ni_2_10, ni_to_r_2_10, r_to_ni_2_10, ni_to_core_2_10);
+    router<4, 8, 2, 10> r_2_10(
+        w_3_10_to_2_10, e_1_10_to_2_10, in_2_10_n, n_2_9_to_2_10, ni_to_r_2_10,
+        e_2_10_to_3_10, w_2_10_to_1_10, out_2_10_n, s_2_10_to_2_9, r_to_ni_2_10
+    );
+
+    mock_core_tx_3_10 core_tx_3_10(t_3_10, core_to_ni_3_10);
+    mock_core_rx<3, 10> core_rx_3_10(ni_to_core_3_10);
+    network_interface<4, 8, 3, 10> ni_3_10(core_to_ni_3_10, ni_to_r_3_10, r_to_ni_3_10, ni_to_core_3_10);
+    router<4, 8, 3, 10> r_3_10(
+        w_4_10_to_3_10, e_2_10_to_3_10, in_3_10_n, n_3_9_to_3_10, ni_to_r_3_10,
+        e_3_10_to_4_10, w_3_10_to_2_10, out_3_10_n, s_3_10_to_3_9, r_to_ni_3_10
+    );
+
+    mock_core_tx_4_10 core_tx_4_10(t_4_10, core_to_ni_4_10);
+    mock_core_rx<4, 10> core_rx_4_10(ni_to_core_4_10);
+    network_interface<4, 8, 4, 10> ni_4_10(core_to_ni_4_10, ni_to_r_4_10, r_to_ni_4_10, ni_to_core_4_10);
+    router<4, 8, 4, 10> r_4_10(
+        w_5_10_to_4_10, e_3_10_to_4_10, in_4_10_n, n_4_9_to_4_10, ni_to_r_4_10,
+        e_4_10_to_5_10, w_4_10_to_3_10, out_4_10_n, s_4_10_to_4_9, r_to_ni_4_10
+    );
+
+    mock_core_tx_5_10 core_tx_5_10(t_5_10, core_to_ni_5_10);
+    mock_core_rx<5, 10> core_rx_5_10(ni_to_core_5_10);
+    network_interface<4, 8, 5, 10> ni_5_10(core_to_ni_5_10, ni_to_r_5_10, r_to_ni_5_10, ni_to_core_5_10);
+    router<4, 8, 5, 10> r_5_10(
+        w_6_10_to_5_10, e_4_10_to_5_10, in_5_10_n, n_5_9_to_5_10, ni_to_r_5_10,
+        e_5_10_to_6_10, w_5_10_to_4_10, out_5_10_n, s_5_10_to_5_9, r_to_ni_5_10
+    );
+
+    mock_core_tx_6_10 core_tx_6_10(t_6_10, core_to_ni_6_10);
+    mock_core_rx<6, 10> core_rx_6_10(ni_to_core_6_10);
+    network_interface<4, 8, 6, 10> ni_6_10(core_to_ni_6_10, ni_to_r_6_10, r_to_ni_6_10, ni_to_core_6_10);
+    router<4, 8, 6, 10> r_6_10(
+        w_7_10_to_6_10, e_5_10_to_6_10, in_6_10_n, n_6_9_to_6_10, ni_to_r_6_10,
+        e_6_10_to_7_10, w_6_10_to_5_10, out_6_10_n, s_6_10_to_6_9, r_to_ni_6_10
+    );
+
+    mock_core_tx_7_10 core_tx_7_10(t_7_10, core_to_ni_7_10);
+    mock_core_rx<7, 10> core_rx_7_10(ni_to_core_7_10);
+    network_interface<4, 8, 7, 10> ni_7_10(core_to_ni_7_10, ni_to_r_7_10, r_to_ni_7_10, ni_to_core_7_10);
+    router<4, 8, 7, 10> r_7_10(
+        w_8_10_to_7_10, e_6_10_to_7_10, in_7_10_n, n_7_9_to_7_10, ni_to_r_7_10,
+        e_7_10_to_8_10, w_7_10_to_6_10, out_7_10_n, s_7_10_to_7_9, r_to_ni_7_10
+    );
+
+    mock_core_tx_8_10 core_tx_8_10(t_8_10, core_to_ni_8_10);
+    mock_core_rx<8, 10> core_rx_8_10(ni_to_core_8_10);
+    network_interface<4, 8, 8, 10> ni_8_10(core_to_ni_8_10, ni_to_r_8_10, r_to_ni_8_10, ni_to_core_8_10);
+    router<4, 8, 8, 10> r_8_10(
+        w_9_10_to_8_10, e_7_10_to_8_10, in_8_10_n, n_8_9_to_8_10, ni_to_r_8_10,
+        e_8_10_to_9_10, w_8_10_to_7_10, out_8_10_n, s_8_10_to_8_9, r_to_ni_8_10
+    );
+
+    mock_core_tx_9_10 core_tx_9_10(t_9_10, core_to_ni_9_10);
+    mock_core_rx<9, 10> core_rx_9_10(ni_to_core_9_10);
+    network_interface<4, 8, 9, 10> ni_9_10(core_to_ni_9_10, ni_to_r_9_10, r_to_ni_9_10, ni_to_core_9_10);
+    router<4, 8, 9, 10> r_9_10(
+        w_10_10_to_9_10, e_8_10_to_9_10, in_9_10_n, n_9_9_to_9_10, ni_to_r_9_10,
+        e_9_10_to_10_10, w_9_10_to_8_10, out_9_10_n, s_9_10_to_9_9, r_to_ni_9_10
+    );
+
+    mock_core_tx_10_10 core_tx_10_10(t_10_10, core_to_ni_10_10);
+    mock_core_rx<10, 10> core_rx_10_10(ni_to_core_10_10);
+    network_interface<4, 8, 10, 10> ni_10_10(core_to_ni_10_10, ni_to_r_10_10, r_to_ni_10_10, ni_to_core_10_10);
+    router<4, 8, 10, 10> r_10_10(
+        in_10_10_e, e_9_10_to_10_10, in_10_10_n, n_10_9_to_10_10, ni_to_r_10_10,
+        out_10_10_e, w_10_10_to_9_10, out_10_10_n, s_10_10_to_10_9, r_to_ni_10_10
+    );
+
+    route_sink<4, 8> sk_s_0(out_0_0_s);
+    route_sink<4, 8> sk_n_0(out_0_10_n);
+    route_sink<4, 8> sk_w_0(out_0_0_w);
+    route_sink<4, 8> sk_e_0(out_10_0_e);
+    route_sink<4, 8> sk_s_1(out_1_0_s);
+    route_sink<4, 8> sk_n_1(out_1_10_n);
+    route_sink<4, 8> sk_w_1(out_0_1_w);
+    route_sink<4, 8> sk_e_1(out_10_1_e);
+    route_sink<4, 8> sk_s_2(out_2_0_s);
+    route_sink<4, 8> sk_n_2(out_2_10_n);
+    route_sink<4, 8> sk_w_2(out_0_2_w);
+    route_sink<4, 8> sk_e_2(out_10_2_e);
+    route_sink<4, 8> sk_s_3(out_3_0_s);
+    route_sink<4, 8> sk_n_3(out_3_10_n);
+    route_sink<4, 8> sk_w_3(out_0_3_w);
+    route_sink<4, 8> sk_e_3(out_10_3_e);
+    route_sink<4, 8> sk_s_4(out_4_0_s);
+    route_sink<4, 8> sk_n_4(out_4_10_n);
+    route_sink<4, 8> sk_w_4(out_0_4_w);
+    route_sink<4, 8> sk_e_4(out_10_4_e);
+    route_sink<4, 8> sk_s_5(out_5_0_s);
+    route_sink<4, 8> sk_n_5(out_5_10_n);
+    route_sink<4, 8> sk_w_5(out_0_5_w);
+    route_sink<4, 8> sk_e_5(out_10_5_e);
+    route_sink<4, 8> sk_s_6(out_6_0_s);
+    route_sink<4, 8> sk_n_6(out_6_10_n);
+    route_sink<4, 8> sk_w_6(out_0_6_w);
+    route_sink<4, 8> sk_e_6(out_10_6_e);
+    route_sink<4, 8> sk_s_7(out_7_0_s);
+    route_sink<4, 8> sk_n_7(out_7_10_n);
+    route_sink<4, 8> sk_w_7(out_0_7_w);
+    route_sink<4, 8> sk_e_7(out_10_7_e);
+    route_sink<4, 8> sk_s_8(out_8_0_s);
+    route_sink<4, 8> sk_n_8(out_8_10_n);
+    route_sink<4, 8> sk_w_8(out_0_8_w);
+    route_sink<4, 8> sk_e_8(out_10_8_e);
+    route_sink<4, 8> sk_s_9(out_9_0_s);
+    route_sink<4, 8> sk_n_9(out_9_10_n);
+    route_sink<4, 8> sk_w_9(out_0_9_w);
+    route_sink<4, 8> sk_e_9(out_10_9_e);
+    route_sink<4, 8> sk_s_10(out_10_0_s);
+    route_sink<4, 8> sk_n_10(out_10_10_n);
+    route_sink<4, 8> sk_w_10(out_0_10_w);
+    route_sink<4, 8> sk_e_10(out_10_10_e);
+
+    chp {
+        log("--- STARTING MESH SIMULATION ---");
+        t_0_0!1,
+        t_1_0!1,
+        t_2_0!1,
+        t_3_0!1,
+        t_4_0!1,
+        t_5_0!1,
+        t_6_0!1,
+        t_7_0!1,
+        t_8_0!1,
+        t_9_0!1,
+        t_10_0!1,
+        t_0_1!1,
+        t_1_1!1,
+        t_2_1!1,
+        t_3_1!1,
+        t_4_1!1,
+        t_5_1!1,
+        t_6_1!1,
+        t_7_1!1,
+        t_8_1!1,
+        t_9_1!1,
+        t_10_1!1,
+        t_0_2!1,
+        t_1_2!1,
+        t_2_2!1,
+        t_3_2!1,
+        t_4_2!1,
+        t_5_2!1,
+        t_6_2!1,
+        t_7_2!1,
+        t_8_2!1,
+        t_9_2!1,
+        t_10_2!1,
+        t_0_3!1,
+        t_1_3!1,
+        t_2_3!1,
+        t_3_3!1,
+        t_4_3!1,
+        t_5_3!1,
+        t_6_3!1,
+        t_7_3!1,
+        t_8_3!1,
+        t_9_3!1,
+        t_10_3!1,
+        t_0_4!1,
+        t_1_4!1,
+        t_2_4!1,
+        t_3_4!1,
+        t_4_4!1,
+        t_5_4!1,
+        t_6_4!1,
+        t_7_4!1,
+        t_8_4!1,
+        t_9_4!1,
+        t_10_4!1,
+        t_0_5!1,
+        t_1_5!1,
+        t_2_5!1,
+        t_3_5!1,
+        t_4_5!1,
+        t_5_5!1,
+        t_6_5!1,
+        t_7_5!1,
+        t_8_5!1,
+        t_9_5!1,
+        t_10_5!1,
+        t_0_6!1,
+        t_1_6!1,
+        t_2_6!1,
+        t_3_6!1,
+        t_4_6!1,
+        t_5_6!1,
+        t_6_6!1,
+        t_7_6!1,
+        t_8_6!1,
+        t_9_6!1,
+        t_10_6!1,
+        t_0_7!1,
+        t_1_7!1,
+        t_2_7!1,
+        t_3_7!1,
+        t_4_7!1,
+        t_5_7!1,
+        t_6_7!1,
+        t_7_7!1,
+        t_8_7!1,
+        t_9_7!1,
+        t_10_7!1,
+        t_0_8!1,
+        t_1_8!1,
+        t_2_8!1,
+        t_3_8!1,
+        t_4_8!1,
+        t_5_8!1,
+        t_6_8!1,
+        t_7_8!1,
+        t_8_8!1,
+        t_9_8!1,
+        t_10_8!1,
+        t_0_9!1,
+        t_1_9!1,
+        t_2_9!1,
+        t_3_9!1,
+        t_4_9!1,
+        t_5_9!1,
+        t_6_9!1,
+        t_7_9!1,
+        t_8_9!1,
+        t_9_9!1,
+        t_10_9!1,
+        t_0_10!1,
+        t_1_10!1,
+        t_2_10!1,
+        t_3_10!1,
+        t_4_10!1,
+        t_5_10!1,
+        t_6_10!1,
+        t_7_10!1,
+        t_8_10!1,
+        t_9_10!1,
+        t_10_10!1 // Last trigger (No comma)
+    }
+}

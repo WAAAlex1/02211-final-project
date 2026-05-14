@@ -1,156 +1,22 @@
 # Actsim script - arbiter_4_prs
 #
-# Pure-PRS testbench: no CHP. Inputs driven entirely by set commands.
-#
-# Initialization order matters:
-#   1. Set c*.r and c*.a -> pending* resolves to 0 by PRS -> grants resolve to 0
-#   2. Set dut.mid1/mid2 r and a -> pending at arb_final resolves -> g_final=0
-#   3. Set c_out.r and c_out.a -> prs_ack is stable
-#   4. Set all c*.d[] to 0 (mux reads d[] only when grant is active)
-#
-# 2-phase data encoding (W=14 bits, ML=2, DW=8):
-#   d[7..0]   = payload
-#   d[8]      = y_dir
-#   d[9]      = x_dir
-#   d[11..10] = y_dest
-#   d[13..12] = x_dest
-# For arbiter testing we only care about payload bits (d[7..0]).
+# Watches just c_out.r (one transition per packet) and the final-stage
+# grants (who actually wins the 4-way arbitration). Intermediate top/bot
+# level grants are implementation churn — uncomment if you need them.
 
-# --- Input channels r/a ---
-set c1.r 0
-set c1.a 0
-set c2.r 0
-set c2.a 0
-set c3.r 0
-set c3.a 0
-set c4.r 0
-set c4.a 0
+#random -u 10 20
+#random_seed 1
+#random_choice on
 
-# --- buf_arbiter mutex internals (_u=_v=1 → [keeper=0] _u→u- fires → g1=g2=0)
-# Without this, _u/_v start at X, pass gates produce X on grant outputs, and
-# the ack-propagation rules (g & out.a → in.a±) cascade X through the design.
-set dut.arb_top.mutex._u 1
-set dut.arb_top.mutex._v 1
-set dut.arb_bot.mutex._u 1
-set dut.arb_bot.mutex._v 1
-set dut.arb_final.mutex._u 1
-set dut.arb_final.mutex._v 1
+#watch c_out.r
+#watch dut.arb_final.g1
+#watch dut.arb_final.g2
 
-# --- Internal mid channels (keeper-held, must set explicitly) ---
-set dut.mid1.r 0
-set dut.mid1.a 0
-set dut.mid2.r 0
-set dut.mid2.a 0
+# Intermediate grants (uncomment to debug):
+# watch dut.arb_top.g1
+# watch dut.arb_top.g2
+# watch dut.arb_bot.g1
+# watch dut.arb_bot.g2
 
-# --- Output channel ---
-set c_out.r 0
-set c_out.a 0
-
-# --- Input data bits (all zero; tests set only the non-zero bits) ---
-set c1.d[0] 0
-set c1.d[1] 0
-set c1.d[2] 0
-set c1.d[3] 0
-set c1.d[4] 0
-set c1.d[5] 0
-set c1.d[6] 0
-set c1.d[7] 0
-set c1.d[8] 0
-set c1.d[9] 0
-set c1.d[10] 0
-set c1.d[11] 0
-set c1.d[12] 0
-set c1.d[13] 0
-
-set c2.d[0] 0
-set c2.d[1] 0
-set c2.d[2] 0
-set c2.d[3] 0
-set c2.d[4] 0
-set c2.d[5] 0
-set c2.d[6] 0
-set c2.d[7] 0
-set c2.d[8] 0
-set c2.d[9] 0
-set c2.d[10] 0
-set c2.d[11] 0
-set c2.d[12] 0
-set c2.d[13] 0
-
-set c3.d[0] 0
-set c3.d[1] 0
-set c3.d[2] 0
-set c3.d[3] 0
-set c3.d[4] 0
-set c3.d[5] 0
-set c3.d[6] 0
-set c3.d[7] 0
-set c3.d[8] 0
-set c3.d[9] 0
-set c3.d[10] 0
-set c3.d[11] 0
-set c3.d[12] 0
-set c3.d[13] 0
-
-set c4.d[0] 0
-set c4.d[1] 0
-set c4.d[2] 0
-set c4.d[3] 0
-set c4.d[4] 0
-set c4.d[5] 0
-set c4.d[6] 0
-set c4.d[7] 0
-set c4.d[8] 0
-set c4.d[9] 0
-set c4.d[10] 0
-set c4.d[11] 0
-set c4.d[12] 0
-set c4.d[13] 0
-
-# Watch output request and payload
-watch c_out.r
-watch c_out.d[0]
-watch c_out.d[1]
-watch c_out.d[2]
-watch c_out.d[3]
-watch c_out.d[4]
-watch c_out.d[5]
-watch c_out.d[6]
-watch c_out.d[7]
-
-# -------------------------------------------------------
-# TEST 1: Single request on c1 - data = 0x11 = 0b00010001
-#   Expect c_out.r to toggle and d[0]=1, d[4]=1, rest 0
-# -------------------------------------------------------
-set c1.d[0] 1
-set c1.d[4] 1
-set c1.r 1
 cycle
-
-# -------------------------------------------------------
-# TEST 2: Single request on c3 - data = 0x33 = 0b00110011
-#   Expect c_out.r to toggle and d[0]=1, d[1]=1, d[4]=1, d[5]=1
-# -------------------------------------------------------
-set c3.d[0] 1
-set c3.d[1] 1
-set c3.d[4] 1
-set c3.d[5] 1
-set c3.r 1
-cycle
-
-# -------------------------------------------------------
-# TEST 3: Simultaneous c2 and c4 (contention)
-#   c2 = 0x22 = 0b00100010 -> d[1]=1, d[5]=1
-#   c4 = 0x44 = 0b01000100 -> d[2]=1, d[6]=1
-#   Arbiter picks one non-deterministically; second follows after ack.
-#   Expect two c_out.r toggles total.
-# -------------------------------------------------------
-set c2.d[1] 1
-set c2.d[5] 1
-set c4.d[2] 1
-set c4.d[6] 1
-set c2.r 1
-set c4.r 1
-cycle
-
 quit

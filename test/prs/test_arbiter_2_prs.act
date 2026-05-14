@@ -1,30 +1,35 @@
-// test_arbiter_2_prs.act - testbench for arbiter_2_prs
-//
-// CHP test_ctrl sends two transactions, one on c1, one on c2.
-// CHP chp_receiver consumes c_out and logs the muxed data byte.
+// test_arbiter_2_prs.act - testbench with PRS data path, CHP control
 
 import "src/prs/arbiter_2_prs.act";
 import globals;
 
-// CHP receiver: pulls a packet off c_out, decodes the payload byte, logs it,
-// and signals test_ctrl via `done` that the output side is fully consumed.
+// ---------------------------------------------------------
+// PRS ACK
+// ---------------------------------------------------------
 template <pint ML, DW>
-defproc chp_receiver (pkt_chan?<ML, DW> in_chan; chan!(int<1>) done) {
-    pint W = 2*ML + 2 + DW;
-    int<W> pkt;
-    int<8> data;
-    chp {
-        *[
-            in_chan?pkt;
-            data := pkt{7..0};
-            log("  Arbiter output: data = ", data);
-            done!1
-        ]
+defproc prs_ack (pkt_chan?<ML, DW> ch) {
+    prs {
+        ~Reset & ch.r => ch.a+
     }
 }
 
-// CHP test controller: drives c1 and c2 sequentially. Waits for a done signal from
-// receiver after send before sending new request.
+// ---------------------------------------------------------
+// TXN OBSERVER
+// ---------------------------------------------------------
+defproc txn_observer (bool? a; chan!(int<1>) done) {
+    chp {
+        [ a ];
+        log("  Txn ack rising (out.a -> 1)");
+        done!1;
+        [ ~a ];
+        log("  Txn ack falling (out.a -> 0)");
+        done!1
+    }
+}
+
+// ---------------------------------------------------------
+// CONTROLLER
+// ---------------------------------------------------------
 template <pint ML, DW>
 defproc test_ctrl (pkt_chan!<ML, DW> c1, c2; chan?(int<1>) done) {
     int<1> d;
@@ -33,7 +38,7 @@ defproc test_ctrl (pkt_chan!<ML, DW> c1, c2; chan?(int<1>) done) {
         c1!0x11;
         done?d;
         log("TEST 2: c2 sends 0x22");
-        c2!0x11;
+        c2!0xFF;
         done?d;
         log("All tests complete.")
     }
@@ -44,8 +49,8 @@ defproc test_arbiter_2_prs () {
     chan(int<1>) done;
 
     arbiter_2_prs<2, 8> dut(c1, c2, c_out);
-
-    chp_receiver<2, 8> rx(c_out, done);
+    prs_ack<2, 8> ack(c_out);
+    txn_observer obs(c_out.a, done);
     test_ctrl<2, 8> ctrl(c1, c2, done);
 }
 

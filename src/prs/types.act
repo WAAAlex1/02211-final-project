@@ -1,5 +1,6 @@
 import "std/channel.act";
 
 // Packet channel: 2-phase bundled-data, width = 2*ML + 2 + DW
+// Inherits from ts_bd - see channel.act - this is a 2-phase channel using transition-signalling.  
 template <pint MESH_LENGTH, DATA_WIDTH>
 defchan pkt_chan <: std::channel::ts_bd<2*MESH_LENGTH + 2 + DATA_WIDTH> () { }

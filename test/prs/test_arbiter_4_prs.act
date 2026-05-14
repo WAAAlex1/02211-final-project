@@ -1,23 +1,67 @@
-// test_arbiter_4_prs.act - Pure-PRS testbench for arbiter_4_prs
+// test_arbiter_4_prs.act - testbench for the 2-phase PRS 4-input arbiter
 //
-// No CHP. All inputs driven directly from the actsim script.
-// prs_ack mirrors c_out.r to c_out.a (strong PRS, no channel-method conflict).
-// Script initializes all r/a/d[] before cycle, then drives tests via set + cycle.
+// DUT: arbiter_4_prs<2, 8>. 4 input channels c1..c4, 1 output c_out.
 
 import "src/prs/arbiter_4_prs.act";
+import globals;
 
+// ---------------------------------------------------------
+// PRS ACK
+// ---------------------------------------------------------
 template <pint ML, DW>
 defproc prs_ack (pkt_chan?<ML, DW> ch) {
     prs {
-         ch.r & ~ch.a -> ch.a+
-        ~ch.r &  ch.a -> ch.a-
+        ~Reset & ch.r => ch.a+
     }
 }
 
+// ---------------------------------------------------------
+// EDGE LOGGER - 2-phase: each packet is one a-transition
+// ---------------------------------------------------------
+defproc edge_logger (bool? a) {
+    chp {
+        *[
+            [ a ];   log("  [OUT] ack rising  (packet through)");
+            [ ~a ];  log("  [OUT] ack falling (packet through)")
+        ]
+    }
+}
+
+// ---------------------------------------------------------
+// CONTROLLER
+// ---------------------------------------------------------
+template <pint ML, DW>
+defproc test_ctrl (pkt_chan!<ML, DW> c1, c2, c3, c4) {
+    chp {
+        log("=== TEST 1: c1 sends 0x11 ===");
+        c1!0x11;
+
+        log("=== TEST 2: c3 sends 0x33 ===");
+        c3!0x33;
+
+        log("=== TEST 3: 2-way contention - c2(0x22) and c4(0x44) ===");
+        c2!0x22, c4!0x44;
+
+        log("=== TEST 4: 3-way contention - c1, c3, c4 ===");
+        c1!0x11, c3!0x33, c4!0x44;
+
+        log("=== Arbiter 4 PRS tests complete! ===")
+    }
+}
+
+// ---------------------------------------------------------
+// TOP LEVEL
+// ---------------------------------------------------------
 defproc test_arbiter_4_prs () {
     pkt_chan<2, 8> c1, c2, c3, c4, c_out;
 
     arbiter_4_prs<2, 8> dut(c1, c2, c3, c4, c_out);
+    prs_ack<2, 8> ack(c_out);
+    edge_logger   obs(c_out.a);
+    test_ctrl<2, 8> ctrl(c1, c2, c3, c4);
+}
 
-    prs_ack<2, 8> ack_out(c_out);
+Initialize {
+    actions { Reset+ };
+    actions { Reset- }
 }

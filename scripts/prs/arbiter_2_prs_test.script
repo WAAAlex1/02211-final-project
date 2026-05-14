@@ -1,8 +1,17 @@
-# Actsim script - arbiter_2_prs (CHP+PRS)
+# Actsim script - arbiter_2_prs
 #
-# CHP test_ctrl drives the inputs and CHP chp_receiver consumes the output
-# with log() calls. The Initialize block pulses Reset before CHP starts.
-# Nothing for the script to set; we just let cycle run everything.
+# CHP drives the senders and observes ack transitions for sequencing.
+# `random` enables random-delay timing mode + random mk_excllo resolution,
+# which models the timing variation real CMOS has and exercises the mutex
+# under ergodic conditions.
+
+random -u 10 20
+random_seed 1
+random_choice on
+
+watch c_out.r
+watch dut.g1
+watch dut.g2
 
 cycle
 quit

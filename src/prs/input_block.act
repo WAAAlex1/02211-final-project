@@ -1,0 +1,188 @@
+import "src/prs/types.act";
+import globals;
+
+// 2-phase input block (I + R per Dally) — 
+
+// I've tried writing this after Dally's super-simple async router (I and R boxes). 
+// Does input handshake (pending detection, in_chan.a drive)
+// and routing decoding (compare dest to local coords, produce 5 select lines)
+// Also handles the per-direction XOR-CALL drive of the 5 output channels.
+//
+// Packet bit layout (MSB to LSB):
+//   [W-1 .. ML+2+DW]   x_dest  (MESH_LENGTH bits)
+//   [ML+1+DW .. 2+DW]  y_dest  (MESH_LENGTH bits)
+//   [1+DW]             x_dir   (1 = east/positive, 0 = west/negative)
+//   [DW]               y_dir   (1 = north/positive, 0 = south/negative)
+//   [DW-1 .. 0]        payload (DATA_WIDTH bits)
+//
+
+// --- XOR helper cells -----------------------------------------------------
+
+defproc xor4 (bool? a, b, c, d; bool! y) {
+    bool t1, t2;
+    prs {
+        ~Reset & ((a & ~b) | (~a & b)) => t1+
+        ~Reset & ((c & ~d) | (~c & d)) => t2+
+        ~Reset & ((t1 & ~t2) | (~t1 & t2)) => y+
+    }
+}
+
+defproc xor5 (bool? a, b, c, d, e; bool! y) {
+    bool t1, t2, t3;
+    prs {
+        ~Reset & ((a & ~b)   | (~a & b))    => t1+
+        ~Reset & ((c & ~d)   | (~c & d))    => t2+
+        ~Reset & ((t1 & ~t2) | (~t1 & t2))  => t3+
+        ~Reset & ((t3 & ~e)  | (~t3 & e))   => y+
+    }
+}
+
+// --- Main Input block --------------------------------------------------------
+
+template <pint MESH_LENGTH, DATA_WIDTH, X_COORD, Y_COORD>
+defproc input_block (
+    pkt_chan?<MESH_LENGTH, DATA_WIDTH> in_chan;                             // one input                 
+    pkt_chan!<MESH_LENGTH, DATA_WIDTH> out_N, out_S, out_E, out_W, out_L    // 5 outputs
+)
+{
+    pint W = 2*MESH_LENGTH + 2 + DATA_WIDTH;
+
+    // Comparator
+    bool x_match[MESH_LENGTH];
+    bool y_match[MESH_LENGTH];
+    bool x_eq, y_eq;
+
+    // State
+    bool pending;
+    bool sel_N, sel_S, sel_E, sel_W, sel_L;
+
+    // 4-input XOR of every output's r (not input direction).
+    // Used to compute out_X.r combinatorially.
+
+    bool xor_r_no_L, xor_r_no_N, xor_r_no_S, xor_r_no_E, xor_r_no_W;
+
+    xor4 xr_L(out_N.r, out_S.r, out_E.r, out_W.r, xor_r_no_L);
+    xor4 xr_N(out_L.r, out_S.r, out_E.r, out_W.r, xor_r_no_N);
+    xor4 xr_S(out_L.r, out_N.r, out_E.r, out_W.r, xor_r_no_S);
+    xor4 xr_E(out_L.r, out_N.r, out_S.r, out_W.r, xor_r_no_E);
+    xor4 xr_W(out_L.r, out_N.r, out_S.r, out_E.r, xor_r_no_W);
+
+    // 5-input XOR of every output's a to drive in_chan.a.
+    // We want to ACK on our input (in_chan.a) when we have requested 
+    // a send to one of our outputs. We dont need the input to hold 
+    // the data any longer - it is internally buffered and being transmitted downstream.   
+    xor5 xa_all(out_L.a, out_N.a, out_S.a, out_E.a, out_W.a, in_chan.a);
+
+    // ================================================================
+    // [R BLOCK] - simple comparator: first AND layer
+    //
+    // For each bit j, x_match[j] is HIGH when in_chan.d[offset+j] equals
+    // the compile-time constant X_COORD bit j (XNOR).
+    // ================================================================
+
+    ( j : MESH_LENGTH :
+        [ (X_COORD >> j) % 2 = 1 -> //modulo is disgusting but {j} doesnt work for dynamic j
+            prs { ~Reset &  in_chan.d[MESH_LENGTH + 2 + DATA_WIDTH + j] => x_match[j]+ }
+        [] else ->
+            prs { ~Reset & ~in_chan.d[MESH_LENGTH + 2 + DATA_WIDTH + j] => x_match[j]+ }
+        ]
+    )
+
+    ( j : MESH_LENGTH :
+        [ (Y_COORD >> j) % 2 = 1 -> //again ewww
+            prs { ~Reset &  in_chan.d[2 + DATA_WIDTH + j] => y_match[j]+ }
+        [] else ->
+            prs { ~Reset & ~in_chan.d[2 + DATA_WIDTH + j] => y_match[j]+ }
+        ]
+    )
+
+    prs {
+
+    // --- Aggregate AND of match bits ---
+    // The 4-input AND on x_match/y_match has a multi-input hazard: actsim
+    // schedules each x_match[j] flip as a separate event, so during a header
+    // arrival the AND output can briefly schedule a transition and then
+    // cancel it as later x_match bits arrive — flagged as "unstable
+    // transition on x_eq". The FINAL value is correct, and pending's
+    // [after=30] ensures the decoder only sees the settled value, so these
+    // warnings are functionally harmless. Left without [after] here because
+    // attempts to filter the hazard via matched delays on x_eq/y_eq and
+    // pending broke the chain (decoder firing on stale x_eq, or sim
+    // throughput dropping severely).
+        ~Reset & (& j : MESH_LENGTH : x_match[j]) => x_eq+  // all bits must match
+        ~Reset & (& j : MESH_LENGTH : y_match[j]) => y_eq+  // all bits must match
+
+    // ================================================================
+    // [I BLOCK] - Pending detection (r XOR a)
+    //
+    // Need to delay such that x_eq and y_eq are updated before pending.
+    // The new packets values needs time to settle before enabling the sel
+    // decoder. Otherwise the wrong direction could be decoded using stale
+    // x_eq and y_eq. 
+    //
+    // We have a pending transaction whenever r != a. This is XOR. 
+    //
+    // ================================================================
+        
+        [after=30] ~Reset & ((in_chan.r & ~in_chan.a) | (~in_chan.r & in_chan.a)) -> pending+
+        Reset | (in_chan.r & in_chan.a) | (~in_chan.r & ~in_chan.a) -> pending-
+
+    // ================================================================
+    // [R BLOCK] - Direction decode
+    //
+    // This is purely combinational with no SR latches.
+    // ================================================================
+        ~Reset & pending &  x_eq &  y_eq                          => sel_L+     //x_eq and y_eq                   -> move to NI (local)
+        ~Reset & pending & ~x_eq &  in_chan.d[1 + DATA_WIDTH]     => sel_E+     //!x_eq and dir_x is pos          -> move right (east)
+        ~Reset & pending & ~x_eq & ~in_chan.d[1 + DATA_WIDTH]     => sel_W+     //!x_eq and dir_x is neg          -> move left  (west)
+        ~Reset & pending &  x_eq & ~y_eq &  in_chan.d[DATA_WIDTH] => sel_N+     //x_eq and !y_eq and dir_y is pos -> move up   (north)
+        ~Reset & pending &  x_eq & ~y_eq & ~in_chan.d[DATA_WIDTH] => sel_S+     //x_eq and !y_eq and dir_y is neg -> move down (south)
+
+        // Notice that x has priority -> as such horizontal movements will 
+        // always be done before vertical movements. We only evaluate y_eq if x_eq = 1. 
+
+    // ================================================================
+    // [A BLOCK] - Output request
+    //
+    // While sel_X is asserted, drive out_X.r to (in_chan.r XOR xor_r_no_X).
+    // out_X.r toggles by exactly one when in_chan.r toggled by one and the
+    // other outputs were held. 
+    //
+    // While sel_X is low, self-hold.
+    // ================================================================
+
+        // Active path gated on (sel_X & pending) so that the hold path takes
+        // over when pending drops on ack. 
+        //
+        // [after=20] is needed because we want the data to be present on the 
+        // port before (not at the same time) as the request is toggled. 
+        // Without this we get warnings from the arbiter_buffer in arbiter_2_prs.act.
+
+        [after=20] ~Reset & ((sel_L & pending & ((in_chan.r & ~xor_r_no_L) | (~in_chan.r & xor_r_no_L)))
+                 | ((~sel_L | ~pending) & out_L.r)) => out_L.r+
+        [after=20] ~Reset & ((sel_N & pending & ((in_chan.r & ~xor_r_no_N) | (~in_chan.r & xor_r_no_N)))
+                 | ((~sel_N | ~pending) & out_N.r)) => out_N.r+
+        [after=20] ~Reset & ((sel_S & pending & ((in_chan.r & ~xor_r_no_S) | (~in_chan.r & xor_r_no_S)))
+                 | ((~sel_S | ~pending) & out_S.r)) => out_S.r+
+        [after=20] ~Reset & ((sel_E & pending & ((in_chan.r & ~xor_r_no_E) | (~in_chan.r & xor_r_no_E)))
+                 | ((~sel_E | ~pending) & out_E.r)) => out_E.r+
+        [after=20] ~Reset & ((sel_W & pending & ((in_chan.r & ~xor_r_no_W) | (~in_chan.r & xor_r_no_W)))
+                 | ((~sel_W | ~pending) & out_W.r)) => out_W.r+
+
+    // ================================================================
+    // [A BLOCK] - Data mux with self-hold
+    //
+    // While sel_X is asserted, drive out_X.d to in_chan.d. While sel_X is
+    // low (or not pending), self-hold (keep output stable. We could be doing an output transaction.)
+    // ================================================================
+
+        ( i : W :
+            ~Reset & ((sel_L & pending & in_chan.d[i]) | ((~sel_L | ~pending) & out_L.d[i])) => out_L.d[i]+
+            ~Reset & ((sel_N & pending & in_chan.d[i]) | ((~sel_N | ~pending) & out_N.d[i])) => out_N.d[i]+
+            ~Reset & ((sel_S & pending & in_chan.d[i]) | ((~sel_S | ~pending) & out_S.d[i])) => out_S.d[i]+
+            ~Reset & ((sel_E & pending & in_chan.d[i]) | ((~sel_E | ~pending) & out_E.d[i])) => out_E.d[i]+
+            ~Reset & ((sel_W & pending & in_chan.d[i]) | ((~sel_W | ~pending) & out_W.d[i])) => out_W.d[i]+
+        )
+
+    }
+}

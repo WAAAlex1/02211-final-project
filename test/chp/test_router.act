@@ -1,11 +1,10 @@
 // test_router.act — Top-level Unit Test for the 5-Port Router
-// Assuming MESH_LENGTH=2, DATA_WIDTH=8.
-// Router is stationed at coordinates X=1, Y=1.
+// Assuming MESH_LENGTH=2, DATA_WIDTH=8, Router is stationed at coordinates X=1, Y=1.
 
 import "src/chp/router.act";
 
 // ---------------------------------------------------------
-// MOCK RECEIVERS (The neighboring routers catching the output)
+// MOCK RECEIVERS (neighboring routers)
 // ---------------------------------------------------------
 template <pint PORT_ID> // 1=N, 2=S, 3=E, 4=W, 5=L
 defproc mock_router_rx (chan?(int<14>) in_chan) {
@@ -24,13 +23,16 @@ defproc mock_router_rx (chan?(int<14>) in_chan) {
 }
 
 // ---------------------------------------------------------
-// MOCK SENDERS (The neighboring routers firing inputs)
+// MOCK SENDERS (Neighboring routers)
 // ---------------------------------------------------------
 template <pint val>
 defproc mock_router_tx (chan?(int<1>) trigger; chan!(int<14>) out_chan) {
     int<1> t;
     chp {
-        *[ trigger?t; out_chan!val ]
+        *[ 
+            trigger?t; 
+            out_chan!val 
+        ]
     }
 }
 
@@ -41,36 +43,15 @@ defproc test_router_ctrl (
     chan!(int<1>) t_in_N, t_in_S, t_in_E, t_in_W, t_in_L
 ) {
     chp {
-        // ---------------------------------------------------------
-        // TEST 1: Pass-Through (West In -> East Out)
-        // Dest X=2 (b10), Y=1 (b01), x_dir=1, y_dir=0, Data=0xAA
-        // Packet: 10_01_1_0_10101010 = 0x26AA
-        // ---------------------------------------------------------
         log("--- TEST 1: Straight Pass-Through (West to East) ---");
         t_in_W!1;
 
-        // ---------------------------------------------------------
-        // TEST 2: Turning (North In -> East Out)
-        // Dest X=2 (b10), Y=0 (b00), x_dir=1, y_dir=0, Data=0xBB
-        // Packet: 10_00_1_0_10111011 = 0x22BB
-        // ---------------------------------------------------------
         log("--- TEST 2: Turning (North to East) ---");
         t_in_N!1;
 
-        // ---------------------------------------------------------
-        // TEST 3: Ejection (South In -> Local Out)
-        // Dest X=1 (b01), Y=1 (b01), x_dir=0, y_dir=0, Data=0xCC
-        // Packet: 01_01_0_0_11001100 = 0x14CC
-        // ---------------------------------------------------------
         log("--- TEST 3: Ejection (South to Local) ---");
         t_in_S!1;
 
-        // ---------------------------------------------------------
-        // TEST 4: Contention! (Local In vs East In -> North Out)
-        // Both packets want to go North. Dest X=1, Y=2, y_dir=1.
-        // Pkt 1 (From Local): 01_10_0_1_11011101 = 0x19DD
-        // Pkt 2 (From East) : 01_10_0_1_11101110 = 0x19EE
-        // ---------------------------------------------------------
         log("--- TEST 4: Contention (Local & East racing for North) ---");
         t_in_L!1;
         t_in_E!1;

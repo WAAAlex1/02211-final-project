@@ -1,8 +1,7 @@
 import "src/prs/types.act";
 
 // 2-phase bundled-data route sink.
-// sink just mirrors the request back as ack.
-// consumes each packet immediately without buffering.
+// sink just mirrors the request back as ack immediately
 
 template <pint MESH_LENGTH, DATA_WIDTH>
 defproc route_sink_prs (

@@ -1,33 +1,8 @@
 import "src/prs/types.act";
+import "std/arb.act";
 import globals;
 
-// 2-phase bundled-data arbiter (2 inputs -> 1 output).
-//
-// Uses buffer_arbiter (below) for grant selection. The pending condition for
-// each input is (r XOR a): a request is being processed whenever r and a differ.
-//
-// Grant logic (g1, g2) is mutually exclusive. The winner's data is muxed
-// to the output and out.r is toggled. Once out.a confirms the handshake,
-// the winner's in.a is toggled to match in.r, clearing the pending state.
-//
-// All stateful rules are conditioned on ~Reset so that pulsing the global
-// Reset signal forces every node to its idle value (0). This breaks the
-// initialization X cycle (in.a -> pending -> g -> in.a) that otherwise
-// prevents the simulation from leaving the X state.
-
-// ---------------------------------------------------------------------------
-// buffer_arbiter - simulation-friendly priority arbiter.
-//
-//   u = a            (priority: a always wins)
-//   v = b & ~a       (b only when a is low)
-//
-// ---------------------------------------------------------------------------
-defproc buffer_arbiter (bool? a, b; bool! u, v) {
-    prs {
-        ~Reset & a      => u+
-        ~Reset & b & ~a => v+
-    }
-}
+// 2-phase arbiter (2 inputs -> 1 output).
 
 template <pint MESH_LENGTH, DATA_WIDTH>
 defproc arbiter_2_prs (
@@ -38,55 +13,37 @@ defproc arbiter_2_prs (
 {
     pint W = 2*MESH_LENGTH + 2 + DATA_WIDTH;
 
-    // pending1/2: true when the input has a request pending (r XOR a)
     bool pending1, pending2;
-    
-    // g1/g2: grant. Exactly one is high while a handshake is in progress
     bool g1, g2;
 
-    // Grant selection (simulation-friendly priority arbiter)
-    buffer_arbiter mutex(pending1, pending2, g1, g2);
+    // Classic Seitz arbiter - resolves metastability. Uses two cross-coupled NAND gates. 
+    std::buf_arbiter mutex(pending1, pending2, g1, g2); 
 
     prs {
-        // --- Pending detection: r XOR a (gated by ~Reset) ---
-        // During Reset: pending1- / pending2- fire (via De Morgan of => pull-up).
-
+        // Pending detection: r XOR a (transaction in flight on input i).
         ~Reset & ((in1.r & ~in1.a) | (~in1.r & in1.a)) => pending1+
         ~Reset & ((in2.r & ~in2.a) | (~in2.r & in2.a)) => pending2+
 
-        // --- Data mux ---
-        // When idle (~g1 & ~g2) or during Reset, all output bits are pulled low.
+        // Data mux: out.d tracks the granted input's d, holds otherwise.
         ( i : W :
-            ~Reset &  g1 &  in1.d[i] -> out.d[i]+
-            ~Reset &  g2 &  in2.d[i] -> out.d[i]+
-            ~Reset &  g1 & ~in1.d[i] -> out.d[i]-
-            ~Reset &  g2 & ~in2.d[i] -> out.d[i]-
-            (~g1 & ~g2) | Reset      -> out.d[i]-
+            ~Reset & ( (g1 & in1.d[i]) | (g2 & in2.d[i])
+                     | (~g1 & ~g2 & out.d[i]) ) => out.d[i]+
         )
 
-        // --- Output request: XOR of input r signals ---
-        // out.r = in1.r XOR in2.r when any grant is active. Each granted
-        // transaction toggles exactly one of in1.r/in2.r, flipping the XOR
-        // and producing one out.r edge per transaction. Self-feedback
-        // (~g1 & ~g2 & out.r) holds the value between grants.
-        //
-        // Matched delay <10> on the grant signals: this is the bundled-data
-        // timing fork. The data mux fires immediately on g, so out.d[i] is
-        // committed at T+10. Out.r is delayed an extra 10 units, committing
-        // at T+20, so when the receiver triggers on out.r it reads stable
-        // data. Without this, the receiver's sequential bit reads (CHP `get`)
-        // can race against bits still propagating through the data mux.
-        ~Reset & ( ((g1<300> | g2<300>) & ((in1.r & ~in2.r) | (~in1.r & in2.r)))
-                 | (~g1<300> & ~g2<300> & out.r) ) => out.r+
+        // Output request: out.r = T1 XOR T2, T_i = (g_i ? in_i.r : in_i.a).
+        // [after=30] is the bundled-data matched delay: data and request fire
+        // off the same grant edge in parallel, so we hold the request back
+        [after=20] ~Reset & (
+            (((g1 & in1.r) | (~g1 & in1.a)) & ~((g2 & in2.r) | (~g2 & in2.a)))   
+            | (~((g1 & in1.r) | (~g1 & in1.a)) & ((g2 & in2.r) | (~g2 & in2.a)))
+            ) => out.r+
 
-        // --- Ack propagation: store-and-forward semantics ---
-        // in.a tracks in.r when granted (arbiter acks the sender immediately
-        // after accepting the request). Self-feedback holds in.a between
-        // grants. NOT the standard transparent-buffer "in.a = out.a"
-        // semantics -- that requires (g & r & a) -> r- on the output toggle,
-        // which has an unavoidable race in actsim because actsim doesn't
-        // honor the [iskeeper=1] weak-keeper annotation.
-        ~Reset & ((g1 & in1.r) | (~g1 & in1.a)) => in1.a+
-        ~Reset & ((g2 & in2.r) | (~g2 & in2.a)) => in2.a+
+        // Input ack: in_i.a = (out.a XOR in_other.a) while granted, else hold.
+        ~Reset & (
+            ( g1 & ( (out.a & ~in2.a) | (~out.a & in2.a) ) ) | ( ~g1 & in1.a )
+            ) => in1.a+
+        ~Reset & (
+            ( g2 & ( (out.a & ~in1.a) | (~out.a & in1.a) ) ) | ( ~g2 & in2.a )
+            ) => in2.a+
     }
 }
