@@ -1,10 +1,5 @@
 # Actsim script - arbiter_2_prs
 #
-# CHP drives the senders and observes ack transitions for sequencing.
-# `random` enables random-delay timing mode + random mk_excllo resolution,
-# which models the timing variation real CMOS has and exercises the mutex
-# under ergodic conditions.
-
 random -u 10 20
 random_seed 1
 random_choice on

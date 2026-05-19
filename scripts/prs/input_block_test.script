@@ -1,10 +1,5 @@
 # Actsim script - input_block
 #
-# PRS starts all booleans at X. We initialize the full causal chain here so
-# that no X can propagate through the circuit before the first real transaction.
-#
-# Causal chain: in_c.r, in_c.a -> pending -> sel_* -> out_X.r, in_chan.a
-# (CHP send_init handles in_c.r and in_c.d[], but fires after these set commands)
 
 set in_c.r 0
 set in_c.a 0

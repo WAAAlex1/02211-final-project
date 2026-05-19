@@ -1,14 +1,5 @@
 // test_mesh_2x2_prs.act - hand-wired 2x2 mesh sanity test for the PRS NoC.
 //
-// Layout (XY routing):
-//
-//   (0,1) -- (1,1)
-//     |        |
-//   (0,0) -- (1,0)
-//
-// Packet format (12 bits): x_dest[11], y_dest[10], x_dir[9], y_dir[8], payload[7..0].
-// MESH_LENGTH = 1, DATA_WIDTH = 8.
-//
 // TEST:    core(0,0) sends 0xCAA (x_dest=1, y_dest=1, payload=0xAA).
 // Expect:  "[EJECT] core(1,1) got payload: 170"  (0xAA = 170 decimal).
 

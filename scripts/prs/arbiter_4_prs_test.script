@@ -1,8 +1,5 @@
 # Actsim script - arbiter_4_prs
 #
-# Watches just c_out.r (one transition per packet) and the final-stage
-# grants (who actually wins the 4-way arbitration). Intermediate top/bot
-# level grants are implementation churn — uncomment if you need them.
 
 #random -u 10 20
 #random_seed 1
