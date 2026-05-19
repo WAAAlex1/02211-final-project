@@ -19,1665 +19,1089 @@ defproc mock_core_rx (chan?(int<16>) in_chan) {
 
 defproc mock_core_tx_0_0 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (0,0) to (2,7) payload=52");
-        out_chan!23604;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,0) to (3,6) payload=40");
-        out_chan!30760;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,0) to (5,4) payload=153");
-        out_chan!45209;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,0) to (6,7) payload=93");
-        out_chan!56413;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,0) to (7,6) payload=98");
-        out_chan!63586
+        log(" [INJECT] from (0,0) to (5,3) payload=250");
+        out_chan!44282;
+        log(" [INJECT] from (0,0) to (4,4) payload=152");
+        out_chan!37016;
+        log(" [INJECT] from (0,0) to (7,1) payload=160");
+        out_chan!58528;
+        log(" [INJECT] from (0,0) to (0,6) payload=236");
+        out_chan!6380;
+        log(" [INJECT] from (0,0) to (3,6) payload=214");
+        out_chan!30934
     }
 }
 
 defproc mock_core_tx_1_0 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (1,0) to (0,2) payload=90");
-        out_chan!2138;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,0) to (3,0) payload=197");
-        out_chan!24773;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,0) to (3,7) payload=63");
-        out_chan!31807;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,0) to (7,4) payload=94");
-        out_chan!61534;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,0) to (4,7) payload=99");
-        out_chan!40035
+        log(" [INJECT] from (1,0) to (7,7) payload=99");
+        out_chan!64611;
+        log(" [INJECT] from (1,0) to (7,4) payload=248");
+        out_chan!61688;
+        log(" [INJECT] from (1,0) to (1,3) payload=41");
+        out_chan!11305;
+        log(" [INJECT] from (1,0) to (6,2) payload=25");
+        out_chan!51225;
+        log(" [INJECT] from (1,0) to (6,4) payload=199");
+        out_chan!53447
     }
 }
 
 defproc mock_core_tx_2_0 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (2,0) to (0,6) payload=50");
-        out_chan!6194;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,0) to (2,3) payload=122");
-        out_chan!19578;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,0) to (6,7) payload=192");
-        out_chan!56512;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,0) to (4,6) payload=218");
-        out_chan!39130;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,0) to (0,5) payload=211");
-        out_chan!5331
+        log(" [INJECT] from (2,0) to (2,2) payload=243");
+        out_chan!18675;
+        log(" [INJECT] from (2,0) to (2,5) payload=103");
+        out_chan!21607;
+        log(" [INJECT] from (2,0) to (0,0) payload=42");
+        out_chan!42;
+        log(" [INJECT] from (2,0) to (4,0) payload=142");
+        out_chan!32910;
+        log(" [INJECT] from (2,0) to (1,0) payload=77");
+        out_chan!8269
     }
 }
 
 defproc mock_core_tx_3_0 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (3,0) to (2,2) payload=48");
-        out_chan!18480;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,0) to (2,5) payload=101");
-        out_chan!21605;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,0) to (1,1) payload=244");
-        out_chan!9460;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,0) to (4,6) payload=36");
-        out_chan!38948;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,0) to (2,4) payload=7");
-        out_chan!20487
+        log(" [INJECT] from (3,0) to (0,7) payload=165");
+        out_chan!7333;
+        log(" [INJECT] from (3,0) to (7,7) payload=129");
+        out_chan!64641;
+        log(" [INJECT] from (3,0) to (2,4) payload=141");
+        out_chan!20621;
+        log(" [INJECT] from (3,0) to (5,5) payload=157");
+        out_chan!46237;
+        log(" [INJECT] from (3,0) to (6,6) payload=198");
+        out_chan!55494
     }
 }
 
 defproc mock_core_tx_4_0 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (4,0) to (6,4) payload=24");
-        out_chan!53272;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,0) to (0,0) payload=208");
-        out_chan!208;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,0) to (1,0) payload=229");
-        out_chan!8421;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,0) to (0,7) payload=158");
-        out_chan!7326;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,0) to (0,3) payload=173");
-        out_chan!3245
+        log(" [INJECT] from (4,0) to (4,2) payload=14");
+        out_chan!34830;
+        log(" [INJECT] from (4,0) to (5,3) payload=3");
+        out_chan!44035;
+        log(" [INJECT] from (4,0) to (1,6) payload=13");
+        out_chan!14349;
+        log(" [INJECT] from (4,0) to (0,0) payload=162");
+        out_chan!162;
+        log(" [INJECT] from (4,0) to (6,7) payload=60");
+        out_chan!56380
     }
 }
 
 defproc mock_core_tx_5_0 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (5,0) to (6,0) payload=156");
-        out_chan!49308;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,0) to (2,6) payload=61");
-        out_chan!22589;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,0) to (7,5) payload=81");
-        out_chan!62545;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,0) to (3,2) payload=104");
-        out_chan!26728;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,0) to (2,0) payload=101");
-        out_chan!16485
+        log(" [INJECT] from (5,0) to (1,2) payload=66");
+        out_chan!10306;
+        log(" [INJECT] from (5,0) to (2,5) payload=191");
+        out_chan!21695;
+        log(" [INJECT] from (5,0) to (7,0) payload=69");
+        out_chan!57413;
+        log(" [INJECT] from (5,0) to (5,1) payload=41");
+        out_chan!42025;
+        log(" [INJECT] from (5,0) to (2,1) payload=187");
+        out_chan!17595
     }
 }
 
 defproc mock_core_tx_6_0 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (6,0) to (1,3) payload=238");
-        out_chan!11502;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,0) to (7,2) payload=232");
-        out_chan!59624;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,0) to (3,5) payload=235");
-        out_chan!29931;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,0) to (2,6) payload=245");
-        out_chan!22773;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,0) to (7,0) payload=94");
-        out_chan!57438
+        log(" [INJECT] from (6,0) to (3,4) payload=254");
+        out_chan!28926;
+        log(" [INJECT] from (6,0) to (3,6) payload=99");
+        out_chan!30819;
+        log(" [INJECT] from (6,0) to (4,4) payload=13");
+        out_chan!36877;
+        log(" [INJECT] from (6,0) to (4,4) payload=219");
+        out_chan!37083;
+        log(" [INJECT] from (6,0) to (7,5) payload=74");
+        out_chan!62538
     }
 }
 
 defproc mock_core_tx_7_0 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (7,0) to (3,4) payload=107");
-        out_chan!28779;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,0) to (0,5) payload=148");
-        out_chan!5268;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,0) to (6,5) payload=23");
-        out_chan!54295;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,0) to (1,7) payload=208");
-        out_chan!15568;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,0) to (2,4) payload=185");
-        out_chan!20665
+        log(" [INJECT] from (7,0) to (2,5) payload=225");
+        out_chan!21729;
+        log(" [INJECT] from (7,0) to (3,5) payload=226");
+        out_chan!29922;
+        log(" [INJECT] from (7,0) to (3,1) payload=99");
+        out_chan!25699;
+        log(" [INJECT] from (7,0) to (7,3) payload=92");
+        out_chan!60508;
+        log(" [INJECT] from (7,0) to (7,6) payload=161");
+        out_chan!63649
     }
 }
 
 defproc mock_core_tx_0_1 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (0,1) to (3,1) payload=81");
-        out_chan!25681;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,1) to (3,7) payload=17");
-        out_chan!31761;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,1) to (3,2) payload=42");
-        out_chan!26666;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,1) to (1,1) payload=92");
-        out_chan!9308;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,1) to (3,7) payload=132");
-        out_chan!31876
+        log(" [INJECT] from (0,1) to (6,5) payload=161");
+        out_chan!54433;
+        log(" [INJECT] from (0,1) to (4,7) payload=232");
+        out_chan!40168;
+        log(" [INJECT] from (0,1) to (4,6) payload=194");
+        out_chan!39106;
+        log(" [INJECT] from (0,1) to (6,0) payload=92");
+        out_chan!49244;
+        log(" [INJECT] from (0,1) to (7,1) payload=111");
+        out_chan!58479
     }
 }
 
 defproc mock_core_tx_1_1 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (1,1) to (4,5) payload=34");
-        out_chan!37922;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,1) to (6,6) payload=45");
-        out_chan!55341;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,1) to (6,7) payload=92");
-        out_chan!56412;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,1) to (0,2) payload=171");
-        out_chan!2219;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,1) to (1,7) payload=152");
-        out_chan!15512
+        log(" [INJECT] from (1,1) to (6,3) payload=74");
+        out_chan!52298;
+        log(" [INJECT] from (1,1) to (5,7) payload=199");
+        out_chan!48327;
+        log(" [INJECT] from (1,1) to (2,3) payload=216");
+        out_chan!19672;
+        log(" [INJECT] from (1,1) to (2,1) payload=110");
+        out_chan!17518;
+        log(" [INJECT] from (1,1) to (7,6) payload=203");
+        out_chan!63691
     }
 }
 
 defproc mock_core_tx_2_1 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (2,1) to (6,4) payload=82");
-        out_chan!53330;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,1) to (0,3) payload=198");
-        out_chan!3270;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,1) to (3,5) payload=206");
-        out_chan!29902;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,1) to (7,7) payload=252");
-        out_chan!64764;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,1) to (2,5) payload=68");
-        out_chan!21572
+        log(" [INJECT] from (2,1) to (1,4) payload=85");
+        out_chan!12373;
+        log(" [INJECT] from (2,1) to (1,4) payload=69");
+        out_chan!12357;
+        log(" [INJECT] from (2,1) to (3,2) payload=114");
+        out_chan!26738;
+        log(" [INJECT] from (2,1) to (5,5) payload=185");
+        out_chan!46265;
+        log(" [INJECT] from (2,1) to (5,5) payload=10");
+        out_chan!46090
     }
 }
 
 defproc mock_core_tx_3_1 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (3,1) to (7,4) payload=89");
-        out_chan!61529;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,1) to (4,5) payload=252");
-        out_chan!38140;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,1) to (2,0) payload=82");
-        out_chan!16466;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,1) to (2,6) payload=190");
-        out_chan!22718;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,1) to (0,5) payload=204");
-        out_chan!5324
+        log(" [INJECT] from (3,1) to (4,1) payload=240");
+        out_chan!34032;
+        log(" [INJECT] from (3,1) to (4,3) payload=26");
+        out_chan!35866;
+        log(" [INJECT] from (3,1) to (7,2) payload=144");
+        out_chan!59536;
+        log(" [INJECT] from (3,1) to (4,2) payload=222");
+        out_chan!35038;
+        log(" [INJECT] from (3,1) to (4,3) payload=127");
+        out_chan!35967
     }
 }
 
 defproc mock_core_tx_4_1 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (4,1) to (7,0) payload=152");
-        out_chan!57496;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,1) to (1,3) payload=15");
-        out_chan!11279;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,1) to (5,4) payload=30");
-        out_chan!45086;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,1) to (5,3) payload=172");
-        out_chan!44204;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,1) to (6,0) payload=97");
-        out_chan!49249
+        log(" [INJECT] from (4,1) to (3,3) payload=35");
+        out_chan!27683;
+        log(" [INJECT] from (4,1) to (6,7) payload=142");
+        out_chan!56462;
+        log(" [INJECT] from (4,1) to (0,1) payload=199");
+        out_chan!1223;
+        log(" [INJECT] from (4,1) to (5,7) payload=190");
+        out_chan!48318;
+        log(" [INJECT] from (4,1) to (7,0) payload=94");
+        out_chan!57438
     }
 }
 
 defproc mock_core_tx_5_1 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (5,1) to (7,1) payload=121");
-        out_chan!58489;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,1) to (7,6) payload=172");
-        out_chan!63660;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,1) to (6,1) payload=189");
-        out_chan!50365;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,1) to (7,3) payload=18");
-        out_chan!60434;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,1) to (1,6) payload=157");
-        out_chan!14493
+        log(" [INJECT] from (5,1) to (1,7) payload=104");
+        out_chan!15464;
+        log(" [INJECT] from (5,1) to (1,6) payload=29");
+        out_chan!14365;
+        log(" [INJECT] from (5,1) to (0,6) payload=244");
+        out_chan!6388;
+        log(" [INJECT] from (5,1) to (2,4) payload=10");
+        out_chan!20490;
+        log(" [INJECT] from (5,1) to (2,1) payload=232");
+        out_chan!17640
     }
 }
 
 defproc mock_core_tx_6_1 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (6,1) to (7,7) payload=140");
-        out_chan!64652;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,1) to (7,0) payload=233");
-        out_chan!57577;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,1) to (5,0) payload=49");
-        out_chan!41009;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,1) to (3,5) payload=3");
-        out_chan!29699;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,1) to (7,5) payload=94");
-        out_chan!62558
+        log(" [INJECT] from (6,1) to (4,7) payload=230");
+        out_chan!40166;
+        log(" [INJECT] from (6,1) to (3,5) payload=128");
+        out_chan!29824;
+        log(" [INJECT] from (6,1) to (2,1) payload=141");
+        out_chan!17549;
+        log(" [INJECT] from (6,1) to (1,2) payload=133");
+        out_chan!10373;
+        log(" [INJECT] from (6,1) to (2,7) payload=144");
+        out_chan!23696
     }
 }
 
 defproc mock_core_tx_7_1 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (7,1) to (2,3) payload=112");
-        out_chan!19568;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,1) to (6,7) payload=53");
-        out_chan!56373;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,1) to (1,2) payload=246");
-        out_chan!10486;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,1) to (3,1) payload=119");
-        out_chan!25719;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,1) to (7,7) payload=159");
-        out_chan!64671
+        log(" [INJECT] from (7,1) to (6,6) payload=253");
+        out_chan!55549;
+        log(" [INJECT] from (7,1) to (2,2) payload=231");
+        out_chan!18663;
+        log(" [INJECT] from (7,1) to (2,4) payload=131");
+        out_chan!20611;
+        log(" [INJECT] from (7,1) to (0,0) payload=114");
+        out_chan!114;
+        log(" [INJECT] from (7,1) to (4,7) payload=138");
+        out_chan!40074
     }
 }
 
 defproc mock_core_tx_0_2 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (0,2) to (5,4) payload=216");
-        out_chan!45272;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,2) to (3,3) payload=114");
-        out_chan!27762;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,2) to (0,4) payload=83");
-        out_chan!4179;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,2) to (5,5) payload=43");
-        out_chan!46123;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,2) to (3,3) payload=7");
-        out_chan!27655
+        log(" [INJECT] from (0,2) to (0,7) payload=115");
+        out_chan!7283;
+        log(" [INJECT] from (0,2) to (4,5) payload=164");
+        out_chan!38052;
+        log(" [INJECT] from (0,2) to (1,0) payload=234");
+        out_chan!8426;
+        log(" [INJECT] from (0,2) to (1,1) payload=241");
+        out_chan!9457;
+        log(" [INJECT] from (0,2) to (4,5) payload=222");
+        out_chan!38110
     }
 }
 
 defproc mock_core_tx_1_2 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (1,2) to (7,2) payload=128");
-        out_chan!59520;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,2) to (7,1) payload=22");
-        out_chan!58390;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,2) to (1,5) payload=196");
-        out_chan!13508;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,2) to (2,7) payload=65");
-        out_chan!23617;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,2) to (0,6) payload=182");
-        out_chan!6326
+        log(" [INJECT] from (1,2) to (5,0) payload=148");
+        out_chan!41108;
+        log(" [INJECT] from (1,2) to (3,6) payload=63");
+        out_chan!30783;
+        log(" [INJECT] from (1,2) to (6,0) payload=204");
+        out_chan!49356;
+        log(" [INJECT] from (1,2) to (0,7) payload=174");
+        out_chan!7342;
+        log(" [INJECT] from (1,2) to (7,0) payload=248");
+        out_chan!57592
     }
 }
 
 defproc mock_core_tx_2_2 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (2,2) to (7,4) payload=227");
-        out_chan!61667;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,2) to (1,2) payload=10");
-        out_chan!10250;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,2) to (0,4) payload=7");
-        out_chan!4103;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,2) to (6,1) payload=105");
-        out_chan!50281;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,2) to (4,4) payload=185");
-        out_chan!37049
+        log(" [INJECT] from (2,2) to (4,3) payload=216");
+        out_chan!36056;
+        log(" [INJECT] from (2,2) to (3,3) payload=85");
+        out_chan!27733;
+        log(" [INJECT] from (2,2) to (4,4) payload=147");
+        out_chan!37011;
+        log(" [INJECT] from (2,2) to (4,0) payload=78");
+        out_chan!32846;
+        log(" [INJECT] from (2,2) to (1,5) payload=196");
+        out_chan!13508
     }
 }
 
 defproc mock_core_tx_3_2 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (3,2) to (3,3) payload=17");
-        out_chan!27665;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,2) to (0,5) payload=136");
-        out_chan!5256;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,2) to (2,7) payload=176");
-        out_chan!23728;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,2) to (6,3) payload=221");
-        out_chan!52445;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,2) to (4,4) payload=248");
-        out_chan!37112
+        log(" [INJECT] from (3,2) to (3,7) payload=106");
+        out_chan!31850;
+        log(" [INJECT] from (3,2) to (0,2) payload=135");
+        out_chan!2183;
+        log(" [INJECT] from (3,2) to (3,0) payload=148");
+        out_chan!24724;
+        log(" [INJECT] from (3,2) to (0,7) payload=181");
+        out_chan!7349;
+        log(" [INJECT] from (3,2) to (6,4) payload=25");
+        out_chan!53273
     }
 }
 
 defproc mock_core_tx_4_2 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (4,2) to (1,1) payload=76");
-        out_chan!9292;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,2) to (5,4) payload=101");
-        out_chan!45157;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,2) to (3,3) payload=142");
-        out_chan!27790;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,2) to (1,3) payload=29");
-        out_chan!11293;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,2) to (0,7) payload=148");
-        out_chan!7316
+        log(" [INJECT] from (4,2) to (5,7) payload=135");
+        out_chan!48263;
+        log(" [INJECT] from (4,2) to (2,0) payload=39");
+        out_chan!16423;
+        log(" [INJECT] from (4,2) to (4,7) payload=29");
+        out_chan!39965;
+        log(" [INJECT] from (4,2) to (6,3) payload=224");
+        out_chan!52448;
+        log(" [INJECT] from (4,2) to (1,0) payload=227");
+        out_chan!8419
     }
 }
 
 defproc mock_core_tx_5_2 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (5,2) to (0,7) payload=3");
-        out_chan!7171;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,2) to (3,6) payload=58");
-        out_chan!30778;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,2) to (4,0) payload=62");
-        out_chan!32830;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,2) to (1,4) payload=186");
-        out_chan!12474;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,2) to (0,0) payload=171");
-        out_chan!171
+        log(" [INJECT] from (5,2) to (0,1) payload=88");
+        out_chan!1112;
+        log(" [INJECT] from (5,2) to (7,7) payload=234");
+        out_chan!64746;
+        log(" [INJECT] from (5,2) to (4,3) payload=36");
+        out_chan!35876;
+        log(" [INJECT] from (5,2) to (1,4) payload=63");
+        out_chan!12351;
+        log(" [INJECT] from (5,2) to (0,1) payload=141");
+        out_chan!1165
     }
 }
 
 defproc mock_core_tx_6_2 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (6,2) to (7,5) payload=59");
-        out_chan!62523;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,2) to (5,4) payload=12");
-        out_chan!45068;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,2) to (6,0) payload=228");
-        out_chan!49380;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,2) to (3,5) payload=209");
-        out_chan!29905;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,2) to (3,2) payload=113");
-        out_chan!26737
+        log(" [INJECT] from (6,2) to (7,0) payload=253");
+        out_chan!57597;
+        log(" [INJECT] from (6,2) to (3,6) payload=209");
+        out_chan!30929;
+        log(" [INJECT] from (6,2) to (0,7) payload=230");
+        out_chan!7398;
+        log(" [INJECT] from (6,2) to (7,4) payload=79");
+        out_chan!61519;
+        log(" [INJECT] from (6,2) to (2,4) payload=245");
+        out_chan!20725
     }
 }
 
 defproc mock_core_tx_7_2 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (7,2) to (1,7) payload=137");
-        out_chan!15497;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,2) to (3,2) payload=131");
-        out_chan!26755;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,2) to (0,5) payload=96");
-        out_chan!5216;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,2) to (2,6) payload=103");
-        out_chan!22631;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,2) to (5,4) payload=19");
-        out_chan!45075
+        log(" [INJECT] from (7,2) to (0,0) payload=211");
+        out_chan!211;
+        log(" [INJECT] from (7,2) to (0,7) payload=57");
+        out_chan!7225;
+        log(" [INJECT] from (7,2) to (3,1) payload=94");
+        out_chan!25694;
+        log(" [INJECT] from (7,2) to (5,2) payload=133");
+        out_chan!43141;
+        log(" [INJECT] from (7,2) to (6,0) payload=105");
+        out_chan!49257
     }
 }
 
 defproc mock_core_tx_0_3 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (0,3) to (5,1) payload=182");
-        out_chan!42166;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,3) to (2,0) payload=194");
-        out_chan!16578;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,3) to (7,1) payload=25");
-        out_chan!58393;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,3) to (2,0) payload=76");
-        out_chan!16460;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,3) to (3,6) payload=82");
-        out_chan!30802
+        log(" [INJECT] from (0,3) to (2,0) payload=78");
+        out_chan!16462;
+        log(" [INJECT] from (0,3) to (5,7) payload=237");
+        out_chan!48365;
+        log(" [INJECT] from (0,3) to (6,7) payload=34");
+        out_chan!56354;
+        log(" [INJECT] from (0,3) to (3,5) payload=121");
+        out_chan!29817;
+        log(" [INJECT] from (0,3) to (4,4) payload=164");
+        out_chan!37028
     }
 }
 
 defproc mock_core_tx_1_3 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (1,3) to (1,4) payload=185");
-        out_chan!12473;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,3) to (7,7) payload=28");
-        out_chan!64540;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,3) to (7,6) payload=45");
-        out_chan!63533;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,3) to (5,1) payload=68");
-        out_chan!42052;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,3) to (5,7) payload=133");
-        out_chan!48261
+        log(" [INJECT] from (1,3) to (5,7) payload=181");
+        out_chan!48309;
+        log(" [INJECT] from (1,3) to (5,0) payload=236");
+        out_chan!41196;
+        log(" [INJECT] from (1,3) to (7,5) payload=175");
+        out_chan!62639;
+        log(" [INJECT] from (1,3) to (4,4) payload=102");
+        out_chan!36966;
+        log(" [INJECT] from (1,3) to (7,1) payload=130");
+        out_chan!58498
     }
 }
 
 defproc mock_core_tx_2_3 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (2,3) to (7,4) payload=202");
-        out_chan!61642;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,3) to (5,0) payload=233");
-        out_chan!41193;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,3) to (3,5) payload=105");
-        out_chan!29801;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,3) to (5,2) payload=253");
-        out_chan!43261;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,3) to (7,3) payload=49");
-        out_chan!60465
+        log(" [INJECT] from (2,3) to (3,7) payload=164");
+        out_chan!31908;
+        log(" [INJECT] from (2,3) to (5,5) payload=185");
+        out_chan!46265;
+        log(" [INJECT] from (2,3) to (0,2) payload=217");
+        out_chan!2265;
+        log(" [INJECT] from (2,3) to (1,5) payload=192");
+        out_chan!13504;
+        log(" [INJECT] from (2,3) to (1,5) payload=227");
+        out_chan!13539
     }
 }
 
 defproc mock_core_tx_3_3 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (3,3) to (0,2) payload=49");
-        out_chan!2097;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,3) to (7,4) payload=61");
-        out_chan!61501;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,3) to (0,1) payload=244");
-        out_chan!1268;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,3) to (1,0) payload=36");
-        out_chan!8228;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,3) to (3,6) payload=189");
-        out_chan!30909
+        log(" [INJECT] from (3,3) to (1,3) payload=161");
+        out_chan!11425;
+        log(" [INJECT] from (3,3) to (0,1) payload=52");
+        out_chan!1076;
+        log(" [INJECT] from (3,3) to (0,7) payload=47");
+        out_chan!7215;
+        log(" [INJECT] from (3,3) to (2,6) payload=194");
+        out_chan!22722;
+        log(" [INJECT] from (3,3) to (5,4) payload=36");
+        out_chan!45092
     }
 }
 
 defproc mock_core_tx_4_3 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (4,3) to (5,4) payload=218");
-        out_chan!45274;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,3) to (6,5) payload=204");
-        out_chan!54476;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,3) to (3,4) payload=249");
-        out_chan!28921;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,3) to (1,2) payload=30");
-        out_chan!10270;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,3) to (0,6) payload=142");
-        out_chan!6286
+        log(" [INJECT] from (4,3) to (4,7) payload=239");
+        out_chan!40175;
+        log(" [INJECT] from (4,3) to (1,1) payload=27");
+        out_chan!9243;
+        log(" [INJECT] from (4,3) to (5,6) payload=181");
+        out_chan!47285;
+        log(" [INJECT] from (4,3) to (6,5) payload=102");
+        out_chan!54374;
+        log(" [INJECT] from (4,3) to (7,3) payload=161");
+        out_chan!60577
     }
 }
 
 defproc mock_core_tx_5_3 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (5,3) to (1,3) payload=93");
-        out_chan!11357;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,3) to (5,4) payload=253");
-        out_chan!45309;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,3) to (0,5) payload=198");
-        out_chan!5318;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,3) to (1,4) payload=215");
-        out_chan!12503;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,3) to (0,1) payload=48");
-        out_chan!1072
+        log(" [INJECT] from (5,3) to (3,7) payload=28");
+        out_chan!31772;
+        log(" [INJECT] from (5,3) to (7,3) payload=45");
+        out_chan!60461;
+        log(" [INJECT] from (5,3) to (5,2) payload=114");
+        out_chan!43122;
+        log(" [INJECT] from (5,3) to (1,7) payload=140");
+        out_chan!15500;
+        log(" [INJECT] from (5,3) to (3,2) payload=47");
+        out_chan!26671
     }
 }
 
 defproc mock_core_tx_6_3 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (6,3) to (5,7) payload=199");
-        out_chan!48327;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,3) to (3,0) payload=238");
-        out_chan!24814;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,3) to (0,3) payload=59");
-        out_chan!3131;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,3) to (2,7) payload=233");
-        out_chan!23785;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,3) to (7,0) payload=141");
-        out_chan!57485
+        log(" [INJECT] from (6,3) to (7,5) payload=1");
+        out_chan!62465;
+        log(" [INJECT] from (6,3) to (0,1) payload=10");
+        out_chan!1034;
+        log(" [INJECT] from (6,3) to (2,3) payload=103");
+        out_chan!19559;
+        log(" [INJECT] from (6,3) to (1,0) payload=14");
+        out_chan!8206;
+        log(" [INJECT] from (6,3) to (6,4) payload=173");
+        out_chan!53421
     }
 }
 
 defproc mock_core_tx_7_3 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (7,3) to (2,3) payload=204");
-        out_chan!19660;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,3) to (1,1) payload=85");
-        out_chan!9301;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,3) to (2,0) payload=70");
-        out_chan!16454;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,3) to (2,5) payload=13");
-        out_chan!21517;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,3) to (3,0) payload=255");
-        out_chan!24831
+        log(" [INJECT] from (7,3) to (5,0) payload=45");
+        out_chan!41005;
+        log(" [INJECT] from (7,3) to (3,4) payload=95");
+        out_chan!28767;
+        log(" [INJECT] from (7,3) to (7,7) payload=199");
+        out_chan!64711;
+        log(" [INJECT] from (7,3) to (2,2) payload=164");
+        out_chan!18596;
+        log(" [INJECT] from (7,3) to (6,0) payload=180");
+        out_chan!49332
     }
 }
 
 defproc mock_core_tx_0_4 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (0,4) to (3,2) payload=14");
-        out_chan!26638;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,4) to (0,6) payload=39");
-        out_chan!6183;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,4) to (6,5) payload=206");
-        out_chan!54478;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,4) to (5,1) payload=212");
-        out_chan!42196;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,4) to (4,4) payload=74");
-        out_chan!36938
+        log(" [INJECT] from (0,4) to (0,6) payload=118");
+        out_chan!6262;
+        log(" [INJECT] from (0,4) to (6,0) payload=227");
+        out_chan!49379;
+        log(" [INJECT] from (0,4) to (2,2) payload=75");
+        out_chan!18507;
+        log(" [INJECT] from (0,4) to (6,2) payload=39");
+        out_chan!51239;
+        log(" [INJECT] from (0,4) to (4,5) payload=59");
+        out_chan!37947
     }
 }
 
 defproc mock_core_tx_1_4 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (1,4) to (1,3) payload=8");
-        out_chan!11272;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,4) to (0,2) payload=243");
-        out_chan!2291;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,4) to (7,1) payload=253");
-        out_chan!58621;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,4) to (0,7) payload=244");
-        out_chan!7412;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,4) to (2,0) payload=231");
-        out_chan!16615
+        log(" [INJECT] from (1,4) to (0,1) payload=87");
+        out_chan!1111;
+        log(" [INJECT] from (1,4) to (4,4) payload=61");
+        out_chan!36925;
+        log(" [INJECT] from (1,4) to (7,1) payload=147");
+        out_chan!58515;
+        log(" [INJECT] from (1,4) to (3,3) payload=91");
+        out_chan!27739;
+        log(" [INJECT] from (1,4) to (0,0) payload=155");
+        out_chan!155
     }
 }
 
 defproc mock_core_tx_2_4 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (2,4) to (4,1) payload=18");
-        out_chan!33810;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,4) to (0,0) payload=105");
-        out_chan!105;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,4) to (2,1) payload=49");
-        out_chan!17457;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,4) to (1,4) payload=151");
-        out_chan!12439;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,4) to (1,5) payload=175");
-        out_chan!13487
+        log(" [INJECT] from (2,4) to (4,0) payload=99");
+        out_chan!32867;
+        log(" [INJECT] from (2,4) to (3,4) payload=219");
+        out_chan!28891;
+        log(" [INJECT] from (2,4) to (4,4) payload=206");
+        out_chan!37070;
+        log(" [INJECT] from (2,4) to (0,7) payload=81");
+        out_chan!7249;
+        log(" [INJECT] from (2,4) to (5,2) payload=103");
+        out_chan!43111
     }
 }
 
 defproc mock_core_tx_3_4 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (3,4) to (5,5) payload=97");
-        out_chan!46177;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,4) to (4,6) payload=10");
-        out_chan!38922;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,4) to (6,5) payload=21");
-        out_chan!54293;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,4) to (0,2) payload=124");
-        out_chan!2172;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,4) to (3,1) payload=144");
-        out_chan!25744
+        log(" [INJECT] from (3,4) to (5,0) payload=220");
+        out_chan!41180;
+        log(" [INJECT] from (3,4) to (7,1) payload=156");
+        out_chan!58524;
+        log(" [INJECT] from (3,4) to (0,1) payload=199");
+        out_chan!1223;
+        log(" [INJECT] from (3,4) to (0,1) payload=254");
+        out_chan!1278;
+        log(" [INJECT] from (3,4) to (5,5) payload=33");
+        out_chan!46113
     }
 }
 
 defproc mock_core_tx_4_4 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (4,4) to (3,0) payload=15");
-        out_chan!24591;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,4) to (1,5) payload=250");
-        out_chan!13562;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,4) to (5,6) payload=34");
-        out_chan!47138;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,4) to (0,4) payload=21");
-        out_chan!4117;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,4) to (5,5) payload=212");
-        out_chan!46292
+        log(" [INJECT] from (4,4) to (2,7) payload=39");
+        out_chan!23591;
+        log(" [INJECT] from (4,4) to (0,2) payload=247");
+        out_chan!2295;
+        log(" [INJECT] from (4,4) to (3,5) payload=21");
+        out_chan!29717;
+        log(" [INJECT] from (4,4) to (5,2) payload=55");
+        out_chan!43063;
+        log(" [INJECT] from (4,4) to (5,3) payload=61");
+        out_chan!44093
     }
 }
 
 defproc mock_core_tx_5_4 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (5,4) to (3,0) payload=176");
-        out_chan!24752;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,4) to (4,4) payload=195");
-        out_chan!37059;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,4) to (4,1) payload=12");
-        out_chan!33804;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,4) to (2,0) payload=213");
-        out_chan!16597;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,4) to (3,2) payload=202");
-        out_chan!26826
+        log(" [INJECT] from (5,4) to (6,4) payload=150");
+        out_chan!53398;
+        log(" [INJECT] from (5,4) to (7,6) payload=178");
+        out_chan!63666;
+        log(" [INJECT] from (5,4) to (7,3) payload=237");
+        out_chan!60653;
+        log(" [INJECT] from (5,4) to (5,6) payload=1");
+        out_chan!47105;
+        log(" [INJECT] from (5,4) to (7,7) payload=203");
+        out_chan!64715
     }
 }
 
 defproc mock_core_tx_6_4 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (6,4) to (1,0) payload=43");
-        out_chan!8235;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,4) to (7,3) payload=30");
-        out_chan!60446;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,4) to (7,7) payload=61");
-        out_chan!64573;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,4) to (5,6) payload=118");
-        out_chan!47222;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,4) to (0,0) payload=101");
-        out_chan!101
+        log(" [INJECT] from (6,4) to (0,7) payload=196");
+        out_chan!7364;
+        log(" [INJECT] from (6,4) to (5,7) payload=23");
+        out_chan!48151;
+        log(" [INJECT] from (6,4) to (3,3) payload=113");
+        out_chan!27761;
+        log(" [INJECT] from (6,4) to (5,1) payload=193");
+        out_chan!42177;
+        log(" [INJECT] from (6,4) to (4,1) payload=201");
+        out_chan!33993
     }
 }
 
 defproc mock_core_tx_7_4 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (7,4) to (5,2) payload=77");
-        out_chan!43085;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,4) to (2,0) payload=158");
-        out_chan!16542;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,4) to (5,3) payload=48");
-        out_chan!44080;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,4) to (0,6) payload=193");
-        out_chan!6337;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,4) to (1,6) payload=174");
-        out_chan!14510
+        log(" [INJECT] from (7,4) to (3,2) payload=107");
+        out_chan!26731;
+        log(" [INJECT] from (7,4) to (4,6) payload=60");
+        out_chan!38972;
+        log(" [INJECT] from (7,4) to (3,0) payload=187");
+        out_chan!24763;
+        log(" [INJECT] from (7,4) to (1,1) payload=205");
+        out_chan!9421;
+        log(" [INJECT] from (7,4) to (4,3) payload=193");
+        out_chan!36033
     }
 }
 
 defproc mock_core_tx_0_5 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (0,5) to (3,7) payload=80");
-        out_chan!31824;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,5) to (3,6) payload=118");
-        out_chan!30838;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,5) to (5,6) payload=71");
-        out_chan!47175;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,5) to (7,2) payload=49");
-        out_chan!59441;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,5) to (7,4) payload=160");
-        out_chan!61600
+        log(" [INJECT] from (0,5) to (0,4) payload=71");
+        out_chan!4167;
+        log(" [INJECT] from (0,5) to (5,4) payload=117");
+        out_chan!45173;
+        log(" [INJECT] from (0,5) to (2,6) payload=192");
+        out_chan!22720;
+        log(" [INJECT] from (0,5) to (2,5) payload=98");
+        out_chan!21602;
+        log(" [INJECT] from (0,5) to (7,2) payload=27");
+        out_chan!59419
     }
 }
 
 defproc mock_core_tx_1_5 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (1,5) to (5,6) payload=89");
-        out_chan!47193;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,5) to (0,7) payload=171");
-        out_chan!7339;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,5) to (0,3) payload=197");
-        out_chan!3269;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,5) to (7,2) payload=165");
-        out_chan!59557;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,5) to (4,3) payload=213");
-        out_chan!36053
+        log(" [INJECT] from (1,5) to (3,3) payload=71");
+        out_chan!27719;
+        log(" [INJECT] from (1,5) to (6,7) payload=85");
+        out_chan!56405;
+        log(" [INJECT] from (1,5) to (3,7) payload=152");
+        out_chan!31896;
+        log(" [INJECT] from (1,5) to (5,2) payload=12");
+        out_chan!43020;
+        log(" [INJECT] from (1,5) to (0,5) payload=175");
+        out_chan!5295
     }
 }
 
 defproc mock_core_tx_2_5 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (2,5) to (2,0) payload=128");
-        out_chan!16512;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,5) to (5,0) payload=187");
-        out_chan!41147;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,5) to (4,6) payload=168");
-        out_chan!39080;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,5) to (7,1) payload=226");
-        out_chan!58594;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,5) to (1,1) payload=94");
-        out_chan!9310
+        log(" [INJECT] from (2,5) to (4,3) payload=121");
+        out_chan!35961;
+        log(" [INJECT] from (2,5) to (3,4) payload=185");
+        out_chan!28857;
+        log(" [INJECT] from (2,5) to (2,0) payload=123");
+        out_chan!16507;
+        log(" [INJECT] from (2,5) to (4,6) payload=220");
+        out_chan!39132;
+        log(" [INJECT] from (2,5) to (1,1) payload=226");
+        out_chan!9442
     }
 }
 
 defproc mock_core_tx_3_5 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (3,5) to (0,4) payload=173");
-        out_chan!4269;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,5) to (3,3) payload=119");
-        out_chan!27767;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,5) to (0,7) payload=206");
-        out_chan!7374;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,5) to (0,4) payload=192");
-        out_chan!4288;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,5) to (2,3) payload=167");
-        out_chan!19623
+        log(" [INJECT] from (3,5) to (0,7) payload=111");
+        out_chan!7279;
+        log(" [INJECT] from (3,5) to (5,2) payload=66");
+        out_chan!43074;
+        log(" [INJECT] from (3,5) to (6,6) payload=53");
+        out_chan!55349;
+        log(" [INJECT] from (3,5) to (0,2) payload=80");
+        out_chan!2128;
+        log(" [INJECT] from (3,5) to (5,0) payload=246");
+        out_chan!41206
     }
 }
 
 defproc mock_core_tx_4_5 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (4,5) to (2,4) payload=21");
-        out_chan!20501;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,5) to (4,2) payload=57");
-        out_chan!34873;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,5) to (1,1) payload=146");
-        out_chan!9362;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,5) to (5,0) payload=115");
-        out_chan!41075;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,5) to (4,3) payload=56");
-        out_chan!35896
+        log(" [INJECT] from (4,5) to (1,2) payload=5");
+        out_chan!10245;
+        log(" [INJECT] from (4,5) to (3,7) payload=168");
+        out_chan!31912;
+        log(" [INJECT] from (4,5) to (4,1) payload=52");
+        out_chan!33844;
+        log(" [INJECT] from (4,5) to (0,6) payload=200");
+        out_chan!6344;
+        log(" [INJECT] from (4,5) to (4,7) payload=218");
+        out_chan!40154
     }
 }
 
 defproc mock_core_tx_5_5 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (5,5) to (2,4) payload=26");
-        out_chan!20506;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,5) to (6,2) payload=234");
-        out_chan!51434;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,5) to (1,3) payload=15");
-        out_chan!11279;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,5) to (3,1) payload=208");
-        out_chan!25808;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,5) to (0,6) payload=79");
-        out_chan!6223
+        log(" [INJECT] from (5,5) to (7,4) payload=230");
+        out_chan!61670;
+        log(" [INJECT] from (5,5) to (6,7) payload=214");
+        out_chan!56534;
+        log(" [INJECT] from (5,5) to (1,0) payload=102");
+        out_chan!8294;
+        log(" [INJECT] from (5,5) to (7,7) payload=185");
+        out_chan!64697;
+        log(" [INJECT] from (5,5) to (1,4) payload=34");
+        out_chan!12322
     }
 }
 
 defproc mock_core_tx_6_5 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (6,5) to (6,4) payload=87");
-        out_chan!53335;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,5) to (0,5) payload=193");
-        out_chan!5313;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,5) to (3,0) payload=101");
-        out_chan!24677;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,5) to (5,7) payload=41");
-        out_chan!48169;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,5) to (5,5) payload=201");
-        out_chan!46281
+        log(" [INJECT] from (6,5) to (5,0) payload=99");
+        out_chan!41059;
+        log(" [INJECT] from (6,5) to (6,6) payload=153");
+        out_chan!55449;
+        log(" [INJECT] from (6,5) to (7,3) payload=211");
+        out_chan!60627;
+        log(" [INJECT] from (6,5) to (2,6) payload=109");
+        out_chan!22637;
+        log(" [INJECT] from (6,5) to (5,5) payload=10");
+        out_chan!46090
     }
 }
 
 defproc mock_core_tx_7_5 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (7,5) to (0,0) payload=120");
-        out_chan!120;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,5) to (3,1) payload=201");
-        out_chan!25801;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,5) to (4,3) payload=245");
-        out_chan!36085;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,5) to (3,2) payload=82");
-        out_chan!26706;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,5) to (1,5) payload=37");
-        out_chan!13349
+        log(" [INJECT] from (7,5) to (0,4) payload=213");
+        out_chan!4309;
+        log(" [INJECT] from (7,5) to (4,5) payload=87");
+        out_chan!37975;
+        log(" [INJECT] from (7,5) to (0,2) payload=11");
+        out_chan!2059;
+        log(" [INJECT] from (7,5) to (4,5) payload=80");
+        out_chan!37968;
+        log(" [INJECT] from (7,5) to (7,1) payload=70");
+        out_chan!58438
     }
 }
 
 defproc mock_core_tx_0_6 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (0,6) to (1,5) payload=147");
-        out_chan!13459;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,6) to (7,4) payload=164");
-        out_chan!61604;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,6) to (4,3) payload=132");
-        out_chan!35972;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,6) to (2,1) payload=93");
-        out_chan!17501;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,6) to (7,3) payload=86");
-        out_chan!60502
+        log(" [INJECT] from (0,6) to (0,3) payload=36");
+        out_chan!3108;
+        log(" [INJECT] from (0,6) to (5,6) payload=228");
+        out_chan!47332;
+        log(" [INJECT] from (0,6) to (3,2) payload=183");
+        out_chan!26807;
+        log(" [INJECT] from (0,6) to (1,2) payload=38");
+        out_chan!10278;
+        log(" [INJECT] from (0,6) to (7,3) payload=181");
+        out_chan!60597
     }
 }
 
 defproc mock_core_tx_1_6 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (1,6) to (0,4) payload=139");
-        out_chan!4235;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,6) to (0,6) payload=114");
-        out_chan!6258;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,6) to (1,4) payload=18");
-        out_chan!12306;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,6) to (7,3) payload=72");
-        out_chan!60488;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,6) to (6,4) payload=57");
-        out_chan!53305
+        log(" [INJECT] from (1,6) to (5,4) payload=103");
+        out_chan!45159;
+        log(" [INJECT] from (1,6) to (6,1) payload=244");
+        out_chan!50420;
+        log(" [INJECT] from (1,6) to (7,0) payload=25");
+        out_chan!57369;
+        log(" [INJECT] from (1,6) to (7,2) payload=164");
+        out_chan!59556;
+        log(" [INJECT] from (1,6) to (0,3) payload=228");
+        out_chan!3300
     }
 }
 
 defproc mock_core_tx_2_6 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (2,6) to (2,2) payload=195");
-        out_chan!18627;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,6) to (6,7) payload=196");
-        out_chan!56516;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,6) to (6,6) payload=198");
-        out_chan!55494;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,6) to (6,4) payload=87");
-        out_chan!53335;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,6) to (7,7) payload=61");
-        out_chan!64573
+        log(" [INJECT] from (2,6) to (6,3) payload=29");
+        out_chan!52253;
+        log(" [INJECT] from (2,6) to (5,2) payload=147");
+        out_chan!43155;
+        log(" [INJECT] from (2,6) to (3,7) payload=76");
+        out_chan!31820;
+        log(" [INJECT] from (2,6) to (2,4) payload=95");
+        out_chan!20575;
+        log(" [INJECT] from (2,6) to (6,2) payload=1");
+        out_chan!51201
     }
 }
 
 defproc mock_core_tx_3_6 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (3,6) to (7,3) payload=101");
-        out_chan!60517;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,6) to (7,0) payload=121");
-        out_chan!57465;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,6) to (0,3) payload=173");
-        out_chan!3245;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,6) to (2,7) payload=161");
-        out_chan!23713;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,6) to (4,2) payload=191");
-        out_chan!35007
+        log(" [INJECT] from (3,6) to (2,6) payload=97");
+        out_chan!22625;
+        log(" [INJECT] from (3,6) to (0,4) payload=28");
+        out_chan!4124;
+        log(" [INJECT] from (3,6) to (2,6) payload=238");
+        out_chan!22766;
+        log(" [INJECT] from (3,6) to (1,2) payload=86");
+        out_chan!10326;
+        log(" [INJECT] from (3,6) to (0,3) payload=3");
+        out_chan!3075
     }
 }
 
 defproc mock_core_tx_4_6 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (4,6) to (3,0) payload=99");
-        out_chan!24675;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,6) to (5,3) payload=8");
-        out_chan!44040;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,6) to (0,1) payload=60");
-        out_chan!1084;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,6) to (4,3) payload=58");
-        out_chan!35898;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,6) to (6,6) payload=2");
-        out_chan!55298
+        log(" [INJECT] from (4,6) to (4,7) payload=150");
+        out_chan!40086;
+        log(" [INJECT] from (4,6) to (5,0) payload=50");
+        out_chan!41010;
+        log(" [INJECT] from (4,6) to (3,2) payload=234");
+        out_chan!26858;
+        log(" [INJECT] from (4,6) to (0,7) payload=3");
+        out_chan!7171;
+        log(" [INJECT] from (4,6) to (7,4) payload=98");
+        out_chan!61538
     }
 }
 
 defproc mock_core_tx_5_6 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (5,6) to (0,6) payload=157");
-        out_chan!6301;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,6) to (1,1) payload=172");
-        out_chan!9388;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,6) to (0,0) payload=1");
-        out_chan!1;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,6) to (6,1) payload=240");
-        out_chan!50416;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,6) to (1,7) payload=31");
-        out_chan!15391
+        log(" [INJECT] from (5,6) to (5,7) payload=229");
+        out_chan!48357;
+        log(" [INJECT] from (5,6) to (5,4) payload=81");
+        out_chan!45137;
+        log(" [INJECT] from (5,6) to (6,1) payload=204");
+        out_chan!50380;
+        log(" [INJECT] from (5,6) to (4,3) payload=209");
+        out_chan!36049;
+        log(" [INJECT] from (5,6) to (4,3) payload=134");
+        out_chan!35974
     }
 }
 
 defproc mock_core_tx_6_6 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (6,6) to (6,5) payload=131");
-        out_chan!54403;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,6) to (4,7) payload=130");
-        out_chan!40066;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,6) to (2,7) payload=232");
-        out_chan!23784;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,6) to (0,5) payload=172");
-        out_chan!5292;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,6) to (7,7) payload=160");
-        out_chan!64672
+        log(" [INJECT] from (6,6) to (2,0) payload=226");
+        out_chan!16610;
+        log(" [INJECT] from (6,6) to (0,0) payload=131");
+        out_chan!131;
+        log(" [INJECT] from (6,6) to (0,5) payload=157");
+        out_chan!5277;
+        log(" [INJECT] from (6,6) to (1,7) payload=28");
+        out_chan!15388;
+        log(" [INJECT] from (6,6) to (0,0) payload=69");
+        out_chan!69
     }
 }
 
 defproc mock_core_tx_7_6 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (7,6) to (2,6) payload=63");
-        out_chan!22591;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,6) to (6,2) payload=141");
-        out_chan!51341;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,6) to (3,5) payload=59");
-        out_chan!29755;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,6) to (4,1) payload=223");
-        out_chan!34015;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,6) to (0,6) payload=119");
-        out_chan!6263
+        log(" [INJECT] from (7,6) to (3,1) payload=164");
+        out_chan!25764;
+        log(" [INJECT] from (7,6) to (4,0) payload=168");
+        out_chan!32936;
+        log(" [INJECT] from (7,6) to (5,4) payload=165");
+        out_chan!45221;
+        log(" [INJECT] from (7,6) to (3,4) payload=22");
+        out_chan!28694;
+        log(" [INJECT] from (7,6) to (7,5) payload=170");
+        out_chan!62634
     }
 }
 
 defproc mock_core_tx_0_7 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (0,7) to (4,4) payload=244");
-        out_chan!37108;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,7) to (6,2) payload=83");
-        out_chan!51283;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,7) to (2,3) payload=247");
-        out_chan!19703;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,7) to (2,1) payload=72");
-        out_chan!17480;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (0,7) to (3,3) payload=203");
-        out_chan!27851
+        log(" [INJECT] from (0,7) to (1,3) payload=90");
+        out_chan!11354;
+        log(" [INJECT] from (0,7) to (0,1) payload=36");
+        out_chan!1060;
+        log(" [INJECT] from (0,7) to (1,0) payload=98");
+        out_chan!8290;
+        log(" [INJECT] from (0,7) to (2,0) payload=98");
+        out_chan!16482;
+        log(" [INJECT] from (0,7) to (4,7) payload=121");
+        out_chan!40057
     }
 }
 
 defproc mock_core_tx_1_7 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (1,7) to (5,0) payload=234");
-        out_chan!41194;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,7) to (3,3) payload=244");
-        out_chan!27892;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,7) to (1,0) payload=204");
-        out_chan!8396;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,7) to (2,7) payload=27");
-        out_chan!23579;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (1,7) to (6,7) payload=136");
-        out_chan!56456
+        log(" [INJECT] from (1,7) to (7,7) payload=40");
+        out_chan!64552;
+        log(" [INJECT] from (1,7) to (6,3) payload=143");
+        out_chan!52367;
+        log(" [INJECT] from (1,7) to (2,3) payload=77");
+        out_chan!19533;
+        log(" [INJECT] from (1,7) to (5,3) payload=46");
+        out_chan!44078;
+        log(" [INJECT] from (1,7) to (6,3) payload=56");
+        out_chan!52280
     }
 }
 
 defproc mock_core_tx_2_7 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (2,7) to (0,3) payload=125");
-        out_chan!3197;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,7) to (2,6) payload=249");
-        out_chan!22777;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,7) to (0,1) payload=152");
-        out_chan!1176;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,7) to (3,1) payload=7");
-        out_chan!25607;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (2,7) to (1,7) payload=232");
-        out_chan!15592
+        log(" [INJECT] from (2,7) to (4,0) payload=39");
+        out_chan!32807;
+        log(" [INJECT] from (2,7) to (7,3) payload=179");
+        out_chan!60595;
+        log(" [INJECT] from (2,7) to (4,5) payload=214");
+        out_chan!38102;
+        log(" [INJECT] from (2,7) to (3,4) payload=168");
+        out_chan!28840;
+        log(" [INJECT] from (2,7) to (7,4) payload=119");
+        out_chan!61559
     }
 }
 
 defproc mock_core_tx_3_7 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (3,7) to (6,5) payload=37");
-        out_chan!54309;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,7) to (7,2) payload=185");
-        out_chan!59577;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,7) to (6,0) payload=198");
-        out_chan!49350;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,7) to (2,7) payload=177");
-        out_chan!23729;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (3,7) to (6,3) payload=184");
-        out_chan!52408
+        log(" [INJECT] from (3,7) to (5,1) payload=245");
+        out_chan!42229;
+        log(" [INJECT] from (3,7) to (0,5) payload=24");
+        out_chan!5144;
+        log(" [INJECT] from (3,7) to (7,7) payload=185");
+        out_chan!64697;
+        log(" [INJECT] from (3,7) to (6,7) payload=83");
+        out_chan!56403;
+        log(" [INJECT] from (3,7) to (5,1) payload=223");
+        out_chan!42207
     }
 }
 
 defproc mock_core_tx_4_7 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (4,7) to (1,1) payload=216");
-        out_chan!9432;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,7) to (2,5) payload=1");
-        out_chan!21505;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,7) to (2,1) payload=36");
-        out_chan!17444;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,7) to (4,6) payload=90");
-        out_chan!39002;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (4,7) to (2,7) payload=206");
-        out_chan!23758
+        log(" [INJECT] from (4,7) to (7,5) payload=224");
+        out_chan!62688;
+        log(" [INJECT] from (4,7) to (0,2) payload=192");
+        out_chan!2240;
+        log(" [INJECT] from (4,7) to (0,0) payload=217");
+        out_chan!217;
+        log(" [INJECT] from (4,7) to (6,7) payload=205");
+        out_chan!56525;
+        log(" [INJECT] from (4,7) to (4,1) payload=221");
+        out_chan!34013
     }
 }
 
 defproc mock_core_tx_5_7 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (5,7) to (5,1) payload=238");
-        out_chan!42222;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,7) to (1,1) payload=39");
-        out_chan!9255;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,7) to (0,2) payload=62");
-        out_chan!2110;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,7) to (4,1) payload=105");
-        out_chan!33897;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (5,7) to (5,0) payload=89");
-        out_chan!41049
+        log(" [INJECT] from (5,7) to (1,5) payload=82");
+        out_chan!13394;
+        log(" [INJECT] from (5,7) to (2,0) payload=49");
+        out_chan!16433;
+        log(" [INJECT] from (5,7) to (6,1) payload=122");
+        out_chan!50298;
+        log(" [INJECT] from (5,7) to (2,4) payload=149");
+        out_chan!20629;
+        log(" [INJECT] from (5,7) to (1,4) payload=253");
+        out_chan!12541
     }
 }
 
 defproc mock_core_tx_6_7 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (6,7) to (6,2) payload=57");
-        out_chan!51257;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,7) to (0,4) payload=191");
-        out_chan!4287;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,7) to (6,5) payload=39");
-        out_chan!54311;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,7) to (6,4) payload=152");
-        out_chan!53400;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (6,7) to (0,6) payload=110");
-        out_chan!6254
+        log(" [INJECT] from (6,7) to (3,7) payload=102");
+        out_chan!31846;
+        log(" [INJECT] from (6,7) to (7,0) payload=213");
+        out_chan!57557;
+        log(" [INJECT] from (6,7) to (5,3) payload=147");
+        out_chan!44179;
+        log(" [INJECT] from (6,7) to (2,3) payload=193");
+        out_chan!19649;
+        log(" [INJECT] from (6,7) to (5,3) payload=41");
+        out_chan!44073
     }
 }
 
 defproc mock_core_tx_7_7 (chan?(int<1>) trigger; chan!(int<16>) out_chan) {
     int<1> t;
-    int<16> d;
     chp {
         trigger?t;
-        log(" [INJECT] from (7,7) to (5,1) payload=110");
-        out_chan!42094;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,7) to (6,4) payload=68");
-        out_chan!53316;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,7) to (3,3) payload=131");
-        out_chan!27779;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,7) to (6,1) payload=150");
-        out_chan!50326;
-        d := 0;
-        *[ d < 2500 -> d := d + 1 ];
-        log(" [INJECT] from (7,7) to (3,3) payload=215");
-        out_chan!27863
+        log(" [INJECT] from (7,7) to (4,5) payload=119");
+        out_chan!38007;
+        log(" [INJECT] from (7,7) to (0,5) payload=139");
+        out_chan!5259;
+        log(" [INJECT] from (7,7) to (2,3) payload=84");
+        out_chan!19540;
+        log(" [INJECT] from (7,7) to (1,2) payload=251");
+        out_chan!10491;
+        log(" [INJECT] from (7,7) to (2,0) payload=56");
+        out_chan!16440
     }
 }
 

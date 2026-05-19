@@ -1,0 +1,326 @@
+// Automatically generated 3x3 NoC Testbench (CHP mode)
+// Spatial Load: 100% (9/9 Cores Active)
+// Packets per Active Core: 5
+
+import "src/chp/router.act";
+import "src/chp/network_interface.act";
+import "src/chp/route_sink.act";
+
+template <pint PORT_X, PORT_Y>
+defproc mock_core_rx (chan?(int<14>) in_chan) {
+    int<14> pkt;
+    chp {
+        *[
+            in_chan?pkt;
+            log(" [EJECT] Core at (", PORT_X, ",", PORT_Y, ") received Payload: ", pkt{7..0})
+        ]
+    }
+}
+
+defproc mock_core_tx_0_0 (chan?(int<1>) trigger; chan!(int<14>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (0,0) to (0,1) payload=243");
+        out_chan!1267;
+        log(" [INJECT] from (0,0) to (1,2) payload=160");
+        out_chan!6304;
+        log(" [INJECT] from (0,0) to (2,1) payload=163");
+        out_chan!9379;
+        log(" [INJECT] from (0,0) to (1,2) payload=227");
+        out_chan!6371;
+        log(" [INJECT] from (0,0) to (2,1) payload=97");
+        out_chan!9313
+    }
+}
+
+defproc mock_core_tx_1_0 (chan?(int<1>) trigger; chan!(int<14>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (1,0) to (0,0) payload=234");
+        out_chan!234;
+        log(" [INJECT] from (1,0) to (0,1) payload=182");
+        out_chan!1206;
+        log(" [INJECT] from (1,0) to (2,0) payload=215");
+        out_chan!8407;
+        log(" [INJECT] from (1,0) to (2,1) payload=109");
+        out_chan!9325;
+        log(" [INJECT] from (1,0) to (1,1) payload=121");
+        out_chan!5241
+    }
+}
+
+defproc mock_core_tx_2_0 (chan?(int<1>) trigger; chan!(int<14>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (2,0) to (1,0) payload=230");
+        out_chan!4326;
+        log(" [INJECT] from (2,0) to (0,2) payload=49");
+        out_chan!2097;
+        log(" [INJECT] from (2,0) to (1,1) payload=8");
+        out_chan!5128;
+        log(" [INJECT] from (2,0) to (0,0) payload=232");
+        out_chan!232;
+        log(" [INJECT] from (2,0) to (1,2) payload=199");
+        out_chan!6343
+    }
+}
+
+defproc mock_core_tx_0_1 (chan?(int<1>) trigger; chan!(int<14>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (0,1) to (1,2) payload=188");
+        out_chan!6332;
+        log(" [INJECT] from (0,1) to (0,0) payload=232");
+        out_chan!232;
+        log(" [INJECT] from (0,1) to (0,0) payload=156");
+        out_chan!156;
+        log(" [INJECT] from (0,1) to (1,1) payload=237");
+        out_chan!5357;
+        log(" [INJECT] from (0,1) to (2,0) payload=190");
+        out_chan!8382
+    }
+}
+
+defproc mock_core_tx_1_1 (chan?(int<1>) trigger; chan!(int<14>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (1,1) to (2,2) payload=122");
+        out_chan!10362;
+        log(" [INJECT] from (1,1) to (2,2) payload=162");
+        out_chan!10402;
+        log(" [INJECT] from (1,1) to (2,1) payload=189");
+        out_chan!9405;
+        log(" [INJECT] from (1,1) to (1,0) payload=24");
+        out_chan!4120;
+        log(" [INJECT] from (1,1) to (2,1) payload=66");
+        out_chan!9282
+    }
+}
+
+defproc mock_core_tx_2_1 (chan?(int<1>) trigger; chan!(int<14>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (2,1) to (0,1) payload=119");
+        out_chan!1143;
+        log(" [INJECT] from (2,1) to (0,2) payload=205");
+        out_chan!2253;
+        log(" [INJECT] from (2,1) to (1,1) payload=87");
+        out_chan!5207;
+        log(" [INJECT] from (2,1) to (0,1) payload=78");
+        out_chan!1102;
+        log(" [INJECT] from (2,1) to (1,2) payload=201");
+        out_chan!6345
+    }
+}
+
+defproc mock_core_tx_0_2 (chan?(int<1>) trigger; chan!(int<14>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (0,2) to (1,2) payload=219");
+        out_chan!6363;
+        log(" [INJECT] from (0,2) to (2,1) payload=37");
+        out_chan!9253;
+        log(" [INJECT] from (0,2) to (1,0) payload=254");
+        out_chan!4350;
+        log(" [INJECT] from (0,2) to (0,0) payload=164");
+        out_chan!164;
+        log(" [INJECT] from (0,2) to (0,0) payload=35");
+        out_chan!35
+    }
+}
+
+defproc mock_core_tx_1_2 (chan?(int<1>) trigger; chan!(int<14>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (1,2) to (0,2) payload=175");
+        out_chan!2223;
+        log(" [INJECT] from (1,2) to (2,0) payload=136");
+        out_chan!8328;
+        log(" [INJECT] from (1,2) to (2,2) payload=21");
+        out_chan!10261;
+        log(" [INJECT] from (1,2) to (0,2) payload=146");
+        out_chan!2194;
+        log(" [INJECT] from (1,2) to (0,2) payload=47");
+        out_chan!2095
+    }
+}
+
+defproc mock_core_tx_2_2 (chan?(int<1>) trigger; chan!(int<14>) out_chan) {
+    int<1> t;
+    chp {
+        trigger?t;
+        log(" [INJECT] from (2,2) to (0,2) payload=12");
+        out_chan!2060;
+        log(" [INJECT] from (2,2) to (1,1) payload=27");
+        out_chan!5147;
+        log(" [INJECT] from (2,2) to (2,1) payload=202");
+        out_chan!9418;
+        log(" [INJECT] from (2,2) to (1,1) payload=64");
+        out_chan!5184;
+        log(" [INJECT] from (2,2) to (2,0) payload=118");
+        out_chan!8310
+    }
+}
+
+defproc test_mesh () {
+    chan(int<1>) t_0_0;
+    chan(int<14>) core_to_ni_0_0, ni_to_core_0_0;
+    chan(int<1>) t_1_0;
+    chan(int<14>) core_to_ni_1_0, ni_to_core_1_0;
+    chan(int<1>) t_2_0;
+    chan(int<14>) core_to_ni_2_0, ni_to_core_2_0;
+    chan(int<1>) t_0_1;
+    chan(int<14>) core_to_ni_0_1, ni_to_core_0_1;
+    chan(int<1>) t_1_1;
+    chan(int<14>) core_to_ni_1_1, ni_to_core_1_1;
+    chan(int<1>) t_2_1;
+    chan(int<14>) core_to_ni_2_1, ni_to_core_2_1;
+    chan(int<1>) t_0_2;
+    chan(int<14>) core_to_ni_0_2, ni_to_core_0_2;
+    chan(int<1>) t_1_2;
+    chan(int<14>) core_to_ni_1_2, ni_to_core_1_2;
+    chan(int<1>) t_2_2;
+    chan(int<14>) core_to_ni_2_2, ni_to_core_2_2;
+
+    chan(int<14>) ni_to_r_0_0, r_to_ni_0_0;
+    chan(int<14>) ni_to_r_1_0, r_to_ni_1_0;
+    chan(int<14>) ni_to_r_2_0, r_to_ni_2_0;
+    chan(int<14>) ni_to_r_0_1, r_to_ni_0_1;
+    chan(int<14>) ni_to_r_1_1, r_to_ni_1_1;
+    chan(int<14>) ni_to_r_2_1, r_to_ni_2_1;
+    chan(int<14>) ni_to_r_0_2, r_to_ni_0_2;
+    chan(int<14>) ni_to_r_1_2, r_to_ni_1_2;
+    chan(int<14>) ni_to_r_2_2, r_to_ni_2_2;
+
+    chan(int<14>) e_0_0_to_1_0, w_1_0_to_0_0;
+    chan(int<14>) e_1_0_to_2_0, w_2_0_to_1_0;
+    chan(int<14>) e_0_1_to_1_1, w_1_1_to_0_1;
+    chan(int<14>) e_1_1_to_2_1, w_2_1_to_1_1;
+    chan(int<14>) e_0_2_to_1_2, w_1_2_to_0_2;
+    chan(int<14>) e_1_2_to_2_2, w_2_2_to_1_2;
+    chan(int<14>) n_0_0_to_0_1, s_0_1_to_0_0;
+    chan(int<14>) n_0_1_to_0_2, s_0_2_to_0_1;
+    chan(int<14>) n_1_0_to_1_1, s_1_1_to_1_0;
+    chan(int<14>) n_1_1_to_1_2, s_1_2_to_1_1;
+    chan(int<14>) n_2_0_to_2_1, s_2_1_to_2_0;
+    chan(int<14>) n_2_1_to_2_2, s_2_2_to_2_1;
+
+    chan(int<14>) in_0_0_s, out_0_0_s; // Bottom Edge S
+    chan(int<14>) in_0_2_n, out_0_2_n; // Top Edge N
+    chan(int<14>) in_1_0_s, out_1_0_s; // Bottom Edge S
+    chan(int<14>) in_1_2_n, out_1_2_n; // Top Edge N
+    chan(int<14>) in_2_0_s, out_2_0_s; // Bottom Edge S
+    chan(int<14>) in_2_2_n, out_2_2_n; // Top Edge N
+    chan(int<14>) in_0_0_w, out_0_0_w; // Left Edge W
+    chan(int<14>) in_2_0_e, out_2_0_e; // Right Edge E
+    chan(int<14>) in_0_1_w, out_0_1_w; // Left Edge W
+    chan(int<14>) in_2_1_e, out_2_1_e; // Right Edge E
+    chan(int<14>) in_0_2_w, out_0_2_w; // Left Edge W
+    chan(int<14>) in_2_2_e, out_2_2_e; // Right Edge E
+
+    mock_core_tx_0_0 core_tx_0_0(t_0_0, core_to_ni_0_0);
+    mock_core_rx<0, 0> core_rx_0_0(ni_to_core_0_0);
+    network_interface<2, 8, 0, 0> ni_0_0(core_to_ni_0_0, ni_to_r_0_0, r_to_ni_0_0, ni_to_core_0_0);
+    router<2, 8, 0, 0> r_0_0(
+        w_1_0_to_0_0, in_0_0_w, s_0_1_to_0_0, in_0_0_s, ni_to_r_0_0,
+        e_0_0_to_1_0, out_0_0_w, n_0_0_to_0_1, out_0_0_s, r_to_ni_0_0
+    );
+
+    mock_core_tx_1_0 core_tx_1_0(t_1_0, core_to_ni_1_0);
+    mock_core_rx<1, 0> core_rx_1_0(ni_to_core_1_0);
+    network_interface<2, 8, 1, 0> ni_1_0(core_to_ni_1_0, ni_to_r_1_0, r_to_ni_1_0, ni_to_core_1_0);
+    router<2, 8, 1, 0> r_1_0(
+        w_2_0_to_1_0, e_0_0_to_1_0, s_1_1_to_1_0, in_1_0_s, ni_to_r_1_0,
+        e_1_0_to_2_0, w_1_0_to_0_0, n_1_0_to_1_1, out_1_0_s, r_to_ni_1_0
+    );
+
+    mock_core_tx_2_0 core_tx_2_0(t_2_0, core_to_ni_2_0);
+    mock_core_rx<2, 0> core_rx_2_0(ni_to_core_2_0);
+    network_interface<2, 8, 2, 0> ni_2_0(core_to_ni_2_0, ni_to_r_2_0, r_to_ni_2_0, ni_to_core_2_0);
+    router<2, 8, 2, 0> r_2_0(
+        in_2_0_e, e_1_0_to_2_0, s_2_1_to_2_0, in_2_0_s, ni_to_r_2_0,
+        out_2_0_e, w_2_0_to_1_0, n_2_0_to_2_1, out_2_0_s, r_to_ni_2_0
+    );
+
+    mock_core_tx_0_1 core_tx_0_1(t_0_1, core_to_ni_0_1);
+    mock_core_rx<0, 1> core_rx_0_1(ni_to_core_0_1);
+    network_interface<2, 8, 0, 1> ni_0_1(core_to_ni_0_1, ni_to_r_0_1, r_to_ni_0_1, ni_to_core_0_1);
+    router<2, 8, 0, 1> r_0_1(
+        w_1_1_to_0_1, in_0_1_w, s_0_2_to_0_1, n_0_0_to_0_1, ni_to_r_0_1,
+        e_0_1_to_1_1, out_0_1_w, n_0_1_to_0_2, s_0_1_to_0_0, r_to_ni_0_1
+    );
+
+    mock_core_tx_1_1 core_tx_1_1(t_1_1, core_to_ni_1_1);
+    mock_core_rx<1, 1> core_rx_1_1(ni_to_core_1_1);
+    network_interface<2, 8, 1, 1> ni_1_1(core_to_ni_1_1, ni_to_r_1_1, r_to_ni_1_1, ni_to_core_1_1);
+    router<2, 8, 1, 1> r_1_1(
+        w_2_1_to_1_1, e_0_1_to_1_1, s_1_2_to_1_1, n_1_0_to_1_1, ni_to_r_1_1,
+        e_1_1_to_2_1, w_1_1_to_0_1, n_1_1_to_1_2, s_1_1_to_1_0, r_to_ni_1_1
+    );
+
+    mock_core_tx_2_1 core_tx_2_1(t_2_1, core_to_ni_2_1);
+    mock_core_rx<2, 1> core_rx_2_1(ni_to_core_2_1);
+    network_interface<2, 8, 2, 1> ni_2_1(core_to_ni_2_1, ni_to_r_2_1, r_to_ni_2_1, ni_to_core_2_1);
+    router<2, 8, 2, 1> r_2_1(
+        in_2_1_e, e_1_1_to_2_1, s_2_2_to_2_1, n_2_0_to_2_1, ni_to_r_2_1,
+        out_2_1_e, w_2_1_to_1_1, n_2_1_to_2_2, s_2_1_to_2_0, r_to_ni_2_1
+    );
+
+    mock_core_tx_0_2 core_tx_0_2(t_0_2, core_to_ni_0_2);
+    mock_core_rx<0, 2> core_rx_0_2(ni_to_core_0_2);
+    network_interface<2, 8, 0, 2> ni_0_2(core_to_ni_0_2, ni_to_r_0_2, r_to_ni_0_2, ni_to_core_0_2);
+    router<2, 8, 0, 2> r_0_2(
+        w_1_2_to_0_2, in_0_2_w, in_0_2_n, n_0_1_to_0_2, ni_to_r_0_2,
+        e_0_2_to_1_2, out_0_2_w, out_0_2_n, s_0_2_to_0_1, r_to_ni_0_2
+    );
+
+    mock_core_tx_1_2 core_tx_1_2(t_1_2, core_to_ni_1_2);
+    mock_core_rx<1, 2> core_rx_1_2(ni_to_core_1_2);
+    network_interface<2, 8, 1, 2> ni_1_2(core_to_ni_1_2, ni_to_r_1_2, r_to_ni_1_2, ni_to_core_1_2);
+    router<2, 8, 1, 2> r_1_2(
+        w_2_2_to_1_2, e_0_2_to_1_2, in_1_2_n, n_1_1_to_1_2, ni_to_r_1_2,
+        e_1_2_to_2_2, w_1_2_to_0_2, out_1_2_n, s_1_2_to_1_1, r_to_ni_1_2
+    );
+
+    mock_core_tx_2_2 core_tx_2_2(t_2_2, core_to_ni_2_2);
+    mock_core_rx<2, 2> core_rx_2_2(ni_to_core_2_2);
+    network_interface<2, 8, 2, 2> ni_2_2(core_to_ni_2_2, ni_to_r_2_2, r_to_ni_2_2, ni_to_core_2_2);
+    router<2, 8, 2, 2> r_2_2(
+        in_2_2_e, e_1_2_to_2_2, in_2_2_n, n_2_1_to_2_2, ni_to_r_2_2,
+        out_2_2_e, w_2_2_to_1_2, out_2_2_n, s_2_2_to_2_1, r_to_ni_2_2
+    );
+
+    route_sink<2, 8> sk_s_0(out_0_0_s);
+    route_sink<2, 8> sk_n_0(out_0_2_n);
+    route_sink<2, 8> sk_s_1(out_1_0_s);
+    route_sink<2, 8> sk_n_1(out_1_2_n);
+    route_sink<2, 8> sk_s_2(out_2_0_s);
+    route_sink<2, 8> sk_n_2(out_2_2_n);
+    route_sink<2, 8> sk_w_0(out_0_0_w);
+    route_sink<2, 8> sk_e_0(out_2_0_e);
+    route_sink<2, 8> sk_w_1(out_0_1_w);
+    route_sink<2, 8> sk_e_1(out_2_1_e);
+    route_sink<2, 8> sk_w_2(out_0_2_w);
+    route_sink<2, 8> sk_e_2(out_2_2_e);
+
+    chp {
+        log("--- STARTING MESH SIMULATION ---");
+        t_0_0!1,
+        t_1_0!1,
+        t_2_0!1,
+        t_0_1!1,
+        t_1_1!1,
+        t_2_1!1,
+        t_0_2!1,
+        t_1_2!1,
+        t_2_2!1 // Last trigger (No comma)
+    }
+}
